@@ -8,7 +8,7 @@ import {
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { EventListDialog } from "@/components/calendar/dialogs/events-list-dialog";
 import { getCalendarCells } from "@/components/calendar/helpers";
-import type { IEvent } from "@/components/calendar/interfaces";
+import type { IEvent } from "@/components/data/interfaces";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
 
 interface IProps {

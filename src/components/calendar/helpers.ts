@@ -29,7 +29,7 @@ import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import type {
 	ICalendarCell,
 	IEvent,
-} from "@/components/calendar/interfaces";
+} from "@/components/data/interfaces";
 import type {
 	TCalendarView,
 	TEventColor,
@@ -68,17 +68,17 @@ export function rangeText(view: TCalendarView, date: Date): string {
 }
 
 export function navigateDate(
-	date: Date,
-	view: TCalendarView,
-	direction: "previous" | "next",
+  date: Date,
+  view: TCalendarView,
+  direction: "previous" | "next",
 ): Date {
-	const operations: Record<TCalendarView, (d: Date, n: number) => Date> = {
-		month: direction === "next" ? addMonths : subMonths,
-		week: direction === "next" ? addWeeks : subWeeks,
-		day: direction === "next" ? addDays : subDays,
-		year: direction === "next" ? addYears : subYears,
-		agenda: direction === "next" ? addMonths : subMonths,
-	};
+  const operations: Record<TCalendarView, (d: Date, n: number) => Date> = {
+    month: direction === "next" ? addMonths : subMonths,
+    week: direction === "next" ? addWeeks : subWeeks,
+    day: direction === "next" ? addDays : subDays,
+    year: direction === "next" ? addYears : subYears,
+    agenda: direction === "next" ? addMonths : subMonths,
+  };
 
 	return operations[view](date, 1);
 }

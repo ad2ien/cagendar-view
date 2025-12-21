@@ -12,7 +12,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import type {IEvent} from "@/components/calendar/interfaces";
+import type {IEvent} from "@/components/data/interfaces";
 import {formatTime, getColorClass} from "@/components/calendar/helpers";
 import {cn} from "@/lib/utils";
 import {useCalendar} from "@/components/calendar/contexts/calendar-context";

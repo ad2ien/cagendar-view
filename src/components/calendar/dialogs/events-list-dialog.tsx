@@ -10,7 +10,7 @@ import {
 import {cn} from "@/lib/utils";
 import {useCalendar} from "@/components/calendar/contexts/calendar-context";
 import {formatTime} from "@/components/calendar/helpers";
-import type {IEvent} from "@/components/calendar/interfaces";
+import type {IEvent} from "@/components/data/interfaces";
 import {dayCellVariants} from "@/components/calendar/views/month-view/day-cell";
 import {EventBullet} from "@/components/calendar/views/month-view/event-bullet";
 import {EventDetailsDialog} from "@/components/calendar/dialogs/event-details-dialog";

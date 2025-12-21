@@ -16,7 +16,7 @@ import {
 	rangeText,
 } from "@/components/calendar/helpers";
 
-import type { IEvent } from "@/components/calendar/interfaces";
+import type { IEvent } from "@/components/data/interfaces";
 import type { TCalendarView } from "@/components/calendar/types";
 
 interface IProps {

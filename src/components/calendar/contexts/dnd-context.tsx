@@ -11,7 +11,7 @@ import React, {
 } from "react";
 import { toast } from "sonner";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import type { IEvent } from "@/components/calendar/interfaces";
+import type { IEvent } from "@/components/data/interfaces";
 import { DndConfirmationDialog } from "@/components/calendar/dialogs/dnd-confirmation-dialog";
 
 interface PendingDropData {

@@ -8,7 +8,7 @@ import { EventDetailsDialog } from "@/components/calendar/dialogs/event-details-
 import { DraggableEvent } from "@/components/calendar/dnd/draggable-event";
 import { ResizableEvent } from "@/components/calendar/dnd/resizable-event";
 import { formatTime } from "@/components/calendar/helpers";
-import type { IEvent } from "@/components/calendar/interfaces";
+import type { IEvent } from "@/components/data/interfaces";
 
 const calendarWeekEventCardVariants = cva(
 	"flex select-none flex-col gap-0.5 truncate whitespace-nowrap rounded-md border px-2 py-1.5 text-xs focus-visible:outline-offset-2",

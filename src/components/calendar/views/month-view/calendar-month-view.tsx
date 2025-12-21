@@ -11,7 +11,7 @@ import {
 	getCalendarCells,
 } from "@/components/calendar/helpers";
 
-import type { IEvent } from "@/components/calendar/interfaces";
+import type { IEvent } from "@/components/data/interfaces";
 import { DayCell } from "@/components/calendar/views/month-view/day-cell";
 
 interface IProps {

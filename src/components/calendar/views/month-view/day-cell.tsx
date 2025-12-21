@@ -17,7 +17,7 @@ import { useMediaQuery } from "@/components/calendar/hooks";
 import type {
   ICalendarCell,
   IEvent,
-} from "@/components/calendar/interfaces";
+} from "@/components/data/interfaces";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
 import { MonthEventBadge } from "@/components/calendar/views/month-view/month-event-badge";
 import { AddEditEventDialog } from "../../dialogs/add-edit-event-dialog";

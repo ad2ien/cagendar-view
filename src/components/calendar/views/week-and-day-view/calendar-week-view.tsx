@@ -10,7 +10,7 @@ import {useCalendar} from "@/components/calendar/contexts/calendar-context";
 import {AddEditEventDialog} from "@/components/calendar/dialogs/add-edit-event-dialog";
 import {DroppableArea} from "@/components/calendar/dnd/droppable-area";
 import {groupEvents} from "@/components/calendar/helpers";
-import type {IEvent} from "@/components/calendar/interfaces";
+import type {IEvent} from "@/components/data/interfaces";
 import {CalendarTimeline} from "@/components/calendar/views/week-and-day-view/calendar-time-line";
 import {RenderGroupedEvents} from "@/components/calendar/views/week-and-day-view/render-grouped-events";
 import {
@@ -212,5 +212,3 @@ export function CalendarWeekView({singleDayEvents, multiDayEvents}: IProps) {
         </motion.div>
     );
 }
-
-

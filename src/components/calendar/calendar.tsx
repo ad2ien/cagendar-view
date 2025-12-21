@@ -3,7 +3,7 @@ import { CalendarBody } from "@/components/calendar/calendar-body";
 import { CalendarProvider } from "@/components/calendar/contexts/calendar-context";
 import { DndProvider } from "@/components/calendar/contexts/dnd-context";
 import { CalendarHeader } from "@/components/calendar/header/calendar-header";
-import { getEvents, getUsers } from "@/components/calendar/requests";
+import { getEvents, getUsers } from "@/components/data/requests";
 
 async function getCalendarData() {
 	return {
