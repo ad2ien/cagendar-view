@@ -1,31 +1,38 @@
-import { CALENDAR_ITEMS_MOCK, USERS_MOCK } from "@/components/data/mocks";
 import {
-  loadSettings,
   CalendarType,
-  IWebDavCalendar,
+  ICalendarSetting,
+  ICalendarSettings,
+  loadSettings
 } from "@/components/config/dataSettings";
+import { generateId } from "@/lib/utils";
+import { getNextColor, TEventColor } from "../calendar/types";
 import { getIcsEvents } from "./icsAdapter";
-import { getWebdavEvents, isWebDavCalendar } from "./webdavAdapter";
 import { IEvent, IUser } from "./interfaces";
+import { getWebdavEvents, isWebDavCalendar } from "./webdavAdapter";
+
+const configData = loadSettings();
+const users = configData.map(configToUser);
+const calData = buildCalData(configData, users);
+
+export type TCalData = {
+  config: ICalendarSetting;
+  user: IUser;
+  color: TEventColor;
+};
 
 export const getEvents = async () => {
-  const configData = loadSettings();
   let resultEvents: IEvent[] = [];
 
-  // TODO add color / calendar
-  // rename
-  // interface for adapters?
-  for (const config of configData) {
-    switch (config.type) {
+  for (const cal of calData) {
+    switch (cal.config.type) {
       case CalendarType.ICS:
-        const icsEvents = await getIcsEvents(config.url);
+        const icsEvents = await getIcsEvents(cal);
         resultEvents = resultEvents.concat(icsEvents);
         break;
 
       case CalendarType.WEBDAV:
-        if (isWebDavCalendar(config)) {
-          const wdconfig: IWebDavCalendar = config;
-          const webdavEvents = await getWebdavEvents(wdconfig);
+        if (isWebDavCalendar(cal.config)) {
+          const webdavEvents = await getWebdavEvents(cal);
           resultEvents = resultEvents.concat(webdavEvents);
         } else {
           console.error("Bad config");
@@ -33,11 +40,29 @@ export const getEvents = async () => {
         break;
     }
   }
-  resultEvents = resultEvents.concat(CALENDAR_ITEMS_MOCK);
-  console.log(resultEvents);
+  // resultEvents = resultEvents.concat(CALENDAR_ITEMS_MOCK);
   return resultEvents;
 };
 
-export async function getUsers(): Promise<IUser[]> {
-  return USERS_MOCK;
+export function getUsers(): IUser[] {
+  return users;
+}
+
+function configToUser(setting: ICalendarSetting): IUser {
+  return {
+    id: generateId().toString(),
+    name: setting.name,
+    picturePath: null,
+  };
+}
+
+function buildCalData(
+  calSettings: ICalendarSettings,
+  users: IUser[],
+): TCalData[] {
+  return calSettings.map((setting, index) => ({
+    config: setting,
+    user: users[index],
+    color: getNextColor(),
+  }));
 }

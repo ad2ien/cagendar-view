@@ -57,13 +57,6 @@ export function CalendarHeader() {
 
 				<div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-1.5">
 					<UserSelect />
-
-					<AddEditEventDialog>
-						<Button>
-							<Plus className="h-4 w-4" />
-							Add Event
-						</Button>
-					</AddEditEventDialog>
 				</div>
 				<Settings />
 			</motion.div>

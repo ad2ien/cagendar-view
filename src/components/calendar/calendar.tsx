@@ -8,7 +8,7 @@ import { getEvents, getUsers } from "@/components/data/requests";
 async function getCalendarData() {
 	return {
 		events: await getEvents(),
-		users: await getUsers(),
+		users: getUsers(),
 	};
 }
 
