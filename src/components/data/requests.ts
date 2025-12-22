@@ -1,41 +1,43 @@
 import { CALENDAR_ITEMS_MOCK, USERS_MOCK } from "@/components/data/mocks";
-import { CalDAVClient } from "ts-caldav";
-import { convertIcsCalendar, type IcsCalendar } from "ts-ics";
+import {
+  loadSettings,
+  CalendarType,
+  IWebDavCalendar,
+} from "@/components/config/dataSettings";
+import { getIcsEvents } from "./icsAdapter";
+import { getWebdavEvents, isWebDavCalendar } from "./webdavAdapter";
+import { IEvent, IUser } from "./interfaces";
 
 export const getEvents = async () => {
-  // test webdav
-  // const client = await CalDAVClient.create({
-  //   baseUrl: "URL",
-  //   auth: {
-  //     type: "basic",
-  //     username: "",
-  //     password: "",
-  //   },
-  // });
+  const configData = loadSettings();
+  let resultEvents: IEvent[] = [];
 
-  // // List calendars
-  // const calendars = await client.getCalendars();
+  // TODO add color / calendar
+  // rename
+  // interface for adapters?
+  for (const config of configData) {
+    switch (config.type) {
+      case CalendarType.ICS:
+        const icsEvents = await getIcsEvents(config.url);
+        resultEvents = resultEvents.concat(icsEvents);
+        break;
 
-  // console.log(calendars);
-
-  // // Fetch events
-  // const events = await client.getEvents(
-  //   "/remote.php/dav/calendars/USER/CALENDAR/",
-  // );
-
-  // test fetch ics
-  // await fetch(
-  //   "URL",
-  // )
-  //   .then((response) => response.text())
-  //   .then((text) => {
-  //     const calendar: IcsCalendar = convertIcsCalendar(undefined, text);
-  //     console.log(calendar);
-  //   });
-  // console.log(events);
-  return CALENDAR_ITEMS_MOCK;
+      case CalendarType.WEBDAV:
+        if (isWebDavCalendar(config)) {
+          const wdconfig: IWebDavCalendar = config;
+          const webdavEvents = await getWebdavEvents(wdconfig);
+          resultEvents = resultEvents.concat(webdavEvents);
+        } else {
+          console.error("Bad config");
+        }
+        break;
+    }
+  }
+  resultEvents = resultEvents.concat(CALENDAR_ITEMS_MOCK);
+  console.log(resultEvents);
+  return resultEvents;
 };
 
-export const getUsers = async () => {
+export async function getUsers(): Promise<IUser[]> {
   return USERS_MOCK;
-};
+}

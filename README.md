@@ -1,15 +1,24 @@
 # Solidarité Paysans calendar component
 
+## Uses case
+
+## dependencies
+
+- https://calendar.jeraidi.tech/docs/react/installation
+
 ## TODO
 
 - [ ] test ics link
 - [ ] configure app with a json file
+- [ ] manage all day events
 - [ ] Adapters
 - [ ] SP graphic chart
 - [ ] clean wrap up release
 - [ ] deploy
 
 ## Getting Started
+
+Add config file `dev.config.json`
 
 First, run the development server:
 
