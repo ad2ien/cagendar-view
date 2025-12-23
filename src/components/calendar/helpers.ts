@@ -36,6 +36,8 @@ import type {
 } from "@/components/calendar/types";
 
 const FORMAT_STRING = "MMM d, yyyy";
+// 0 to start on sunday
+export const START_ON_MONDAY = 1;
 
 export function rangeText(view: TCalendarView, date: Date): string {
 	let start: Date;
@@ -151,15 +153,17 @@ export function getCalendarCells(selectedDate: Date): ICalendarCell[] {
 	const month = selectedDate.getMonth();
 
 	const daysInMonth = endOfMonth(selectedDate).getDate(); // Faster than new Date(year, month + 1, 0)
-	const firstDayOfMonth = startOfMonth(selectedDate).getDay();
+	const firstDayOfMonth = startOfMonth(selectedDate).getDay() - START_ON_MONDAY; // -1 to start on Monday
 	const daysInPrevMonth = endOfMonth(new Date(year, month - 1)).getDate();
 	const totalDays = firstDayOfMonth + daysInMonth;
+  console.log("firstDayOfMonth ", firstDayOfMonth);
 
 	const prevMonthCells = Array.from({ length: firstDayOfMonth }, (_, i) => ({
 		day: daysInPrevMonth - firstDayOfMonth + i + 1,
 		currentMonth: false,
 		date: new Date(year, month - 1, daysInPrevMonth - firstDayOfMonth + i + 1),
 	}));
+  console.log(prevMonthCells);
 
 	const currentMonthCells = Array.from({ length: daysInMonth }, (_, i) => ({
 		day: i + 1,

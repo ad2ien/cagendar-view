@@ -9,17 +9,21 @@ import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import {
 	calculateMonthEventPositions,
 	getCalendarCells,
+  START_ON_MONDAY,
 } from "@/components/calendar/helpers";
 
 import type { IEvent } from "@/components/data/interfaces";
 import { DayCell } from "@/components/calendar/views/month-view/day-cell";
 
+export const WEEK_DAYS =
+  START_ON_MONDAY == 1
+    ? ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"]
+    : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 interface IProps {
 	singleDayEvents: IEvent[];
 	multiDayEvents: IEvent[];
 }
-
-const WEEK_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export function CalendarMonthView({ singleDayEvents, multiDayEvents }: IProps) {
 	const { selectedDate } = useCalendar();
