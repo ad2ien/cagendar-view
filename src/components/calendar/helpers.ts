@@ -439,3 +439,12 @@ export const toCapitalize = (str: string): string => {
 	if (!str) return "";
 	return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+const ZERO_TIME = "00:00:00";
+const ZERO_TIME_2 = "1:00:00 AM";
+export function isZeroTime(date: Date): boolean {
+  return (
+    date.toTimeString().indexOf(ZERO_TIME) > -1 ||
+    date.toLocaleTimeString().indexOf(ZERO_TIME_2) > -1
+  );
+}

@@ -2,6 +2,7 @@ import { generateId } from "@/lib/utils";
 import { convertIcsCalendar, IcsEvent, type IcsCalendar } from "ts-ics";
 import { IEvent } from "./interfaces";
 import { TCalData } from "./requests";
+import { isZeroTime } from "../calendar/helpers";
 
 export async function getIcsEvents(calData: TCalData) {
   const response = await fetch(calData.config.url).then((response) => response.text());
@@ -22,22 +23,24 @@ function icsCalendarsToEvents(
   events: IcsEvent[],
   calData: TCalData,
 ): IEvent[] {
-  return events.map((e) => icsCalendarToEvent(e, calData));
+  return events.map((e) => icsCalendarToEvent(e, calData)).filter( v => v !== undefined);
 }
 
 function icsCalendarToEvent(
   event: IcsEvent,
   calData: TCalData,
-): IEvent {
-  // console.log("\n--- " +event.summary);
-  // console.log(event.start);
-  // console.log("  ISOString : " + event.start?.date.toISOString());
-  // console.log(event.end);
-  // console.log("  ISOString : " + event.end?.date.toISOString());
+): IEvent | undefined {
+  if(!event.end || !event.start){
+    return undefined
+  }
+  const endDate = event.end?.date;
+  if (isZeroTime(event.end?.date) && isZeroTime(event.start?.date)) {
+    endDate.setHours(endDate.getHours() - 2);
+  }
   return {
     id: generateId(),
     startDate: event.start?.date.toISOString(),
-    endDate: event.end?.date.toISOString() || "",
+    endDate: endDate.toISOString() || "",
     description: event.description || "",
     title: event.summary || "",
     color: calData.color,

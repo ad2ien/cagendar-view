@@ -4,16 +4,21 @@
 
 ## dependencies
 
-- https://calendar.jeraidi.tech/docs/react/installation
+- <https://calendar.jeraidi.tech/docs/react/installation>
 
 ## TODO
 
-- [ ] test ics link
-- [ ] configure app with a json file
 - [ ] manage all day events
-- [ ] Adapters
+  - [x] workaround
+  - [ ] properly manage whole day member in IEvent
+  - [ ] fix display event dialog
+- [ ] ics duplicate?
+- [ ] webdav event in the past
 - [ ] SP graphic chart
+- [ ] french translation
+- [ ] why parseISO everywhere?
 - [ ] clean wrap up release
+- [ ] include description in adapters
 - [ ] deploy
 
 ## Getting Started

@@ -3,10 +3,11 @@ import { CalDAVClient, Event } from "ts-caldav";
 import {
   CalendarType,
   ICalendar,
-  IWebDavCalendar
+  IWebDavCalendar,
 } from "../config/dataSettings";
 import { IEvent } from "./interfaces";
 import { TCalData } from "./requests";
+import { isZeroTime } from "../calendar/helpers";
 
 export function isWebDavCalendar(config: ICalendar): config is IWebDavCalendar {
   return (
@@ -18,9 +19,9 @@ export function isWebDavCalendar(config: ICalendar): config is IWebDavCalendar {
 }
 
 export async function getWebdavEvents(calData: TCalData) {
-    if (!isWebDavCalendar(calData.config)) {
-      throw new Error("Sould be web dav config : " + calData.config.name);
-    }
+  if (!isWebDavCalendar(calData.config)) {
+    throw new Error("Should be web dav config : " + calData.config.name);
+  }
   const wdConfig: IWebDavCalendar = calData.config;
   const client = await CalDAVClient.create({
     baseUrl: wdConfig.url.toString(),
@@ -34,7 +35,8 @@ export async function getWebdavEvents(calData: TCalData) {
   // const calendars = await client.getCalendars();
   // console.log(calendars);
   try {
-    const events = await client.getEvents(wdConfig.calendarPath);
+    const events = await client.getEvents(wdConfig.calendarPath, { all: true });
+    // console.log(events);
     const localEvents = icsCalendarsToEvents(events, calData);
     return localEvents;
   } catch (error) {
@@ -43,15 +45,20 @@ export async function getWebdavEvents(calData: TCalData) {
   return [];
 }
 
-function icsCalendarsToEvents(events: Event[],calData: TCalData ): IEvent[] {
-  return events.map(e => webdavCalendarToEvent(e, calData));
+function icsCalendarsToEvents(events: Event[], calData: TCalData): IEvent[] {
+  return events.map((e) => webdavCalendarToEvent(e, calData));
 }
 
-function webdavCalendarToEvent(event: Event, calData: TCalData ): IEvent {
+function webdavCalendarToEvent(event: Event, calData: TCalData): IEvent {
+  const endDate = event.end;
+  if (isZeroTime(event.end) && isZeroTime(event.start)) {
+    endDate.setMinutes(endDate.getMinutes() - 1);
+  }
+
   return {
     id: generateId(),
     startDate: event.start.toISOString(),
-    endDate: event.end.toISOString() || "",
+    endDate: endDate.toISOString() || "",
     description: event.description || "",
     title: event.summary || "",
     color: calData.color,

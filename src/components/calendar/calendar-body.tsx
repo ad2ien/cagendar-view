@@ -17,13 +17,13 @@ export function CalendarBody() {
 	const singleDayEvents = events.filter((event) => {
 		const startDate = parseISO(event.startDate);
 		const endDate = parseISO(event.endDate);
-		return isSameDay(startDate, endDate);
+		return isSameDay(endDate, startDate );
 	});
 
 	const multiDayEvents = events.filter((event) => {
 		const startDate = parseISO(event.startDate);
 		const endDate = parseISO(event.endDate);
-		return !isSameDay(startDate, endDate);
+		return !isSameDay(endDate, startDate);
 	});
 
 	return (
