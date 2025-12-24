@@ -109,8 +109,8 @@ export function AddEditEventDialog({
 				startDate: format(values.startDate, "yyyy-MM-dd'T'HH:mm:ss"),
 				endDate: format(values.endDate, "yyyy-MM-dd'T'HH:mm:ss"),
 				id: isEditing ? event.id : Math.floor(Math.random() * 1000000),
-				user: isEditing
-					? event.user
+				calendar: isEditing
+					? event.calendar
 					: {
 							id: Math.floor(Math.random() * 1000000).toString(),
 							name: "Jeraidi Yassir",

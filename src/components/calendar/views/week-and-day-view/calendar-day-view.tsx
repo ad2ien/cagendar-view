@@ -19,7 +19,7 @@ interface IProps {
 }
 
 export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
-	const { selectedDate, setSelectedDate, users, use24HourFormat } =
+	const { selectedDate, setSelectedDate, calendars: calendars, use24HourFormat } =
 		useCalendar();
 	const scrollAreaRef = useRef<HTMLDivElement>(null);
 
@@ -207,7 +207,7 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
 						<ScrollArea className="h-[422px] px-4" type="always">
 							<div className="space-y-6 pb-4">
 								{currentEvents.map((event) => {
-									const user = users.find((user) => user.id === event.user.id);
+									const calendar = calendars.find((calendar) => calendar.id === event.calendar.id);
 
 									return (
 										<div key={event.id} className="space-y-1.5">
@@ -215,11 +215,11 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
 												{event.title}
 											</p>
 
-											{user && (
+											{calendar && (
 												<div className="flex items-center gap-1.5">
 													<User className="size-4 text-t-quinary" />
 													<span className="text-sm text-t-tertiary">
-														{user.name}
+														{calendar.name}
 													</span>
 												</div>
 											)}

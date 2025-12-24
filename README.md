@@ -11,14 +11,22 @@
 - [ ] manage all day events
   - [x] workaround
   - [ ] properly manage whole day member in IEvent
+    - [ ] don't show hour
   - [ ] fix display event dialog
+- [ ] properly link color and calendar
+- [x] IUser -> ICalendar
+- [ ] improve calendar / color filtering
 - [ ] ics duplicate?
 - [ ] webdav event in the past
 - [ ] SP graphic chart
 - [ ] french translation
 - [ ] why parseISO everywhere?
 - [ ] clean wrap up release
+  - [ ] remove delete / editing
+  - [ ] remove dead / commented code
 - [ ] include description in adapters
+- [ ] Add comments in data
+- [ ] Get configuration from SPO
 - [ ] deploy
 
 ## Getting Started

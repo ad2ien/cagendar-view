@@ -3,7 +3,7 @@
 import type React from "react";
 import { createContext, useContext, useState } from "react";
 import { useLocalStorage } from "@/components/calendar/hooks";
-import type { IEvent, IUser } from "@/components/data/interfaces";
+import type { IEvent, ICalendar } from "@/components/data/interfaces";
 import type {
 	TCalendarView,
 	TEventColor,
@@ -18,14 +18,14 @@ interface ICalendarContext {
 	use24HourFormat: boolean;
 	toggleTimeFormat: () => void;
 	setSelectedDate: (date: Date | undefined) => void;
-	selectedUserId: IUser["id"] | "all";
-	setSelectedUserId: (userId: IUser["id"] | "all") => void;
+	selectedCalendarId: ICalendar["id"] | "all";
+	setSelectedCalendarId: (calendarId: ICalendar["id"] | "all") => void;
 	badgeVariant: "dot" | "colored";
 	setBadgeVariant: (variant: "dot" | "colored") => void;
 	selectedColors: TEventColor[];
 	filterEventsBySelectedColors: (colors: TEventColor) => void;
-	filterEventsBySelectedUser: (userId: IUser["id"] | "all") => void;
-	users: IUser[];
+	filterEventsBySelectedUser: (userId: ICalendar["id"] | "all") => void;
+	calendars: ICalendar[];
 	events: IEvent[];
 	addEvent: (event: IEvent) => void;
 	updateEvent: (event: IEvent) => void;
@@ -51,13 +51,13 @@ const CalendarContext = createContext({} as ICalendarContext);
 
 export function CalendarProvider({
 	children,
-	users,
+	calendars: calendars,
 	events,
 	badge = "colored",
 	view = "day",
 }: {
 	children: React.ReactNode;
-	users: IUser[];
+	calendars: ICalendar[];
 	events: IEvent[];
 	view?: TCalendarView;
 	badge?: "dot" | "colored";
@@ -85,7 +85,7 @@ export function CalendarProvider({
 	>(settings.agendaModeGroupBy);
 
 	const [selectedDate, setSelectedDate] = useState(new Date());
-	const [selectedUserId, setSelectedUserId] = useState<IUser["id"] | "all">(
+	const [selectedCalendarId, setSelectedCalendarId] = useState<ICalendar["id"] | "all">(
 		"all",
 	);
 	const [selectedColors, setSelectedColors] = useState<TEventColor[]>([]);
@@ -140,12 +140,12 @@ export function CalendarProvider({
 		setSelectedColors(newColors);
 	};
 
-	const filterEventsBySelectedUser = (userId: IUser["id"] | "all") => {
-		setSelectedUserId(userId);
-		if (userId === "all") {
+	const filterEventsBySelectedUser = (calendarId: ICalendar["id"] | "all") => {
+		setSelectedCalendarId(calendarId);
+		if (calendarId === "all") {
 			setFilteredEvents(allEvents);
 		} else {
-			const filtered = allEvents.filter((event) => event.user.id === userId);
+			const filtered = allEvents.filter((event) => event.calendar.id === calendarId);
 			setFilteredEvents(filtered);
 		}
 	};
@@ -181,17 +181,17 @@ export function CalendarProvider({
 	const clearFilter = () => {
 		setFilteredEvents(allEvents);
 		setSelectedColors([]);
-		setSelectedUserId("all");
+		setSelectedCalendarId("all");
 	};
 
 	const value = {
 		selectedDate,
 		setSelectedDate: handleSelectDate,
-		selectedUserId,
-		setSelectedUserId,
+		selectedCalendarId: selectedCalendarId,
+		setSelectedCalendarId: setSelectedCalendarId,
 		badgeVariant,
 		setBadgeVariant,
-		users,
+		calendars: calendars,
 		selectedColors,
 		filterEventsBySelectedColors,
 		filterEventsBySelectedUser,

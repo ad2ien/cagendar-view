@@ -9,50 +9,50 @@ import {
 } from "@/components/ui/select";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 
-export function UserSelect() {
-	const { users, selectedUserId, filterEventsBySelectedUser } = useCalendar();
+export function CalendarSelect() {
+	const { calendars: calendars, selectedCalendarId: selectedCalendarId, filterEventsBySelectedUser } = useCalendar();
 
 	return (
-		<Select value={selectedUserId!} onValueChange={filterEventsBySelectedUser}>
+		<Select value={selectedCalendarId!} onValueChange={filterEventsBySelectedUser}>
 			<SelectTrigger className="w-full">
-				<SelectValue placeholder="Select a user" />
+				<SelectValue placeholder="Choix calendrier" />
 			</SelectTrigger>
 			<SelectContent align="end">
 				<SelectItem value="all">
 					<AvatarGroup className="mx-2 flex items-center" max={3}>
-						{users.map((user) => (
-							<Avatar key={user.id} className="size-6 text-xxs">
+						{calendars.map((calendar) => (
+							<Avatar key={calendar.id} className="size-6 text-xxs">
 								<AvatarImage
-									src={user.picturePath ?? undefined}
-									alt={user.name}
+									src={calendar.picturePath ?? undefined}
+									alt={calendar.name}
 								/>
 								<AvatarFallback className="text-xxs">
-									{user.name[0]}
+									{calendar.name[0]}
 								</AvatarFallback>
 							</Avatar>
 						))}
 					</AvatarGroup>
-					All
+					Tous
 				</SelectItem>
 
-				{users.map((user) => (
+				{calendars.map((calendar) => (
 					<SelectItem
-						key={user.id}
-						value={user.id}
+						key={calendar.id}
+						value={calendar.id}
 						className="flex-1 cursor-pointer"
 					>
 						<div className="flex items-center gap-2">
-							<Avatar key={user.id} className="size-6">
+							<Avatar key={calendar.id} className="size-6">
 								<AvatarImage
-									src={user.picturePath ?? undefined}
-									alt={user.name}
+									src={calendar.picturePath ?? undefined}
+									alt={calendar.name}
 								/>
 								<AvatarFallback className="text-xxs">
-									{user.name[0]}
+									{calendar.name[0]}
 								</AvatarFallback>
 							</Avatar>
 
-							<p className="truncate">{user.name}</p>
+							<p className="truncate">{calendar.name}</p>
 						</div>
 					</SelectItem>
 				))}

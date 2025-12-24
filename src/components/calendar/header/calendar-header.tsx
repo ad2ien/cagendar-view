@@ -23,7 +23,7 @@ import { AddEditEventDialog } from "@/components/calendar/dialogs/add-edit-event
 import { DateNavigator } from "@/components/calendar/header/date-navigator";
 import FilterEvents from "@/components/calendar/header/filter";
 import { TodayButton } from "@/components/calendar/header/today-button";
-import { UserSelect } from "@/components/calendar/header/user-select";
+import { CalendarSelect } from "@/components/calendar/header/calendar-select";
 import { Settings } from "@/components/calendar/settings/settings";
 import Views from "./view-tabs";
 
@@ -56,7 +56,7 @@ export function CalendarHeader() {
 				</div>
 
 				<div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-1.5">
-					<UserSelect />
+					<CalendarSelect />
 				</div>
 				<Settings />
 			</motion.div>

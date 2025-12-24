@@ -1,7 +1,7 @@
 import { COLORS } from "@/components/calendar/constants";
-import type { IEvent, IUser } from "@/components/data/interfaces";
+import type { IEvent, ICalendar } from "@/components/data/interfaces";
 
-export const USERS_MOCK: IUser[] = [
+export const CALENDARS_MOCK: ICalendar[] = [
   {
     id: "f3b035ac-49f7-4e92-a715-35680bf63175",
     name: "Michael Doe",
@@ -119,7 +119,7 @@ const mockGenerator = (numberOfEvents: number): IEvent[] => {
   const result: IEvent[] = [];
   let currentId = 1;
 
-  const randomUser = USERS_MOCK[Math.floor(Math.random() * USERS_MOCK.length)];
+  const randomCalendar = CALENDARS_MOCK[Math.floor(Math.random() * CALENDARS_MOCK.length)];
 
   // Date range: 30 days before and after now
   const now = new Date();
@@ -137,7 +137,7 @@ const mockGenerator = (numberOfEvents: number): IEvent[] => {
     color: COLORS[Math.floor(Math.random() * COLORS.length)],
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    user: randomUser,
+    calendar: randomCalendar,
   };
 
   result.push(currentEvent);
@@ -185,7 +185,7 @@ const mockGenerator = (numberOfEvents: number): IEvent[] => {
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      user: USERS_MOCK[Math.floor(Math.random() * USERS_MOCK.length)],
+      calendar: CALENDARS_MOCK[Math.floor(Math.random() * CALENDARS_MOCK.length)],
     });
   }
 

@@ -3,12 +3,12 @@ import { CalendarBody } from "@/components/calendar/calendar-body";
 import { CalendarProvider } from "@/components/calendar/contexts/calendar-context";
 import { DndProvider } from "@/components/calendar/contexts/dnd-context";
 import { CalendarHeader } from "@/components/calendar/header/calendar-header";
-import { getEvents, getUsers } from "@/components/data/requests";
+import { getEvents, getCalendars } from "@/components/data/requests";
 
 async function getCalendarData() {
 	return {
 		events: await getEvents(),
-		users: getUsers(),
+		users: getCalendars(),
 	};
 }
 
@@ -16,7 +16,7 @@ export async function Calendar() {
 	const { events, users } = await getCalendarData();
 
 	return (
-		<CalendarProvider events={events} users={users} view="month">
+		<CalendarProvider events={events} calendars={users} view="month">
 			<DndProvider showConfirmation={false}>
 				<div className="w-full border rounded-xl">
 					<CalendarHeader />

@@ -156,14 +156,12 @@ export function getCalendarCells(selectedDate: Date): ICalendarCell[] {
 	const firstDayOfMonth = startOfMonth(selectedDate).getDay() - START_ON_MONDAY; // -1 to start on Monday
 	const daysInPrevMonth = endOfMonth(new Date(year, month - 1)).getDate();
 	const totalDays = firstDayOfMonth + daysInMonth;
-  console.log("firstDayOfMonth ", firstDayOfMonth);
 
 	const prevMonthCells = Array.from({ length: firstDayOfMonth }, (_, i) => ({
 		day: daysInPrevMonth - firstDayOfMonth + i + 1,
 		currentMonth: false,
 		date: new Date(year, month - 1, daysInPrevMonth - firstDayOfMonth + i + 1),
 	}));
-  console.log(prevMonthCells);
 
 	const currentMonthCells = Array.from({ length: daysInMonth }, (_, i) => ({
 		day: i + 1,

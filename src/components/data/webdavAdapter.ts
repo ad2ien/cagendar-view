@@ -62,9 +62,9 @@ function webdavCalendarToEvent(event: Event, calData: TCalData): IEvent {
     description: event.description || "",
     title: event.summary || "",
     color: calData.color,
-    user: {
-      id: calData.user.id,
-      name: calData.user.name,
+    calendar: {
+      id: calData.calendar.id,
+      name: calData.calendar.name,
       picturePath: "",
     },
   };

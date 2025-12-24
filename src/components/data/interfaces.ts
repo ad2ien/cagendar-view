@@ -1,6 +1,6 @@
 import type { TEventColor } from "@/components/calendar/types";
 
-export interface IUser {
+export interface ICalendar {
 	id: string;
 	name: string;
 	picturePath: string | null;
@@ -13,7 +13,7 @@ export interface IEvent {
 	title: string;
 	color: TEventColor;
 	description: string;
-	user: IUser;
+	calendar: ICalendar;
 }
 
 export interface ICalendarCell {

@@ -2,21 +2,21 @@ import {
   CalendarType,
   ICalendarSetting,
   ICalendarSettings,
-  loadSettings
+  loadSettings,
 } from "@/components/config/dataSettings";
 import { generateId } from "@/lib/utils";
 import { getNextColor, TEventColor } from "../calendar/types";
 import { getIcsEvents } from "./icsAdapter";
-import { IEvent, IUser } from "./interfaces";
+import { IEvent, ICalendar } from "./interfaces";
 import { getWebdavEvents, isWebDavCalendar } from "./webdavAdapter";
 
 const configData = loadSettings();
-const users = configData.map(configToUser);
-const calData = buildCalData(configData, users);
+const calendars = configData.map(configToCalendar);
+const calData = buildCalData(configData, calendars);
 
 export type TCalData = {
   config: ICalendarSetting;
-  user: IUser;
+  calendar: ICalendar;
   color: TEventColor;
 };
 
@@ -44,11 +44,11 @@ export const getEvents = async () => {
   return resultEvents;
 };
 
-export function getUsers(): IUser[] {
-  return users;
+export function getCalendars(): ICalendar[] {
+  return calendars;
 }
 
-function configToUser(setting: ICalendarSetting): IUser {
+function configToCalendar(setting: ICalendarSetting): ICalendar {
   return {
     id: generateId().toString(),
     name: setting.name,
@@ -58,11 +58,11 @@ function configToUser(setting: ICalendarSetting): IUser {
 
 function buildCalData(
   calSettings: ICalendarSettings,
-  users: IUser[],
+  calendars: ICalendar[],
 ): TCalData[] {
   return calSettings.map((setting, index) => ({
     config: setting,
-    user: users[index],
+    calendar: calendars[index],
     color: getNextColor(),
   }));
 }
