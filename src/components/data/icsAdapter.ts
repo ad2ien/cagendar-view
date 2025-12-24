@@ -34,9 +34,12 @@ function icsCalendarToEvent(
     return undefined
   }
   const endDate = event.end?.date;
+  let wholeday = false;
   if (isZeroTime(event.end?.date) && isZeroTime(event.start?.date)) {
     endDate.setHours(endDate.getHours() - 2);
+    wholeday = true;
   }
+
   return {
     id: generateId(),
     startDate: event.start?.date.toISOString(),
@@ -49,5 +52,6 @@ function icsCalendarToEvent(
       name: calData.calendar.name,
       picturePath: "",
     },
+    wholeDay: wholeday
   };
 }

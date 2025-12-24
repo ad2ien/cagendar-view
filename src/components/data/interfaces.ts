@@ -14,6 +14,7 @@ export interface IEvent {
 	color: TEventColor;
 	description: string;
 	calendar: ICalendar;
+  wholeDay: boolean;
 }
 
 export interface ICalendarCell {

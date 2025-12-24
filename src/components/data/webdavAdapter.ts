@@ -67,5 +67,6 @@ function webdavCalendarToEvent(event: Event, calData: TCalData): IEvent {
       name: calData.calendar.name,
       picturePath: "",
     },
+    wholeDay: event.wholeDay ? event.wholeDay! : false,
   };
 }

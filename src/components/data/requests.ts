@@ -39,8 +39,9 @@ export const getEvents = async () => {
         }
         break;
     }
+
   }
-  // resultEvents = resultEvents.concat(CALENDAR_ITEMS_MOCK);
+
   return resultEvents;
 };
 

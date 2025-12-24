@@ -11,7 +11,8 @@
 - [ ] manage all day events
   - [x] workaround
   - [ ] properly manage whole day member in IEvent
-    - [ ] don't show hour
+    - [x] don't show hour for month
+    - [ ] manage wholeday for week and day view
   - [ ] fix display event dialog
 - [ ] properly link color and calendar
 - [x] IUser -> ICalendar
