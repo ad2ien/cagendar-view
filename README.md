@@ -16,11 +16,11 @@
   - [ ] fix display event dialog
 - [ ] properly link color and calendar
 - [x] IUser -> ICalendar
-- [ ] improve calendar / color filtering
 - [ ] ics duplicate?
 - [ ] webdav event in the past
 - [ ] SP graphic chart
 - [ ] french translation
+- [ ] parametrized language
 - [ ] why parseISO everywhere?
 - [ ] clean wrap up release
   - [ ] remove delete / editing

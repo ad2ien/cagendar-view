@@ -109,6 +109,7 @@ export function AddEditEventDialog({
 				startDate: format(values.startDate, "yyyy-MM-dd'T'HH:mm:ss"),
 				endDate: format(values.endDate, "yyyy-MM-dd'T'HH:mm:ss"),
 				id: isEditing ? event.id : Math.floor(Math.random() * 1000000),
+				wholeDay: event?.wholeDay ?? false,
 				calendar: isEditing
 					? event.calendar
 					: {

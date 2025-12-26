@@ -1,22 +1,22 @@
-import React from "react";
 import { CalendarBody } from "@/components/calendar/calendar-body";
 import { CalendarProvider } from "@/components/calendar/contexts/calendar-context";
 import { DndProvider } from "@/components/calendar/contexts/dnd-context";
 import { CalendarHeader } from "@/components/calendar/header/calendar-header";
-import { getEvents, getCalendars } from "@/components/data/requests";
+import { getCalendars, getCalendarsData, getEvents } from "@/components/data/requests";
 
 async function getCalendarData() {
 	return {
 		events: await getEvents(),
-		users: getCalendars(),
+		calendars: getCalendars(),
+		calendarsData: getCalendarsData(),
 	};
 }
 
 export async function Calendar() {
-	const { events, users } = await getCalendarData();
+	const { events, calendars, calendarsData } = await getCalendarData();
 
 	return (
-		<CalendarProvider events={events} calendars={users} view="month">
+		<CalendarProvider events={events} calendars={calendars} calendarsData={calendarsData} view="month">
 			<DndProvider showConfirmation={false}>
 				<div className="w-full border rounded-xl">
 					<CalendarHeader />

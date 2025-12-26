@@ -1,30 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-	CalendarRange,
-	Columns,
-	Grid2X2,
-	Grid3X3,
-	LayoutList,
-	List,
-	Plus,
-} from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { ButtonGroup } from "@/components/ui/button-group";
 import {
-	slideFromLeft,
-	slideFromRight,
-	transition,
+    slideFromLeft,
+    slideFromRight,
+    transition,
 } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import { AddEditEventDialog } from "@/components/calendar/dialogs/add-edit-event-dialog";
 import { DateNavigator } from "@/components/calendar/header/date-navigator";
-import FilterEvents from "@/components/calendar/header/filter";
 import { TodayButton } from "@/components/calendar/header/today-button";
-import { CalendarSelect } from "@/components/calendar/header/calendar-select";
 import { Settings } from "@/components/calendar/settings/settings";
+import CalendarFilter from "./calendar-filter";
 import Views from "./view-tabs";
 
 export function CalendarHeader() {
@@ -51,12 +38,8 @@ export function CalendarHeader() {
 				transition={transition}
 			>
 				<div className="options flex-wrap flex items-center gap-4 md:gap-2">
-					<FilterEvents />
+					<CalendarFilter />
 					<Views />
-				</div>
-
-				<div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-1.5">
-					<CalendarSelect />
 				</div>
 				<Settings />
 			</motion.div>

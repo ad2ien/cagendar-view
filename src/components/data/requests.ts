@@ -20,6 +20,10 @@ export type TCalData = {
   color: TEventColor;
 };
 
+export const getCalendarsData = () => {
+  return calData;
+};
+
 export const getEvents = async () => {
   let resultEvents: IEvent[] = [];
 

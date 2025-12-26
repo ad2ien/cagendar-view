@@ -135,6 +135,7 @@ const mockGenerator = (numberOfEvents: number): IEvent[] => {
     endDate: new Date(now.getTime() + 30 * 60000).toISOString(),
     title: events[Math.floor(Math.random() * events.length)],
     color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    wholeDay: false,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     calendar: randomCalendar,
@@ -183,6 +184,7 @@ const mockGenerator = (numberOfEvents: number): IEvent[] => {
       endDate: endDate.toISOString(),
       title: events[Math.floor(Math.random() * events.length)],
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      wholeDay: false,
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       calendar: CALENDARS_MOCK[Math.floor(Math.random() * CALENDARS_MOCK.length)],
