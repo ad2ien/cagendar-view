@@ -1,8 +1,7 @@
 "use client";
 
 import { useLocalStorage } from "@/components/calendar/hooks";
-import type { TCalendarView, TEventColor } from "@/components/calendar/types";
-import { ICalendarSettings } from "@/components/config/dataSettings";
+import type { TCalendarView } from "@/components/calendar/types";
 import type { ICalendar, IEvent } from "@/components/data/interfaces";
 import { TCalData } from "@/components/data/requests";
 import type React from "react";
@@ -17,19 +16,10 @@ interface ICalendarContext {
   use24HourFormat: boolean;
   toggleTimeFormat: () => void;
   setSelectedDate: (date: Date | undefined) => void;
-  //deprecated
-  selectedCalendarId: ICalendar["id"] | "all";
   selectedCalendars: ICalendar[] | "all";
-  setSelectedCalendarId: (calendarId: ICalendar["id"] | "all") => void;
   badgeVariant: "dot" | "colored";
   setBadgeVariant: (variant: "dot" | "colored") => void;
-  // deprecated
-  selectedColors: TEventColor[];
-  // deprecated
-  filterEventsBySelectedColors: (colors: TEventColor) => void;
   filterEventsBySelectedCalendars: (calendarId: ICalendar["id"]) => void;
-  // deprecated
-  filterEventsBySelectedUser: (userId: ICalendar["id"] | "all") => void;
   calendars: ICalendar[];
   calendarsData: TCalData[];
   events: IEvent[];
@@ -93,13 +83,9 @@ export function CalendarProvider({
   >(settings.agendaModeGroupBy);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedCalendarId, setSelectedCalendarId] = useState<
-    ICalendar["id"] | "all"
-  >("all");
   const [selectedCalendars, setSelectedCalendars] = useState<
     ICalendar[] | "all"
   >("all");
-  const [selectedColors, setSelectedColors] = useState<TEventColor[]>([]);
 
   const [allEvents, setAllEvents] = useState<IEvent[]>(events || []);
   const [filteredEvents, setFilteredEvents] = useState<IEvent[]>(events || []);
@@ -132,26 +118,6 @@ export function CalendarProvider({
     updateSettings({ agendaModeGroupBy: groupBy });
   };
 
-  //deprecated
-  const filterEventsBySelectedColors = (color: TEventColor) => {
-    const isColorSelected = selectedColors.includes(color);
-    const newColors = isColorSelected
-      ? selectedColors.filter((c) => c !== color)
-      : [...selectedColors, color];
-
-    if (newColors.length > 0) {
-      const filtered = allEvents.filter((event) => {
-        const eventColor = event.color || "blue";
-        return newColors.includes(eventColor);
-      });
-      setFilteredEvents(filtered);
-    } else {
-      setFilteredEvents(allEvents);
-    }
-
-    setSelectedColors(newColors);
-  };
-
   const filterEventsBySelectedCalendars = (
     calendarId: ICalendar["id"] | "all",
   ) => {
@@ -161,18 +127,16 @@ export function CalendarProvider({
       return;
     }
 
-    let newlySelected : ICalendar[] | "all" = [];
+    let newlySelected: ICalendar[] | "all" = [];
     if (selectedCalendars === "all") {
-      console.log("selectedCalendars is all ", calendars.filter((c) => c.id === calendarId));
-      newlySelected = calendars.filter((c) => c.id === calendarId)
-
+      newlySelected = calendars.filter((c) => c.id === calendarId);
     } else {
       const alreadySelectedCalendarIds = selectedCalendars.map((c) => c.id);
       const clickedCalendar = calendars.find((c) => c.id === calendarId);
       if (clickedCalendar == undefined) return;
       if (alreadySelectedCalendarIds.includes(calendarId)) {
         //remove calendar
-        newlySelected =           selectedCalendars.filter((c) => c.id !== calendarId)        ;
+        newlySelected = selectedCalendars.filter((c) => c.id !== calendarId);
       } else {
         //add calendar
         newlySelected = [...selectedCalendars, clickedCalendar];
@@ -194,21 +158,6 @@ export function CalendarProvider({
       return selectedCalendarIds.indexOf(event.calendar.id) > -1;
     });
     setFilteredEvents(filtered);
-  };
-
-  //deprecated
-  const filterEventsBySelectedCalendar = (
-    calendarId: ICalendar["id"] | "all",
-  ) => {
-    setSelectedCalendarId(calendarId);
-    if (calendarId === "all") {
-      setFilteredEvents(allEvents);
-    } else {
-      const filtered = allEvents.filter(
-        (event) => event.calendar.id === calendarId,
-      );
-      setFilteredEvents(filtered);
-    }
   };
 
   const handleSelectDate = (date: Date | undefined) => {
@@ -241,26 +190,19 @@ export function CalendarProvider({
 
   const clearFilter = () => {
     setFilteredEvents(allEvents);
-    setSelectedColors([]);
-    setSelectedCalendarId("all");
     setSelectedCalendars("all");
   };
 
   const value = {
     selectedDate,
     setSelectedDate: handleSelectDate,
-    selectedCalendarId: selectedCalendarId,
-    setSelectedCalendarId: setSelectedCalendarId,
     selectedCalendars: selectedCalendars,
     setSelectedCalendars: setSelectedCalendars,
     badgeVariant,
     setBadgeVariant,
     calendars: calendars,
     calendarsData: calendarsData,
-    selectedColors,
-    filterEventsBySelectedColors,
     filterEventsBySelectedCalendars: filterEventsBySelectedCalendars,
-    filterEventsBySelectedUser: filterEventsBySelectedCalendar,
     events: filteredEvents,
     view: currentView,
     use24HourFormat,
