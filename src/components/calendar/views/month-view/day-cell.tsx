@@ -7,7 +7,6 @@ import { useCallback, useMemo } from "react";
 
 import { transition } from "@/components/calendar/animations";
 import { EventListDialog } from "@/components/calendar/dialogs/events-list-dialog";
-import { DroppableArea } from "@/components/calendar/dnd/droppable-area";
 import { getMonthCellEvents } from "@/components/calendar/helpers";
 import { useMediaQuery } from "@/components/calendar/hooks";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
@@ -116,49 +115,47 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={transition}
       >
-        <DroppableArea date={date} className="w-full h-full py-2">
-          <motion.span
-            className={cn(
-              "h-6 px-1 text-xs font-semibold lg:px-2",
-              !currentMonth && "opacity-20",
-              isToday(date) &&
-                "flex w-6 translate-x-1 items-center justify-center rounded-full bg-primary px-0 font-bold text-primary-foreground",
-            )}
-          >
-            {day}
-          </motion.span>
+        <motion.span
+          className={cn(
+            "h-6 px-1 text-xs font-semibold lg:px-2",
+            !currentMonth && "opacity-20",
+            isToday(date) &&
+              "flex w-6 translate-x-1 items-center justify-center rounded-full bg-primary px-0 font-bold text-primary-foreground",
+          )}
+        >
+          {day}
+        </motion.span>
 
+        <motion.div
+          className={cn(
+            "flex h-fit gap-1 px-2 mt-1 lg:h-[94px] lg:flex-col lg:gap-2 lg:px-0",
+            !currentMonth && "opacity-50",
+          )}
+        >
+          {[0, 1, 2].map(renderEventAtPosition)}
+        </motion.div>
+
+        {showMobileMore && (
+          <div className="flex justify-end items-end mx-2">
+            <span className="text-[0.6rem] font-semibold text-accent-foreground">
+              +{showMoreCount}
+            </span>
+          </div>
+        )}
+
+        {showDesktopMore && (
           <motion.div
             className={cn(
-              "flex h-fit gap-1 px-2 mt-1 lg:h-[94px] lg:flex-col lg:gap-2 lg:px-0",
+              "h-4.5 px-1.5 my-2 text-end text-xs font-semibold text-muted-foreground",
               !currentMonth && "opacity-50",
             )}
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, ...transition }}
           >
-            {[0, 1, 2].map(renderEventAtPosition)}
+            <EventListDialog date={date} events={cellEvents} />
           </motion.div>
-
-          {showMobileMore && (
-            <div className="flex justify-end items-end mx-2">
-              <span className="text-[0.6rem] font-semibold text-accent-foreground">
-                +{showMoreCount}
-              </span>
-            </div>
-          )}
-
-          {showDesktopMore && (
-            <motion.div
-              className={cn(
-                "h-4.5 px-1.5 my-2 text-end text-xs font-semibold text-muted-foreground",
-                !currentMonth && "opacity-50",
-              )}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, ...transition }}
-            >
-              <EventListDialog date={date} events={cellEvents} />
-            </motion.div>
-          )}
-        </DroppableArea>
+        )}
       </motion.div>
     ),
     [

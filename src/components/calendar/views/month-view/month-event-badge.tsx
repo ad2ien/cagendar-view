@@ -1,13 +1,12 @@
+import { useCalendar } from "@/components/calendar/contexts/calendar-context";
+import { EventDetailsDialog } from "@/components/calendar/dialogs/event-details-dialog";
+import { formatTime } from "@/components/calendar/helpers";
+import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
+import type { IEvent } from "@/components/data/interfaces";
+import { cn } from "@/lib/utils";
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 import { endOfDay, isSameDay, parseISO, startOfDay } from "date-fns";
-import { cn } from "@/lib/utils";
-import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import { EventDetailsDialog } from "@/components/calendar/dialogs/event-details-dialog";
-import { DraggableEvent } from "@/components/calendar/dnd/draggable-event";
-import { formatTime } from "@/components/calendar/helpers";
-import type { IEvent } from "@/components/data/interfaces";
-import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
 
 const eventBadgeVariants = cva(
   "mx-1 flex size-auto h-6.5 select-none items-center justify-between gap-1.5 truncate whitespace-nowrap rounded-md border px-2 text-xs",
@@ -104,36 +103,35 @@ export function MonthEventBadge({
   );
 
   return (
-    <DraggableEvent event={event}>
-      <EventDetailsDialog event={event}>
-        <div role="button" tabIndex={0} className={eventBadgeClasses}>
-          <div className="flex items-center gap-1.5 truncate">
-            {!["middle", "last"].includes(position) &&
-              badgeVariant === "dot" && <EventBullet color={event.color} />}
+    <EventDetailsDialog event={event}>
+      <div role="button" tabIndex={0} className={eventBadgeClasses}>
+        <div className="flex items-center gap-1.5 truncate">
+          {!["middle", "last"].includes(position) && badgeVariant === "dot" && (
+            <EventBullet color={event.color} />
+          )}
 
-            {renderBadgeText && (
-              <p className="flex-1 truncate font-semibold">
-                {eventCurrentDay && (
-                  <span className="text-xs">
-                    Day {eventCurrentDay} of {eventTotalDays} •{" "}
-                  </span>
-                )}
-                {event.title}
-              </p>
-            )}
-          </div>
-
-          <div className="hidden sm:block">
-            {renderBadgeTime && (
-              <span>
-                {event.wholeDay
-                  ? ""
-                  : formatTime(new Date(event.startDate), use24HourFormat)}
-              </span>
-            )}
-          </div>
+          {renderBadgeText && (
+            <p className="flex-1 truncate font-semibold">
+              {eventCurrentDay && (
+                <span className="text-xs">
+                  Day {eventCurrentDay} of {eventTotalDays} •{" "}
+                </span>
+              )}
+              {event.title}
+            </p>
+          )}
         </div>
-      </EventDetailsDialog>
-    </DraggableEvent>
+
+        <div className="hidden sm:block">
+          {renderBadgeTime && (
+            <span>
+              {event.wholeDay
+                ? ""
+                : formatTime(new Date(event.startDate), use24HourFormat)}
+            </span>
+          )}
+        </div>
+      </div>
+    </EventDetailsDialog>
   );
 }
