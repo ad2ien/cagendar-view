@@ -1,28 +1,19 @@
 "use client";
 
 import { cva } from "class-variance-authority";
-import { isToday, startOfDay, isSunday, isSameMonth } from "date-fns";
+import { isSameMonth, isSunday, isToday, startOfDay } from "date-fns";
 import { motion } from "framer-motion";
-import { useMemo, useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
-import { cn } from "@/lib/utils";
-import {
-  staggerContainer,
-  transition,
-} from "@/components/calendar/animations";
+import { transition } from "@/components/calendar/animations";
 import { EventListDialog } from "@/components/calendar/dialogs/events-list-dialog";
 import { DroppableArea } from "@/components/calendar/dnd/droppable-area";
 import { getMonthCellEvents } from "@/components/calendar/helpers";
 import { useMediaQuery } from "@/components/calendar/hooks";
-import type {
-  ICalendarCell,
-  IEvent,
-} from "@/components/data/interfaces";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
 import { MonthEventBadge } from "@/components/calendar/views/month-view/month-event-badge";
-import { AddEditEventDialog } from "../../dialogs/add-edit-event-dialog";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import type { ICalendarCell, IEvent } from "@/components/data/interfaces";
+import { cn } from "@/lib/utils";
 
 interface IProps {
   cell: ICalendarCell;
@@ -61,7 +52,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
   const { cellEvents, currentCellMonth } = useMemo(() => {
     const cellEvents = getMonthCellEvents(date, events, eventPositions);
     const currentCellMonth = startOfDay(
-      new Date(date.getFullYear(), date.getMonth(), 1)
+      new Date(date.getFullYear(), date.getMonth(), 1),
     );
     return { cellEvents, currentCellMonth };
   }, [date, events, eventPositions]);
@@ -82,7 +73,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
       }
       const showBullet = isSameMonth(
         new Date(event.startDate),
-        currentCellMonth
+        currentCellMonth,
       );
 
       return (
@@ -106,7 +97,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
         </motion.div>
       );
     },
-    [cellEvents, currentCellMonth, date]
+    [cellEvents, currentCellMonth, date],
   );
 
   const showMoreCount = cellEvents.length - MAX_VISIBLE_EVENTS;
@@ -119,7 +110,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
       <motion.div
         className={cn(
           "flex h-full lg:min-h-[10rem] flex-col gap-1 border-l border-t",
-          isSunday(date) && "border-l-0"
+          isSunday(date) && "border-l-0",
         )}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -131,7 +122,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
               "h-6 px-1 text-xs font-semibold lg:px-2",
               !currentMonth && "opacity-20",
               isToday(date) &&
-                "flex w-6 translate-x-1 items-center justify-center rounded-full bg-primary px-0 font-bold text-primary-foreground"
+                "flex w-6 translate-x-1 items-center justify-center rounded-full bg-primary px-0 font-bold text-primary-foreground",
             )}
           >
             {day}
@@ -140,12 +131,10 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
           <motion.div
             className={cn(
               "flex h-fit gap-1 px-2 mt-1 lg:h-[94px] lg:flex-col lg:gap-2 lg:px-0",
-              !currentMonth && "opacity-50"
+              !currentMonth && "opacity-50",
             )}
           >
-            {
-              [0, 1, 2].map(renderEventAtPosition)
-            }
+            {[0, 1, 2].map(renderEventAtPosition)}
           </motion.div>
 
           {showMobileMore && (
@@ -160,7 +149,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
             <motion.div
               className={cn(
                 "h-4.5 px-1.5 my-2 text-end text-xs font-semibold text-muted-foreground",
-                !currentMonth && "opacity-50"
+                !currentMonth && "opacity-50",
               )}
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
@@ -181,7 +170,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
       showDesktopMore,
       showMoreCount,
       renderEventAtPosition,
-    ]
+    ],
   );
 
   if (isMobile && currentMonth) {

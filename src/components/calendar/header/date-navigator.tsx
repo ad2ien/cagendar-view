@@ -3,7 +3,7 @@ import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "date-fns";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo } from "react";
 
@@ -23,18 +23,12 @@ interface IProps {
 }
 
 const MotionButton = motion.create(Button);
-const MotionBadge = motion.create(Badge);
 
 export function DateNavigator({ view, events }: IProps) {
   const { selectedDate, setSelectedDate } = useCalendar();
 
   const month = formatDate(selectedDate, "MMMM", { locale: fr });
   const year = selectedDate.getFullYear();
-
-  const eventCount = useMemo(
-    () => getEventsCount(events, selectedDate, view),
-    [events, selectedDate, view],
-  );
 
   const handlePrevious = () =>
     setSelectedDate(navigateDate(selectedDate, view, "previous"));
@@ -52,18 +46,6 @@ export function DateNavigator({ view, events }: IProps) {
         >
           {month} {year}
         </motion.span>
-        {/*<AnimatePresence mode="wait">
-          <MotionBadge
-            key={eventCount}
-            variant="secondary"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            transition={transition}
-          >
-            {eventCount} events
-          </MotionBadge>
-        </AnimatePresence>*/}
       </div>
 
       <div className="flex items-center gap-2">
