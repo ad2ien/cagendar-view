@@ -450,3 +450,8 @@ export function isZeroTime(date: Date): boolean {
     date.toLocaleTimeString().indexOf(ZERO_TIME_2) > -1
   );
 }
+
+export const durationInDays = (start: Date, end: Date): number => {
+	const diff = end.getTime() - start.getTime();
+	return Math.ceil(diff / (1000 * 60 * 60 * 24));
+};

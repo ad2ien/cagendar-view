@@ -1,13 +1,14 @@
 import { generateId } from "@/lib/utils";
+import { addDays } from "date-fns";
 import { CalDAVClient, Event } from "ts-caldav";
+import { durationInDays, isZeroTime } from "../calendar/helpers";
 import {
-  CalendarType,
-  ICalendar,
-  IWebDavCalendar,
+    CalendarType,
+    ICalendar,
+    IWebDavCalendar,
 } from "../config/dataSettings";
 import { IEvent } from "./interfaces";
 import { TCalData } from "./requests";
-import { isZeroTime } from "../calendar/helpers";
 
 export function isWebDavCalendar(config: ICalendar): config is IWebDavCalendar {
   return (
@@ -50,9 +51,12 @@ function icsCalendarsToEvents(events: Event[], calData: TCalData): IEvent[] {
 }
 
 function webdavCalendarToEvent(event: Event, calData: TCalData): IEvent {
-  const endDate = event.end;
-  if (isZeroTime(event.end) && isZeroTime(event.start)) {
-    endDate.setMinutes(endDate.getMinutes() - 1);
+  let endDate = event.end;
+  if (event.wholeDay || (isZeroTime(event.end) && isZeroTime(event.start))) {
+    // if 24h, set end time to the same day
+    const numberOfDays = durationInDays(event.start, event.end);
+    endDate = addDays(event.start,  numberOfDays - 1 );
+    endDate.setHours(23, 59, 59);
   }
 
   return {

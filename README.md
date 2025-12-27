@@ -10,20 +10,22 @@
 
 - [ ] manage all day events
   - [x] workaround
-  - [ ] properly manage whole day member in IEvent
-    - [x] don't show hour for month
-    - [ ] manage wholeday for week and day view
-  - [ ] fix display event dialog
-- [ ] properly link color and calendar
+  - [x] properly manage whole day member in IEvent
+  - [x] don't show hour for month
+  - [ ] manage wholeday for week and day view
+  - [ ] view dialog : don't show time
+- [x] properly link color and calendar
 - [x] IUser -> ICalendar
 - [ ] ics duplicate?
 - [ ] webdav event in the past
 - [ ] SP graphic chart
+  - [ ] 2nd color accessibility
 - [ ] french translation
-- [ ] parametrized language
+  - [ ] i18n
 - [ ] why parseISO everywhere?
 - [ ] clean wrap up release
-  - [ ] remove delete / editing
+  - [ ] rename request
+  - [x] remove delete / editing
   - [ ] remove dead / commented code
 - [ ] include description in adapters
 - [ ] Add comments in data
