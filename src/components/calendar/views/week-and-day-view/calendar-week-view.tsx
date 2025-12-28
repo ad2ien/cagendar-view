@@ -12,14 +12,25 @@ import type { IEvent } from "@/components/data/interfaces";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { addDays, format, isSameDay, parseISO, startOfWeek } from "date-fns";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 interface IProps {
   singleDayEvents: IEvent[];
   multiDayEvents: IEvent[];
 }
-
 export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
-  const { selectedDate, use24HourFormat } = useCalendar();
+  const { selectedDate, use24HourFormat } = useCalendar()
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
 
   const weekStart = startOfWeek(selectedDate);
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));

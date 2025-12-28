@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, AnimatePresence } from "motion/react";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -12,7 +14,7 @@ import {
   Grid2X2,
 } from "lucide-react";
 import { TCalendarView } from "../types";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 
 const tabs = [
   {
@@ -44,6 +46,16 @@ const tabs = [
 
 function Views() {
   const { view, setView } = useCalendar();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsClient(true);
+  }, []);
+
+    if (!isClient) {
+    return null;
+  }
 
   return (
     <Tabs

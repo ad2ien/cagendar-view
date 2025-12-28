@@ -2,7 +2,7 @@
 
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { fadeIn, transition } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { AgendaEvents } from "@/components/calendar/views/agenda-view/agenda-events";
@@ -13,6 +13,17 @@ import { CalendarYearView } from "@/components/calendar/views/year-view/calendar
 
 export function CalendarBody() {
 	const { view, events } = useCalendar();
+ const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
 
 	const singleDayEvents = events.filter((event) => {
 		const startDate = parseISO(event.startDate);
