@@ -27,7 +27,9 @@
   - [ ] rename request
   - [x] remove delete / editing
   - [ ] remove dead / commented code
+- [ ] fix hydration issues
 - [ ] include description in adapters
+- [ ] cache calendar call
 - [ ] Add comments in data
 - [ ] Get configuration from SPO
 - [ ] deploy

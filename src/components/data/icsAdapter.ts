@@ -6,14 +6,10 @@ import { TCalData } from "./requests";
 import { addDays } from "date-fns";
 
 export async function getIcsEvents(calData: TCalData) {
-  console.log("Fetching ICS events...");
   const response = await fetch(calData.config.url).then((response) =>
     response.text(),
   );
   const calendar: IcsCalendar = convertIcsCalendar(undefined, response);
-  calendar.events!.forEach(e => {
-    console.log(`Event: ${e.summary}`);
-  });
   return icsCalendarsToEvents(calendar.events!, calData);
 }
 

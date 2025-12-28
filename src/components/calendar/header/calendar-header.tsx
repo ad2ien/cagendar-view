@@ -15,34 +15,34 @@ import CalendarFilter from "./calendar-filter";
 import Views from "./view-tabs";
 
 export function CalendarHeader() {
-	const { view, events } = useCalendar();
+  const { view } = useCalendar();
 
-	return (
-		<div className="flex flex-col gap-4 border-b p-4 lg:flex-row lg:items-center lg:justify-between">
-			<motion.div
-				className="flex items-center gap-3"
-				variants={slideFromLeft}
-				initial="initial"
-				animate="animate"
-				transition={transition}
-			>
-				<TodayButton />
-				<DateNavigator view={view} events={events} />
-			</motion.div>
+  return (
+    <div className="flex flex-col gap-4 border-b p-4 lg:flex-row lg:items-center lg:justify-between">
+      <motion.div
+        className="flex items-center gap-3"
+        variants={slideFromLeft}
+        initial="initial"
+        animate="animate"
+        transition={transition}
+      >
+        <TodayButton />
+        <DateNavigator view={view} />
+      </motion.div>
 
-			<motion.div
-				className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-1.5"
-				variants={slideFromRight}
-				initial="initial"
-				animate="animate"
-				transition={transition}
-			>
-				<div className="options flex-wrap flex items-center gap-4 md:gap-2">
-					<CalendarFilter />
-					<Views />
-				</div>
-				<Settings />
-			</motion.div>
-		</div>
-	);
+      <motion.div
+        className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-1.5"
+        variants={slideFromRight}
+        initial="initial"
+        animate="animate"
+        transition={transition}
+      >
+        <div className="options flex-wrap flex items-center gap-4 md:gap-2">
+          <CalendarFilter />
+          <Views />
+        </div>
+        <Settings />
+      </motion.div>
+    </div>
+  );
 }

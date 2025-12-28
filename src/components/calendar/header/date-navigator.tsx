@@ -1,30 +1,23 @@
 import { buttonHover, transition } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "date-fns";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 
-import {
-    getEventsCount,
-    navigateDate,
-    rangeText,
-} from "@/components/calendar/helpers";
+import { navigateDate, rangeText } from "@/components/calendar/helpers";
 
 import type { TCalendarView } from "@/components/calendar/types";
-import type { IEvent } from "@/components/data/interfaces";
 import { fr } from "date-fns/locale";
 
 interface IProps {
   view: TCalendarView;
-  events: IEvent[];
 }
 
 const MotionButton = motion.create(Button);
 
-export function DateNavigator({ view, events }: IProps) {
+export function DateNavigator({ view }: IProps) {
   const { selectedDate, setSelectedDate } = useCalendar();
 
   const month = formatDate(selectedDate, "MMMM", { locale: fr });
@@ -34,6 +27,11 @@ export function DateNavigator({ view, events }: IProps) {
     setSelectedDate(navigateDate(selectedDate, view, "previous"));
   const handleNext = () =>
     setSelectedDate(navigateDate(selectedDate, view, "next"));
+
+  const [dateRangeText, setDateRangeText] = useState("");
+  useEffect(() => {
+    setDateRangeText(rangeText(view, selectedDate));
+  }, [view, selectedDate]);
 
   return (
     <div className="space-y-0.5">
@@ -67,7 +65,7 @@ export function DateNavigator({ view, events }: IProps) {
           animate={{ opacity: 1 }}
           transition={transition}
         >
-          {rangeText(view, selectedDate)}
+          {dateRangeText}
         </motion.p>
 
         <MotionButton

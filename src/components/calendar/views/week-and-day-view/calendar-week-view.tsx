@@ -4,7 +4,6 @@ import {
     transition,
 } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import { DroppableArea } from "@/components/calendar/dnd/droppable-area";
 import { groupEvents } from "@/components/calendar/helpers";
 import { CalendarTimeline } from "@/components/calendar/views/week-and-day-view/calendar-time-line";
 import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-view/render-grouped-events";
@@ -89,7 +88,7 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
           </motion.div>
         </div>
 
-        <ScrollArea className="h-[736px]" type="always">
+        <ScrollArea className="h-184" type="always">
           <div className="flex">
             {/* Hours column */}
             <motion.div className="relative w-18" variants={staggerContainer}>
