@@ -1,0 +1,26 @@
+{
+  "calendar": {
+    "views": {
+      "agenda": "Agenda",
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
+    },
+    "actions": {
+      "selectCalendar": "Select Calendars",
+      "showAll": "Show All",
+      "today": "Today",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "messages": {
+      "weeklyViewNotRecommended": "Weekly view is not recommended on smaller devices. Please switch to a desktop device or use the daily view instead.",
+      "errorFormatting": "Error while formatting"
+    },
+    "dialog": {
+      "at": "at",
+      "description": "Description"
+    }
+  }
+}

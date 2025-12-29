@@ -4,7 +4,7 @@ import {
     transition,
 } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import { groupEvents } from "@/components/calendar/helpers";
+import { getLocale, groupEvents } from "@/components/calendar/helpers";
 import { CalendarTimeline } from "@/components/calendar/views/week-and-day-view/calendar-time-line";
 import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-view/render-grouped-events";
 import { WeekViewMultiDayEventsRow } from "@/components/calendar/views/week-and-day-view/week-view-multi-day-events-row";
@@ -12,6 +12,7 @@ import type { IEvent } from "@/components/data/interfaces";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { addDays, format, isSameDay, parseISO, startOfWeek } from "date-fns";
 import { motion } from "framer-motion";
+import { t } from "i18next";
 import { useEffect, useState } from "react";
 
 interface IProps {
@@ -19,7 +20,7 @@ interface IProps {
   multiDayEvents: IEvent[];
 }
 export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
-  const { selectedDate, use24HourFormat } = useCalendar()
+  const { selectedDate, use24HourFormat } = useCalendar();
 
   const [isClient, setIsClient] = useState(false);
 
@@ -50,8 +51,8 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={transition}
       >
-        <p>Weekly view is not recommended on smaller devices.</p>
-        <p>Please switch to a desktop device or use the daily view instead.</p>
+        <p>{t('calendar.messages.weeklyViewNotRecommended')}</p>
+        <p>{t('calendar.messages.switchToDesktop')}</p>
       </motion.div>
 
       <motion.div className="flex-col sm:flex" variants={staggerContainer}>
@@ -81,16 +82,16 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
                 >
                   {/* Mobile: Show only day abbreviation and number */}
                   <span className="block sm:hidden">
-                    {format(day, "EEE").charAt(0)}
+                    {format(day, "EEE", { locale: getLocale() }).charAt(0)}
                     <span className="block font-semibold text-t-secondary text-xs">
-                      {format(day, "d")}
+                      {format(day, "d", { locale: getLocale() })}
                     </span>
                   </span>
                   {/* Desktop: Show full format */}
                   <span className="hidden sm:inline">
-                    {format(day, "EE")}{" "}
+                    {format(day, "EE", { locale: getLocale() })}{" "}
                     <span className="ml-1 font-semibold text-t-secondary">
-                      {format(day, "d")}
+                      {format(day, "d", { locale: getLocale() })}
                     </span>
                   </span>
                 </motion.span>
@@ -118,6 +119,7 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
                         {format(
                           new Date().setHours(hour, 0, 0, 0),
                           use24HourFormat ? "HH:00" : "h a",
+                          { locale: getLocale() },
                         )}
                       </span>
                     )}
@@ -161,9 +163,7 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
                             <div className="pointer-events-none absolute inset-x-0 top-0 border-b"></div>
                           )}
 
-
                           <div className="pointer-events-none absolute inset-x-0 top-1/2 border-b border-dashed border-b-tertiary"></div>
-
                         </motion.div>
                       ))}
 

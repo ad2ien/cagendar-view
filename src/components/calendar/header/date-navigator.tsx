@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { navigateDate, rangeText } from "@/components/calendar/helpers";
+import { navigateDate, rangeText, getLocale } from "@/components/calendar/helpers";
 
 import type { TCalendarView } from "@/components/calendar/types";
 import { fr } from "date-fns/locale";
@@ -20,7 +20,8 @@ const MotionButton = motion.create(Button);
 export function DateNavigator({ view }: IProps) {
   const { selectedDate, setSelectedDate } = useCalendar();
 
-  const month = formatDate(selectedDate, "MMMM", { locale: fr });
+
+  const month = formatDate(selectedDate, "MMMM", { locale: getLocale() });
   const year = selectedDate.getFullYear();
 
   const handlePrevious = () =>

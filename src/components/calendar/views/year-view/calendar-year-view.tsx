@@ -1,35 +1,20 @@
-import { getYear, isSameDay, isSameMonth } from "date-fns";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 import {
-	staggerContainer,
-	transition,
+    staggerContainer,
+    transition,
 } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { EventListDialog } from "@/components/calendar/dialogs/events-list-dialog";
-import { getCalendarCells } from "@/components/calendar/helpers";
-import type { IEvent } from "@/components/data/interfaces";
+import { getCalendarCells, getLocale } from "@/components/calendar/helpers";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
+import type { IEvent } from "@/components/data/interfaces";
+import { cn } from "@/lib/utils";
+import { format, getYear, isSameDay, isSameMonth } from "date-fns";
+import { motion } from "framer-motion";
 
 interface IProps {
 	singleDayEvents: IEvent[];
 	multiDayEvents: IEvent[];
 }
-
-const MONTHS = [
-	"January",
-	"February",
-	"March",
-	"April",
-	"May",
-	"June",
-	"July",
-	"August",
-	"September",
-	"October",
-	"November",
-	"December",
-];
 
 const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
@@ -37,6 +22,11 @@ export function CalendarYearView({ singleDayEvents, multiDayEvents }: IProps) {
 	const { selectedDate, setSelectedDate } = useCalendar();
 	const currentYear = getYear(selectedDate);
 	const allEvents = [...multiDayEvents, ...singleDayEvents];
+
+	// Generate month names based on the current locale
+	const MONTHS = Array.from({ length: 12 }, (_, i) =>
+		format(new Date(0, i, 1), "MMMM", { locale: getLocale() })
+	);
 
 	return (
 		<div className="flex flex-col h-full  overflow-y-auto p-4  sm:p-6">

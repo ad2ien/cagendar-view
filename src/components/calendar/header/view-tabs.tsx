@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
+
 import { motion, AnimatePresence } from "motion/react";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,27 +20,27 @@ import { memo, useEffect, useState } from "react";
 
 const tabs = [
   {
-    name: "Agenda",
+    name: "calendar.views.agenda",
     value: "agenda",
     icon: () => <CalendarRange className="h-4 w-4" />,
   },
   {
-    name: "Jour",
+    name: "calendar.views.day",
     value: "day",
     icon: () => <List className="h-4 w-4" />,
   },
   {
-    name: "Semaine",
+    name: "calendar.views.week",
     value: "week",
     icon: () => <Columns className="h-4 w-4" />,
   },
   {
-    name: "Mois",
+    name: "calendar.views.month",
     value: "month",
     icon: () => <Grid3X3 className="h-4 w-4" />,
   },
   {
-    name: "Année",
+    name: "calendar.views.year",
     value: "year",
     icon: () => <Grid2X2 className="h-4 w-4" />,
   },
@@ -47,6 +49,7 @@ const tabs = [
 function Views() {
   const { view, setView } = useCalendar();
   const [isClient, setIsClient] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -103,7 +106,7 @@ function Views() {
                         transition={{ duration: 0.25, ease: "easeOut" }}
                         style={{ originX: 0 }}
                       >
-                        {name}
+                        {t(name)}
                       </motion.span>
                     )}
                   </AnimatePresence>

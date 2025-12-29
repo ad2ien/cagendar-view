@@ -1,11 +1,12 @@
-import { formatDate } from "date-fns";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import {
-	buttonHover,
-	transition,
+    buttonHover,
+    transition,
 } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
+import { Button } from "@/components/ui/button";
+import { formatDate } from "date-fns";
+import { motion } from "framer-motion";
+import { getLocale } from "../helpers";
 
 const MotionButton = motion.create(Button);
 
@@ -31,7 +32,7 @@ export function TodayButton() {
 				animate={{ y: 0, opacity: 1 }}
 				transition={{ delay: 0.1, ...transition }}
 			>
-				{formatDate(today, "MMM").toUpperCase()}
+				{formatDate(today, "MMM", { locale: getLocale() }).toUpperCase()}
 			</motion.span>
 			<motion.span
 				className="text-lg font-bold"

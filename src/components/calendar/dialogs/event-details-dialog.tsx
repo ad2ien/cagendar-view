@@ -1,19 +1,19 @@
 "use client";
 
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import { formatTime } from "@/components/calendar/helpers";
+import { formatTime, getLocale } from "@/components/calendar/helpers";
 import type { IEvent } from "@/components/data/interfaces";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDate, parseISO } from "date-fns";
-import { fr } from "date-fns/locale";
+import { t } from "i18next";
 import { Calendar, Clock, Text, User } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -51,11 +51,9 @@ export function EventDetailsDialog({ event, children }: IProps) {
               <div className="flex items-start gap-2">
                 <Calendar className="mt-1 size-4 shrink-0 text-muted-foreground" />
                 <div>
-                  {/*<p className="text-sm font-medium">Start Date</p>*/}
                   <p className="text-sm font-medium">Début</p>
                   <p className="text-sm text-muted-foreground">
-                    {/*{format(startDate, "EEEE dd MMMM")}*/}
-                    {formatDate(startDate, "EEEE d MMMM", { locale: fr })}
+                    {formatDate(startDate, "EEEE d MMMM", { locale: getLocale() })}
                     <span className="mx-1">at</span>
                     {formatTime(parseISO(event.startDate), use24HourFormat)}
                   </p>
@@ -66,12 +64,10 @@ export function EventDetailsDialog({ event, children }: IProps) {
               <div className="flex items-start gap-2">
                 <Clock className="mt-1 size-4 shrink-0 text-muted-foreground" />
                 <div>
-                  {/*<p className="text-sm font-medium">End Date</p>*/}
                   <p className="text-sm font-medium">Fin</p>
                   <p className="text-sm text-muted-foreground">
-                    {/*{format(endDate, "EEEE dd MMMM")}*/}
-                    {formatDate(endDate, "EEEE d MMMM", { locale: fr })}
-                    <span className="mx-1">at</span>
+                    {formatDate(endDate, "EEEE d MMMM", { locale: getLocale() })}
+                    <span className="mx-1">{t('calendar.dialog.at')}</span>
                     {formatTime(parseISO(event.endDate), use24HourFormat)}
                   </p>
                 </div>
@@ -81,7 +77,7 @@ export function EventDetailsDialog({ event, children }: IProps) {
             <div className="flex items-start gap-2">
               <Text className="mt-1 size-4 shrink-0 text-muted-foreground" />
               <div>
-                <p className="text-sm font-medium">Description</p>
+                <p className="text-sm font-medium">{t('calendar.dialog.description')}</p>
                 <p className="text-sm text-muted-foreground">
                   {event.description}
                 </p>

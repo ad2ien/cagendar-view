@@ -9,6 +9,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Toggle } from "@/components/ui/toggle";
 import { CheckIcon, Filter, RefreshCcw } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function CalendarFilter() {
   const {
@@ -18,6 +20,17 @@ export default function CalendarFilter() {
     clearFilter,
     calendarsData,
   } = useCalendar();
+  const { t } = useTranslation();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
 
   const isCalendarSelected = (calendarId: ICalendar["id"] | "all") => {
     if (selectedCalendars === "all") return true;
@@ -35,7 +48,7 @@ export default function CalendarFilter() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Toggle variant="outline" className="cursor-pointer w-fit">
-          Sélection calendrier
+          {t('calendar.actions.selectCalendar')}
           <Filter className="h-4 w-4" />
         </Toggle>
       </DropdownMenuTrigger>
@@ -74,7 +87,7 @@ export default function CalendarFilter() {
           }}
         >
           <RefreshCcw className="size-3.5" />
-          Afficher tout
+          {t('calendar.actions.showAll')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

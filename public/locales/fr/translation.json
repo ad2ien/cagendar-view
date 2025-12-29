@@ -1,0 +1,26 @@
+{
+  "calendar": {
+    "views": {
+      "agenda": "Agenda",
+      "day": "Jour",
+      "week": "Semaine",
+      "month": "Mois",
+      "year": "Année"
+    },
+    "actions": {
+      "selectCalendar": "Sélection calendriers",
+      "showAll": "Afficher tout",
+      "today": "Aujourd'hui",
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
+    "messages": {
+      "weeklyViewNotRecommended": "La vue hebdomadaire n'est pas recommandée sur les petits appareils. Veuillez passer sur un appareil de bureau ou utiliser la vue quotidienne à la place.",
+      "errorFormatting": "Erreur lors du formatage"
+    },
+    "dialog": {
+      "at": "à",
+      "description": "Description"
+    }
+  }
+}
