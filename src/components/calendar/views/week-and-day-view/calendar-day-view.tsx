@@ -1,7 +1,7 @@
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { DayPicker } from "@/components/ui/day-picker";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { format, isWithinInterval, parseISO } from "date-fns";
+import { format, isWithinInterval } from "date-fns";
 import { Calendar, Clock, User } from "lucide-react";
 import { useEffect, useRef } from "react";
 
@@ -60,8 +60,8 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
     return (
       events.filter((event) =>
         isWithinInterval(now, {
-          start: parseISO(event.startDate),
-          end: parseISO(event.endDate),
+          start: event.startDate,
+          end: event.endDate,
         }),
       ) || []
     );
@@ -70,7 +70,7 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
   const currentEvents = getCurrentEvents(singleDayEvents);
 
   const dayEvents = singleDayEvents.filter((event) => {
-    const eventDate = parseISO(event.startDate);
+    const eventDate = event.startDate;
     return (
       eventDate.getDate() === selectedDate.getDate() &&
       eventDate.getMonth() === selectedDate.getMonth() &&
@@ -209,12 +209,12 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
                         <Clock className="size-4 text-t-quinary" />
                         <span className="text-sm text-t-tertiary">
                           {format(
-                            parseISO(event.startDate),
+                            event.startDate,
                             use24HourFormat ? "HH:mm" : "hh:mm a",
                           )}{" "}
                           -
                           {format(
-                            parseISO(event.endDate),
+                            event.endDate,
                             use24HourFormat ? "HH:mm" : "hh:mm a",
                           )}
                         </span>

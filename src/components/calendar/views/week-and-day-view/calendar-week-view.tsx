@@ -1,7 +1,7 @@
 import {
-    fadeIn,
-    staggerContainer,
-    transition,
+  fadeIn,
+  staggerContainer,
+  transition,
 } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { getLocale, groupEvents } from "@/components/calendar/helpers";
@@ -10,7 +10,7 @@ import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-vi
 import { WeekViewMultiDayEventsRow } from "@/components/calendar/views/week-and-day-view/week-view-multi-day-events-row";
 import type { IEvent } from "@/components/data/interfaces";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { addDays, format, isSameDay, parseISO, startOfWeek } from "date-fns";
+import { addDays, format, isSameDay, startOfWeek } from "date-fns";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -21,7 +21,7 @@ interface IProps {
 }
 export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
   const { selectedDate, use24HourFormat } = useCalendar();
-  const { t } = useTranslation('', { useSuspense: false });
+  const { t } = useTranslation("", { useSuspense: false });
 
   const [isClient, setIsClient] = useState(false);
 
@@ -52,8 +52,8 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={transition}
       >
-        <p>{t('calendar.messages.weeklyViewNotRecommended')}</p>
-        <p>{t('calendar.messages.switchToDesktop')}</p>
+        <p>{t("calendar.messages.weeklyViewNotRecommended")}</p>
+        <p>{t("calendar.messages.switchToDesktop")}</p>
       </motion.div>
 
       <motion.div className="flex-col sm:flex" variants={staggerContainer}>
@@ -138,8 +138,8 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
                 {weekDays.map((day, dayIndex) => {
                   const dayEvents = singleDayEvents.filter(
                     (event) =>
-                      isSameDay(parseISO(event.startDate), day) ||
-                      isSameDay(parseISO(event.endDate), day),
+                      isSameDay(event.startDate, day) ||
+                      isSameDay(event.endDate, day),
                   );
                   const groupedEvents = groupEvents(dayEvents);
 

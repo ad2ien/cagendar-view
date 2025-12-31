@@ -5,7 +5,7 @@ import type { IEvent } from "@/components/data/interfaces";
 import { cn } from "@/lib/utils";
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
-import { differenceInMinutes, parseISO } from "date-fns";
+import { differenceInMinutes } from "date-fns";
 import type { HTMLAttributes } from "react";
 
 const calendarWeekEventCardVariants = cva(
@@ -55,8 +55,8 @@ interface IProps
 export function EventBlock({ event, className }: IProps) {
   const { badgeVariant, use24HourFormat } = useCalendar();
 
-  const start = parseISO(event.startDate);
-  const end = parseISO(event.endDate);
+  const start = event.startDate;
+  const end = event.endDate;
   const durationInMinutes = differenceInMinutes(end, start);
   const heightInPixels = (durationInMinutes / 60) * 96 - 8;
 

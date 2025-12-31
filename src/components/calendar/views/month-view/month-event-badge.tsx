@@ -6,7 +6,7 @@ import type { IEvent } from "@/components/data/interfaces";
 import { cn } from "@/lib/utils";
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
-import { endOfDay, isSameDay, parseISO, startOfDay } from "date-fns";
+import { endOfDay, isSameDay, startOfDay } from "date-fns";
 
 const eventBadgeVariants = cva(
   "mx-1 flex size-auto h-6.5 select-none items-center justify-between gap-1.5 truncate whitespace-nowrap rounded-md border px-2 text-xs",
@@ -70,8 +70,8 @@ export function MonthEventBadge({
 }: IProps) {
   const { badgeVariant, use24HourFormat } = useCalendar();
 
-  const itemStart = startOfDay(parseISO(event.startDate));
-  const itemEnd = endOfDay(parseISO(event.endDate));
+  const itemStart = startOfDay((event.startDate));
+  const itemEnd = endOfDay((event.endDate));
 
   if (cellDate < itemStart || cellDate > itemEnd) return null;
 

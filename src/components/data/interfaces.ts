@@ -9,8 +9,8 @@ export interface ICalendar {
 
 export interface IEvent {
 	id: number;
-	startDate: string;
-	endDate: string;
+	startDate: Date;
+	endDate: Date;
 	title: string;
 	color: TEventColor;
 	description: string;

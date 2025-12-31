@@ -48,8 +48,8 @@ function icsCalendarToEvent(
 
   return {
     id: generateId(),
-    startDate: event.start?.date.toISOString(),
-    endDate: endDate.toISOString() || "",
+    startDate: event.start?.date,
+    endDate: endDate || "",
     description: event.description || "",
     title: event.summary || "",
     color: calData.color,

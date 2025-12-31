@@ -170,15 +170,9 @@ export function CalendarProvider({
   };
 
   const updateEvent = (event: IEvent) => {
-    const updated = {
-      ...event,
-      startDate: new Date(event.startDate).toISOString(),
-      endDate: new Date(event.endDate).toISOString(),
-    };
-
-    setAllEvents((prev) => prev.map((e) => (e.id === event.id ? updated : e)));
+    setAllEvents((prev) => prev.map((e) => (e.id === event.id ? event : e)));
     setFilteredEvents((prev) =>
-      prev.map((e) => (e.id === event.id ? updated : e)),
+      prev.map((e) => (e.id === event.id ? event : e)),
     );
   };
 

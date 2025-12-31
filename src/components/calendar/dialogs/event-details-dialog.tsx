@@ -12,7 +12,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { formatDate, parseISO } from "date-fns";
+import { formatDate } from "date-fns";
 import { Calendar, Clock, Text, User } from "lucide-react";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
@@ -23,8 +23,8 @@ interface IProps {
 }
 
 export function EventDetailsDialog({ event, children }: IProps) {
-  const startDate = parseISO(event.startDate);
-  const endDate = parseISO(event.endDate);
+  const startDate = (event.startDate);
+  const endDate = (event.endDate);
   const { use24HourFormat } = useCalendar();
   const { t } = useTranslation('', { useSuspense: false });
 
@@ -56,7 +56,7 @@ export function EventDetailsDialog({ event, children }: IProps) {
                   <p className="text-sm text-muted-foreground">
                     {formatDate(startDate, "EEEE d MMMM", { locale: getLocale() })}
                     <span className="mx-1">at</span>
-                    {formatTime(parseISO(event.startDate), use24HourFormat)}
+                    {formatTime((event.startDate), use24HourFormat)}
                   </p>
                 </div>
               </div>
@@ -69,7 +69,7 @@ export function EventDetailsDialog({ event, children }: IProps) {
                   <p className="text-sm text-muted-foreground">
                     {formatDate(endDate, "EEEE d MMMM", { locale: getLocale() })}
                     <span className="mx-1">{t('calendar.dialog.at')}</span>
-                    {formatTime(parseISO(event.endDate), use24HourFormat)}
+                    {formatTime((event.endDate), use24HourFormat)}
                   </p>
                 </div>
               </div>

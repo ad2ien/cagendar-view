@@ -1,26 +1,26 @@
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { EventDetailsDialog } from "@/components/calendar/dialogs/event-details-dialog";
 import {
-  formatTime,
-  getBgColor,
-  getColorClass,
-  getEventsForMonth,
-  getFirstLetters,
-  getLocale,
-  toCapitalize,
+    formatTime,
+    getBgColor,
+    getColorClass,
+    getEventsForMonth,
+    getFirstLetters,
+    getLocale,
+    toCapitalize,
 } from "@/components/calendar/helpers";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import type { FC } from "react";
 
@@ -37,7 +37,7 @@ export const AgendaEvents: FC = () => {
 
   const agendaEvents = Object.groupBy(monthEvents, (event) => {
     return agendaModeGroupBy === "date"
-      ? format(parseISO(event.startDate), "yyyy-MM-dd", { locale: getLocale() })
+      ? format(event.startDate, "yyyy-MM-dd", { locale: getLocale() })
       : event.color;
   });
 
@@ -57,10 +57,10 @@ export const AgendaEvents: FC = () => {
             heading={
               agendaModeGroupBy === "date"
                 ? getLocale() === fr
-                  ? format(parseISO(date), "EEEE d MMMM yyyy", {
+                  ? format(date, "EEEE d MMMM yyyy", {
                       locale: getLocale(),
                     })
-                  : format(parseISO(date), "EEEE, MMMM d, yyyy", {
+                  : format(date, "EEEE, MMMM d, yyyy", {
                       locale: getLocale(),
                     })
                 : toCapitalize(groupedEvents![0].color)

@@ -16,9 +16,9 @@
 - [ ] ics duplicate?
 - [ ] webdav event in the past
 - [ ] yarn lint
+- [ ] missing description warning on event dialog
 - [ ] SP graphic chart
   - [ ] 2nd color accessibility
-- [ ] why parseISO everywhere?
 - [ ] clean wrap up release
 - [ ] improve readme
   - [ ] configuration

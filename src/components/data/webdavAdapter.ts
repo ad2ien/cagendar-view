@@ -1,15 +1,15 @@
+import { generateId } from "@/lib/utils";
+import { addDays } from "date-fns";
+import { unstable_cache } from "next/cache";
 import { CalDAVClient, Event } from "ts-caldav";
+import { durationInDays, isZeroTime } from "../calendar/helpers";
 import {
-  CalendarType,
-  ICalendar,
-  IWebDavCalendar,
+    CalendarType,
+    ICalendar,
+    IWebDavCalendar,
 } from "../config/dataSettings";
 import { CalendarAdapter, REVALIDATE_SECONDS } from "./calendarAdapter";
 import { IEvent, TCalData } from "./interfaces";
-import { durationInDays, isZeroTime } from "../calendar/helpers";
-import { addDays } from "date-fns";
-import { generateId } from "@/lib/utils";
-import { unstable_cache } from "next/cache";
 
 export function isWebDavCalendar(config: ICalendar): config is IWebDavCalendar {
   return (
@@ -73,8 +73,8 @@ function webdavCalendarToEvent(event: Event, calData: TCalData): IEvent {
 
   return {
     id: generateId(),
-    startDate: startDate.toISOString(),
-    endDate: endDate.toISOString() || "",
+    startDate: startDate,
+    endDate: endDate || "",
     description: event.description || "",
     title: event.summary || "",
     color: calData.color,
