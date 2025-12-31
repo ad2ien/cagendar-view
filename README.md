@@ -9,33 +9,22 @@
 ## TODO
 
 - [ ] manage all day events
-  - [x] workaround
-  - [x] properly manage whole day member in IEvent
-  - [x] don't show hour for month
   - [ ] manage wholeday for week and day view
-  - [ ] view dialog : don't show time
-- [x] properly link color and calendar
-- [x] IUser -> ICalendar
 - [ ] i18n
   - [ ] is suspense really working at client level?
   - [ ] is language detection really working?
 - [ ] ics duplicate?
-  - [ ] manage wholeDay for week and day view
-  - [x] view dialog : don't show time
 - [ ] webdav event in the past
+- [ ] yarn lint
 - [ ] SP graphic chart
   - [ ] 2nd color accessibility
 - [ ] why parseISO everywhere?
 - [ ] clean wrap up release
-  - [ ] rename request
-  - [ ] remove dnd confirmation
-- [ ] include description in adapters
 - [ ] improve readme
   - [ ] configuration
   - [ ] description
   - [ ] badges
   - [ ] licence
-- [x] cache calendar call
 - [ ] Add comments in data
 - [ ] Get configuration from SPO
 - [ ] deploy

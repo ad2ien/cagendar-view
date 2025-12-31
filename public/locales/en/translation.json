@@ -15,7 +15,8 @@
       "next": "Next"
     },
     "messages": {
-      "weeklyViewNotRecommended": "Weekly view is not recommended on smaller devices. Please switch to a desktop device or use the daily view instead.",
+      "weeklyViewNotRecommended": "Weekly view is not recommended on smaller devices.",
+      "switchToDesktop": "Please switch to a desktop device or use the daily view instead.",
       "errorFormatting": "Error while formatting"
     },
     "dialog": {

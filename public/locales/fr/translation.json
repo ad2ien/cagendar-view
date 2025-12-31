@@ -15,7 +15,8 @@
       "next": "Suivant"
     },
     "messages": {
-      "weeklyViewNotRecommended": "La vue hebdomadaire n'est pas recommandée sur les petits appareils. Veuillez passer sur un appareil de bureau ou utiliser la vue quotidienne à la place.",
+      "weeklyViewNotRecommended": "La vue hebdomadaire n'est pas recommandée sur les petits appareils.",
+      "switchToDesktop": "Veuillez passer sur un appareil de bureau ou utiliser la vue quotidienne à la place.",
       "errorFormatting": "Erreur lors du formatage"
     },
     "dialog": {

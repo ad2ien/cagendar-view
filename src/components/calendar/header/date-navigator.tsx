@@ -6,10 +6,9 @@ import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { navigateDate, rangeText, getLocale } from "@/components/calendar/helpers";
+import { getLocale, navigateDate, rangeText } from "@/components/calendar/helpers";
 
 import type { TCalendarView } from "@/components/calendar/types";
-import { fr } from "date-fns/locale";
 
 interface IProps {
   view: TCalendarView;
