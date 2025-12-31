@@ -20,19 +20,22 @@
   - [ ] is suspense really working at client level?
   - [ ] is language detection really working?
 - [ ] ics duplicate?
+  - [ ] manage wholeDay for week and day view
+  - [x] view dialog : don't show time
 - [ ] webdav event in the past
 - [ ] SP graphic chart
   - [ ] 2nd color accessibility
-- [ ] french translation
-  - [ ] i18n
 - [ ] why parseISO everywhere?
 - [ ] clean wrap up release
   - [ ] rename request
-  - [x] remove delete / editing
-  - [x] remove dead / commented code
-- [x] fix hydration issues
+  - [ ] remove dnd confirmation
 - [ ] include description in adapters
-- [ ] cache calendar call
+- [ ] improve readme
+  - [ ] configuration
+  - [ ] description
+  - [ ] badges
+  - [ ] licence
+- [x] cache calendar call
 - [ ] Add comments in data
 - [ ] Get configuration from SPO
 - [ ] deploy

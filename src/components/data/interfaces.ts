@@ -1,4 +1,5 @@
 import type { TEventColor } from "@/components/calendar/types";
+import { ICalendarSetting } from "../config/dataSettings";
 
 export interface ICalendar {
 	id: string;
@@ -22,3 +23,9 @@ export interface ICalendarCell {
 	currentMonth: boolean;
 	date: Date;
 }
+
+export type TCalData = {
+  config: ICalendarSetting;
+  calendar: ICalendar;
+  color: TEventColor;
+};

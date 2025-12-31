@@ -2,8 +2,7 @@
 
 import { useLocalStorage } from "@/components/calendar/hooks";
 import type { TCalendarView } from "@/components/calendar/types";
-import type { ICalendar, IEvent } from "@/components/data/interfaces";
-import { TCalData } from "@/components/data/requests";
+import type { ICalendar, IEvent, TCalData } from "@/components/data/interfaces";
 import type React from "react";
 import { createContext, useContext, useState } from "react";
 

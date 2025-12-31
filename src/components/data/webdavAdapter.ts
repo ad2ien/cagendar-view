@@ -1,14 +1,15 @@
-import { generateId } from "@/lib/utils";
-import { addDays } from "date-fns";
 import { CalDAVClient, Event } from "ts-caldav";
-import { durationInDays, isZeroTime } from "../calendar/helpers";
 import {
-    CalendarType,
-    ICalendar,
-    IWebDavCalendar,
+  CalendarType,
+  ICalendar,
+  IWebDavCalendar,
 } from "../config/dataSettings";
-import { IEvent } from "./interfaces";
-import { TCalData } from "./requests";
+import { CalendarAdapter, REVALIDATE_SECONDS } from "./calendarAdapter";
+import { IEvent, TCalData } from "./interfaces";
+import { durationInDays, isZeroTime } from "../calendar/helpers";
+import { addDays } from "date-fns";
+import { generateId } from "@/lib/utils";
+import { unstable_cache } from "next/cache";
 
 export function isWebDavCalendar(config: ICalendar): config is IWebDavCalendar {
   return (
@@ -19,31 +20,39 @@ export function isWebDavCalendar(config: ICalendar): config is IWebDavCalendar {
   );
 }
 
-export async function getWebdavEvents(calData: TCalData) {
-  if (!isWebDavCalendar(calData.config)) {
-    throw new Error("Should be web dav config : " + calData.config.name);
+export class WebDavAdapter extends CalendarAdapter {
+  public async fetchEvents(calData: TCalData): Promise<IEvent[]> {
+    if (!isWebDavCalendar(calData.config)) {
+      throw new Error("Should be webdav config : " + calData.config.name);
+    }
+    const wdConfig: IWebDavCalendar = calData.config;
+
+    const cachedFetchEvents = unstable_cache(
+      async (wdConfig: IWebDavCalendar): Promise<Event[]> => {
+        const client = await CalDAVClient.create({
+          baseUrl: wdConfig.url.toString(),
+          auth: {
+            type: "basic",
+            username: wdConfig.username,
+            password: wdConfig.password,
+          },
+        });
+
+        try {
+          return await client.getEvents(wdConfig.calendarPath, {
+            all: true,
+          });
+        } catch (error) {
+          console.error(error);
+          return [];
+        }
+      },
+      [`calendar-${calData.calendar.id}`],
+      { revalidate: REVALIDATE_SECONDS },
+    );
+    const events = await cachedFetchEvents(wdConfig);
+    return icsCalendarsToEvents(events, calData);
   }
-  const wdConfig: IWebDavCalendar = calData.config;
-  const client = await CalDAVClient.create({
-    baseUrl: wdConfig.url.toString(),
-    auth: {
-      type: "basic",
-      username: wdConfig.username,
-      password: wdConfig.password,
-    },
-  });
-  // check calendar if needed
-  // const calendars = await client.getCalendars();
-  // console.log(calendars);
-  try {
-    const events = await client.getEvents(wdConfig.calendarPath, { all: true });
-    // console.log(events);
-    const localEvents = icsCalendarsToEvents(events, calData);
-    return localEvents;
-  } catch (error) {
-    console.error(error);
-  }
-  return [];
 }
 
 function icsCalendarsToEvents(events: Event[], calData: TCalData): IEvent[] {
@@ -51,17 +60,20 @@ function icsCalendarsToEvents(events: Event[], calData: TCalData): IEvent[] {
 }
 
 function webdavCalendarToEvent(event: Event, calData: TCalData): IEvent {
-  let endDate = event.end;
-  if (event.wholeDay || (isZeroTime(event.end) && isZeroTime(event.start))) {
+  // not sure why we need the following but we do
+  let endDate: Date = new Date(event.end);
+  const startDate: Date = new Date(event.start);
+
+  if (event.wholeDay || (isZeroTime(endDate) && isZeroTime(startDate))) {
     // if 24h, set end time to the same day
-    const numberOfDays = durationInDays(event.start, event.end);
-    endDate = addDays(event.start,  numberOfDays - 1 );
+    const numberOfDays = durationInDays(startDate, endDate);
+    endDate = addDays(startDate, numberOfDays - 1);
     endDate.setHours(23, 59, 59);
   }
 
   return {
     id: generateId(),
-    startDate: event.start.toISOString(),
+    startDate: startDate.toISOString(),
     endDate: endDate.toISOString() || "",
     description: event.description || "",
     title: event.summary || "",

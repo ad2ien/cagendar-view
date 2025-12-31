@@ -1,27 +1,16 @@
 import { CalendarProvider } from "@/components/calendar/contexts/calendar-context";
-import {
-    getCalendars,
-    getCalendarsData,
-    getEvents,
-} from "@/components/data/requests";
 import { CalendarClientPart } from "./calendar-client-part";
 
-async function getCalendarData() {
-  return {
-    events: await getEvents(),
-    calendars: getCalendars(),
-    calendarsData: getCalendarsData(),
-  };
-}
+import { CalendarService } from "../data/calendarService";
 
 export async function Calendar() {
-  const { events, calendars, calendarsData } = await getCalendarData();
+  const calendarService = new CalendarService();
 
   return (
     <CalendarProvider
-      events={events}
-      calendars={calendars}
-      calendarsData={calendarsData}
+      events={await calendarService.getEvents()}
+      calendars={calendarService.getCalendars()}
+      calendarsData={calendarService.getCalendarsData()}
       view="month"
     >
       <CalendarClientPart />
