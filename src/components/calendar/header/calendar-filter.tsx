@@ -20,7 +20,7 @@ export default function CalendarFilter() {
     clearFilter,
     calendarsData,
   } = useCalendar();
-  const { t } = useTranslation();
+  const { t } = useTranslation('', { useSuspense: false });
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {

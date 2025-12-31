@@ -12,8 +12,8 @@ import type { IEvent } from "@/components/data/interfaces";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { addDays, format, isSameDay, parseISO, startOfWeek } from "date-fns";
 import { motion } from "framer-motion";
-import { t } from "i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   singleDayEvents: IEvent[];
@@ -21,6 +21,7 @@ interface IProps {
 }
 export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
   const { selectedDate, use24HourFormat } = useCalendar();
+  const { t } = useTranslation('', { useSuspense: false });
 
   const [isClient, setIsClient] = useState(false);
 

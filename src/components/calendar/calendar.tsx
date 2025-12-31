@@ -1,11 +1,10 @@
-import { CalendarBody } from "@/components/calendar/calendar-body";
 import { CalendarProvider } from "@/components/calendar/contexts/calendar-context";
-import { CalendarHeader } from "@/components/calendar/header/calendar-header";
 import {
     getCalendars,
     getCalendarsData,
     getEvents,
 } from "@/components/data/requests";
+import { CalendarClientPart } from "./calendar-client-part";
 
 async function getCalendarData() {
   return {
@@ -25,11 +24,7 @@ export async function Calendar() {
       calendarsData={calendarsData}
       view="month"
     >
-      <div className="w-full border rounded-xl">
-
-          <CalendarHeader />
-          <CalendarBody />
-      </div>
+      <CalendarClientPart />
     </CalendarProvider>
   );
 }

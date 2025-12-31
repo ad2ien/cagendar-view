@@ -49,7 +49,7 @@ const tabs = [
 function Views() {
   const { view, setView } = useCalendar();
   const [isClient, setIsClient] = useState(false);
-  const { t } = useTranslation();
+  const { t } = useTranslation('', { useSuspense: false });
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect

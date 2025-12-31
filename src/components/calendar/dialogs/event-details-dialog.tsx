@@ -13,9 +13,9 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDate, parseISO } from "date-fns";
-import { t } from "i18next";
 import { Calendar, Clock, Text, User } from "lucide-react";
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   event: IEvent;
@@ -26,6 +26,7 @@ export function EventDetailsDialog({ event, children }: IProps) {
   const startDate = parseISO(event.startDate);
   const endDate = parseISO(event.endDate);
   const { use24HourFormat } = useCalendar();
+  const { t } = useTranslation('', { useSuspense: false });
 
   return (
     <Dialog>

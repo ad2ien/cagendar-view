@@ -16,6 +16,9 @@
   - [ ] view dialog : don't show time
 - [x] properly link color and calendar
 - [x] IUser -> ICalendar
+- [ ] i18n
+  - [ ] is suspense really working at client level?
+  - [ ] is language detection really working?
 - [ ] ics duplicate?
 - [ ] webdav event in the past
 - [ ] SP graphic chart
