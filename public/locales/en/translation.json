@@ -5,7 +5,8 @@
       "day": "Day",
       "week": "Week",
       "month": "Month",
-      "year": "Year"
+      "year": "Year",
+      "dayNumberOfTotal" : "Day {{eventCurrentDay}} of {{eventTotalDays}} • "
     },
     "actions": {
       "selectCalendar": "Select Calendars",

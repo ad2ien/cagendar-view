@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 import { endOfDay, isSameDay, startOfDay } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 const eventBadgeVariants = cva(
   "mx-1 flex size-auto h-6.5 select-none items-center justify-between gap-1.5 truncate whitespace-nowrap rounded-md border px-2 text-xs",
@@ -69,9 +70,10 @@ export function MonthEventBadge({
   position: propPosition,
 }: IProps) {
   const { badgeVariant, use24HourFormat } = useCalendar();
+  const { t } = useTranslation("", { useSuspense: false, keyPrefix: "calendar.views" });
 
-  const itemStart = startOfDay((event.startDate));
-  const itemEnd = endOfDay((event.endDate));
+  const itemStart = startOfDay(event.startDate);
+  const itemEnd = endOfDay(event.endDate);
 
   if (cellDate < itemStart || cellDate > itemEnd) return null;
 
@@ -114,7 +116,10 @@ export function MonthEventBadge({
             <p className="flex-1 truncate font-semibold">
               {eventCurrentDay && (
                 <span className="text-xs">
-                  Day {eventCurrentDay} of {eventTotalDays} •{" "}
+                  {t("dayNumberOfTotal", {
+                    eventCurrentDay,
+                    eventTotalDays,
+                  })}
                 </span>
               )}
               {event.title}
