@@ -6,7 +6,9 @@
       "week": "Semaine",
       "month": "Mois",
       "year": "Année",
-      "dayNumberOfTotal": "Jour {{eventCurrentDay}} sur {{eventTotalDays}} • "
+      "dayNumberOfTotal": "Jour {{eventCurrentDay}} sur {{eventTotalDays}} • ",
+      "happeningNow": "En cours",
+      "noAppointments": "Aucun évènement en cours actuellement"
     },
     "actions": {
       "selectCalendar": "Sélection calendriers",

@@ -10,6 +10,7 @@ import { CalendarTimeline } from "@/components/calendar/views/week-and-day-view/
 import { DayViewMultiDayEventsRow } from "@/components/calendar/views/week-and-day-view/day-view-multi-day-events-row";
 import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-view/render-grouped-events";
 import type { IEvent } from "@/components/data/interfaces";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   singleDayEvents: IEvent[];
@@ -24,6 +25,10 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
     use24HourFormat,
   } = useCalendar();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation("", {
+    useSuspense: false,
+    keyPrefix: "calendar.views",
+  });
 
   const hours = Array.from({ length: 24 }, (_, i) => i);
 
@@ -101,7 +106,7 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
           </div>
         </div>
 
-        <ScrollArea className="h-[800px]" type="always" ref={scrollAreaRef}>
+        <ScrollArea className="h-200" type="always" ref={scrollAreaRef}>
           <div className="flex">
             {/* Hours column */}
             <div className="relative w-18">
@@ -160,23 +165,23 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
         <div className="flex-1 space-y-3">
           {currentEvents.length > 0 ? (
             <div className="flex items-start gap-2 px-4 pt-4">
-              <span className="relative mt-[5px] flex size-2.5">
+              <span className="relative mt-1.25 flex size-2.5">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex size-2.5 rounded-full bg-green-600"></span>
               </span>
 
               <p className="text-sm font-semibold text-t-secondary">
-                Happening now
+                {t("happeningNow")}
               </p>
             </div>
           ) : (
             <p className="p-4 text-center text-sm italic text-t-tertiary">
-              No appointments or consultations at the moment
+              {t("noAppointments")}
             </p>
           )}
 
           {currentEvents.length > 0 && (
-            <ScrollArea className="h-[422px] px-4" type="always">
+            <ScrollArea className="h-105.5 px-4" type="always">
               <div className="space-y-6 pb-4">
                 {currentEvents.map((event) => {
                   const calendar = calendars.find(
