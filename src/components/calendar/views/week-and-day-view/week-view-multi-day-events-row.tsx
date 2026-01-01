@@ -1,13 +1,13 @@
 import { MonthEventBadge } from "@/components/calendar/views/month-view/month-event-badge";
 import type { IEvent } from "@/components/data/interfaces";
 import {
-    addDays,
-    differenceInDays,
-    endOfWeek,
-    isAfter,
-    isBefore,
-    startOfDay,
-    startOfWeek
+  addDays,
+  differenceInDays,
+  endOfWeek,
+  isAfter,
+  isBefore,
+  startOfDay,
+  startOfWeek,
 } from "date-fns";
 import { useMemo } from "react";
 
@@ -20,9 +20,18 @@ export function WeekViewMultiDayEventsRow({
   selectedDate,
   multiDayEvents,
 }: IProps) {
-  const weekStart = startOfWeek(selectedDate);
-  const weekEnd = endOfWeek(selectedDate);
-  const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+  // Calculate week boundaries once and memoize them
+  const weekBoundaries = useMemo(() => {
+    const weekStart = startOfWeek(selectedDate);
+    const weekEnd = endOfWeek(selectedDate);
+    return { weekStart, weekEnd };
+  }, [selectedDate]);
+
+  const { weekStart, weekEnd } = weekBoundaries;
+
+  const weekDays = useMemo(() => {
+    return Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+  }, [weekStart]);
 
   const processedEvents = useMemo(() => {
     return multiDayEvents

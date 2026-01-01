@@ -7,7 +7,7 @@ import { CalendarMonthView } from "@/components/calendar/views/month-view/calend
 import { CalendarDayView } from "@/components/calendar/views/week-and-day-view/calendar-day-view";
 import { CalendarWeekView } from "@/components/calendar/views/week-and-day-view/calendar-week-view";
 import { CalendarYearView } from "@/components/calendar/views/year-view/calendar-year-view";
-import { isSameDay, parseISO } from "date-fns";
+import { isSameDay } from "date-fns";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
