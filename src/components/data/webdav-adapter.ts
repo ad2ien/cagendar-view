@@ -8,7 +8,7 @@ import {
     ICalendar,
     IWebDavCalendar,
 } from "../config/dataSettings";
-import { CalendarAdapter, REVALIDATE_SECONDS } from "./calendarAdapter";
+import { CalendarAdapter, REVALIDATE_SECONDS } from "./calendar-adapter";
 import { IEvent, TCalData } from "./interfaces";
 
 export function isWebDavCalendar(config: ICalendar): config is IWebDavCalendar {

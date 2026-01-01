@@ -2,7 +2,7 @@ import { generateId } from "@/lib/utils";
 import { addDays } from "date-fns";
 import { convertIcsCalendar, IcsEvent, type IcsCalendar } from "ts-ics";
 import { durationInDays, isZeroTime } from "../calendar/helpers";
-import { CalendarAdapter, REVALIDATE_SECONDS } from "./calendarAdapter";
+import { CalendarAdapter, REVALIDATE_SECONDS } from "./calendar-adapter";
 import { IEvent, TCalData } from "./interfaces";
 
 export class IcsAdapter extends CalendarAdapter {

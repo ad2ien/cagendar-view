@@ -1,7 +1,7 @@
 import { CalendarProvider } from "@/components/calendar/contexts/calendar-context";
 import { CalendarClientPart } from "./calendar-client-part";
 
-import { CalendarService } from "../data/calendarService";
+import { CalendarService } from "../data/calendar-service";
 
 export async function Calendar() {
   const calendarService = new CalendarService();

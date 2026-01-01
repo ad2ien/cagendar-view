@@ -6,10 +6,10 @@ import {
 } from "@/components/config/dataSettings";
 import { generateId } from "@/lib/utils";
 import { getNextColor } from "../calendar/types";
-import { IcsAdapter } from "./icsAdapter";
+import { IcsAdapter } from "./ics-adapter";
 import { ICalendar, IEvent, TCalData } from "./interfaces";
-import { WebDavAdapter } from "./webdavAdapter";
-import { CalendarAdapter } from "./calendarAdapter";
+import { WebDavAdapter } from "./webdav-adapter";
+import { CalendarAdapter } from "./calendar-adapter";
 
 export class CalendarService {
   private configData: ICalendarSettings;
@@ -53,7 +53,7 @@ export class CalendarService {
     return this.calendars;
   }
 
-  public async getEvents(forceRefresh: boolean = false): Promise<IEvent[]> {
+  public async getEvents(): Promise<IEvent[]> {
     const fetchPromises = this.calData.map(async (cal) => {
       try {
         let adapter: CalendarAdapter;
