@@ -5,6 +5,7 @@ import { CalendarHeader } from "@/components/calendar/header/calendar-header";
 import { default as i18n, initI18n } from "@/i18n";
 import { useEffect, useState } from "react";
 import { I18nextProvider } from "react-i18next";
+import { CalendarSkeleton } from "./skeletons/calendar-skeleton";
 
 export function CalendarClientPart() {
   const [isI18nLoaded, setIsI18nLoaded] = useState(false);
@@ -16,7 +17,7 @@ export function CalendarClientPart() {
   }, []);
 
   if (!isI18nLoaded) {
-    return <div>Loading translations...</div>;
+    return <CalendarSkeleton />;
   }
 
   return (

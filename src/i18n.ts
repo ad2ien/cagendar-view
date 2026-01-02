@@ -13,6 +13,7 @@ const initI18n = i18n
     fallbackLng: 'fr',
     debug: process.env.NODE_ENV === 'development',
     load: 'languageOnly',
+    supportedLngs: ['en', 'fr'],
     interpolation: {
       escapeValue: false, // React already escapes values
     },

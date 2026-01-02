@@ -1,15 +1,15 @@
 import {
-  CalendarType,
-  ICalendarSetting,
-  ICalendarSettings,
-  loadSettings,
+    CalendarType,
+    ICalendarSetting,
+    ICalendarSettings,
+    loadSettings,
 } from "@/components/config/dataSettings";
 import { generateId } from "@/lib/utils";
 import { getNextColor } from "../calendar/types";
+import { CalendarAdapter } from "./calendar-adapter";
 import { IcsAdapter } from "./ics-adapter";
 import { ICalendar, IEvent, TCalData } from "./interfaces";
 import { WebDavAdapter } from "./webdav-adapter";
-import { CalendarAdapter } from "./calendar-adapter";
 
 export class CalendarService {
   private configData: ICalendarSettings;
@@ -80,9 +80,5 @@ export class CalendarService {
 
     const allEvents = await Promise.all(fetchPromises);
     return allEvents.flat();
-  }
-
-  public async refreshEvents(): Promise<IEvent[]> {
-    return this.getEvents(true);
   }
 }

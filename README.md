@@ -1,4 +1,4 @@
-# Solidarité Paysans calendar component
+# Calendar component
 
 ## Uses case
 
@@ -15,13 +15,13 @@
 - [ ] i18n
   - [ ] is suspense really working at client level?
   - [ ] is language detection really working?
+- [ ] Data loading : progressively display calendars
 - [ ] settings : remove?
 - [ ] webdav event in the past
 - [ ] clean up ui folder
 - [ ] event dialog : display
-  - [ ] date if 1 day 
+  - [ ] date if 1 day
   - [ ] start and end without time if several whole days
-- [ ] yarn lint
 - [ ] missing description warning on event dialog
 - [ ] SP graphic chart
   - [ ] 2nd color accessibility
@@ -33,6 +33,7 @@
   - [ ] licence
 - [ ] Add comments in data
 - [ ] Get configuration from SPO
+- [ ] CI
 - [ ] deploy
 
 ## Getting Started
