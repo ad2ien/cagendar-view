@@ -6,6 +6,7 @@ import { default as i18n, initI18n } from "@/i18n";
 import { useEffect, useState } from "react";
 import { I18nextProvider } from "react-i18next";
 import { CalendarSkeleton } from "./skeletons/calendar-skeleton";
+import { ThemeProvider } from "next-themes";
 
 export function CalendarClientPart() {
   const [isI18nLoaded, setIsI18nLoaded] = useState(false);
@@ -21,11 +22,18 @@ export function CalendarClientPart() {
   }
 
   return (
-    <I18nextProvider i18n={i18n}>
-      <div className="w-full border rounded-xl">
-        <CalendarHeader />
-        <CalendarBody />
-      </div>
-    </I18nextProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <I18nextProvider i18n={i18n}>
+        <div className="w-full border rounded-xl">
+          <CalendarHeader />
+          <CalendarBody />
+        </div>
+      </I18nextProvider>
+    </ThemeProvider>
   );
 }
