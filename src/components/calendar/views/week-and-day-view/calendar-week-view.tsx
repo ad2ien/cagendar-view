@@ -76,22 +76,22 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
               {weekDays.map((day, index) => (
                 <motion.span
                   key={index}
-                  className="py-1 sm:py-2 text-center text-xs font-medium text-t-quaternary"
+                  className="py-1 sm:py-2 text-center text-sm font-medium text-t-quaternary"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05, ...transition }}
                 >
                   {/* Mobile: Show only day abbreviation and number */}
-                  <span className="block sm:hidden">
+                  <span className="block sm:hidden text-accent-foreground">
                     {format(day, "EEE", { locale: getLocale() }).charAt(0)}
-                    <span className="block font-semibold text-t-secondary text-xs">
+                    <span className="block font-semibold text-xs">
                       {format(day, "d", { locale: getLocale() })}
                     </span>
                   </span>
                   {/* Desktop: Show full format */}
-                  <span className="hidden sm:inline">
+                  <span className="hidden sm:inline text-accent-foreground">
                     {format(day, "EE", { locale: getLocale() })}{" "}
-                    <span className="ml-1 font-semibold text-t-secondary">
+                    <span className="ml-1 font-semibold">
                       {format(day, "d", { locale: getLocale() })}
                     </span>
                   </span>

@@ -1,7 +1,6 @@
 {
   "calendar": {
     "views": {
-      "agenda": "Agenda",
       "day": "Day",
       "week": "Week",
       "month": "Month",
@@ -23,6 +22,9 @@
       "errorFormatting": "Error while formatting"
     },
     "dialog": {
+      "agenda": "Agenda",
+      "start": "Start",
+      "end": "End",
       "at": "at",
       "description": "Description"
     }

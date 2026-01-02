@@ -45,7 +45,7 @@ export function EventListDialog({
     return (
         <Modal>
             <ModalTrigger asChild>{children || defaultTrigger}</ModalTrigger>
-            <ModalContent className="sm:max-w-[425px]">
+            <ModalContent className="sm:max-w-106.25">
                 <ModalHeader>
                     <ModalTitle className="my-2">
                         <div className="flex items-center gap-2">

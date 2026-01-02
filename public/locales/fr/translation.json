@@ -1,7 +1,6 @@
 {
   "calendar": {
     "views": {
-      "agenda": "Agenda",
       "day": "Jour",
       "week": "Semaine",
       "month": "Mois",
@@ -23,6 +22,9 @@
       "errorFormatting": "Erreur lors du formatage"
     },
     "dialog": {
+      "agenda": "Agenda",
+      "start": "Début",
+      "end": "Fin",
       "at": "à",
       "description": "Description"
     }

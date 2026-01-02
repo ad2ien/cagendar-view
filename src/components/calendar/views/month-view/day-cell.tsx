@@ -108,7 +108,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
     () => (
       <motion.div
         className={cn(
-          "flex h-full lg:min-h-[10rem] flex-col gap-1 border-l border-t",
+          "flex h-full lg:min-h-40 flex-col gap-1 border-l border-t",
           isSunday(date) && "border-l-0",
         )}
         initial={{ opacity: 0, y: 10 }}
@@ -117,7 +117,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
       >
         <motion.span
           className={cn(
-            "h-6 px-1 text-xs font-semibold lg:px-2",
+            "h-6 px-1 font-semibold lg:px-2 text-accent-foreground",
             !currentMonth && "opacity-20",
             isToday(date) &&
               "flex w-6 translate-x-1 items-center justify-center rounded-full bg-primary px-0 font-bold text-primary-foreground",
@@ -128,7 +128,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
 
         <motion.div
           className={cn(
-            "flex h-fit gap-1 px-2 mt-1 lg:h-[94px] lg:flex-col lg:gap-2 lg:px-0",
+            "flex h-fit gap-1 px-2 mt-1 lg:h-23.5 lg:flex-col lg:gap-2 lg:px-0",
             !currentMonth && "opacity-50",
           )}
         >

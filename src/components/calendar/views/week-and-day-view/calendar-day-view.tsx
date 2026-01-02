@@ -5,7 +5,7 @@ import { format, isWithinInterval } from "date-fns";
 import { Calendar, Clock, User } from "lucide-react";
 import { useEffect, useRef } from "react";
 
-import { groupEvents } from "@/components/calendar/helpers";
+import { getLocale, groupEvents } from "@/components/calendar/helpers";
 import { CalendarTimeline } from "@/components/calendar/views/week-and-day-view/calendar-time-line";
 import { DayViewMultiDayEventsRow } from "@/components/calendar/views/week-and-day-view/day-view-multi-day-events-row";
 import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-view/render-grouped-events";
@@ -95,10 +95,10 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
           />
 
           {/* Day header */}
-          <div className="relative z-20 flex border-b">
+          <div className="relative z-20 flex border-b text-accent-foreground">
             <div className="w-18"></div>
-            <span className="flex-1 border-l py-2 text-center text-xs font-medium text-t-quaternary">
-              {format(selectedDate, "EE")}{" "}
+            <span className="flex-1 border-l py-2 text-center text-sm font-medium text-t-quaternary">
+              {format(selectedDate, "EE",{ locale: getLocale() })}{" "}
               <span className="font-semibold text-t-secondary">
                 {format(selectedDate, "d")}
               </span>
