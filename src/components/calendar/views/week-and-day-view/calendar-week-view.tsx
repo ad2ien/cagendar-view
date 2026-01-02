@@ -21,7 +21,7 @@ interface IProps {
 }
 export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
   const { selectedDate, use24HourFormat } = useCalendar();
-  const { t } = useTranslation("", { useSuspense: false });
+  const { t } = useTranslation();
 
   const [isClient, setIsClient] = useState(false);
 

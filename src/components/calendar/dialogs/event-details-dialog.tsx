@@ -16,7 +16,7 @@ import { formatDate, isSameDay } from "date-fns";
 import { Calendar, Clock, Text, User } from "lucide-react";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { getLocale } from "../helpers-client";
+import { getLocale } from "../helpers";
 
 interface IProps {
   event: IEvent;
@@ -29,7 +29,6 @@ export function EventDetailsDialog({ event, children }: IProps) {
   const { use24HourFormat } = useCalendar();
   const { t } = useTranslation("", {
     keyPrefix: "calendar.dialog",
-    useSuspense: false,
   });
 
   return (
@@ -45,7 +44,9 @@ export function EventDetailsDialog({ event, children }: IProps) {
             <div className="flex items-start gap-2">
               <User className="mt-1 size-4 shrink-0 text-muted-foreground" />
               <div>
-                <p className="text-muted-foreground font-medium">{t("agenda")}</p>
+                <p className="text-muted-foreground font-medium">
+                  {t("agenda")}
+                </p>
                 <p className="text-sm ">{event.calendar.name}</p>
               </div>
             </div>
@@ -74,7 +75,9 @@ export function EventDetailsDialog({ event, children }: IProps) {
               <div className="flex items-start gap-2">
                 <Clock className="mt-1 size-4 shrink-0 text-muted-foreground" />
                 <div>
-                  <p className="text-muted-foreground font-medium">{t("end")}</p>
+                  <p className="text-muted-foreground font-medium">
+                    {t("end")}
+                  </p>
                   <p className="text-sm ">
                     {formatDate(endDate, "EEEE d MMMM", {
                       locale: getLocale(),

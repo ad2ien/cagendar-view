@@ -20,6 +20,10 @@ const initI18n = i18n
     backend: {
       loadPath: '/locales/{{lng}}/translation.json',
     },
+    detection: {
+        order: ['navigator', 'localStorage', 'cookie', 'htmlTag'],
+        caches: ['localStorage', 'cookie'],
+      },
   });
 
 export { initI18n };

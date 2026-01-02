@@ -26,7 +26,6 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
   } = useCalendar();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("", {
-    useSuspense: false,
     keyPrefix: "calendar.views",
   });
 
@@ -98,7 +97,7 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
           <div className="relative z-20 flex border-b text-accent-foreground">
             <div className="w-18"></div>
             <span className="flex-1 border-l py-2 text-center text-sm font-medium text-t-quaternary">
-              {format(selectedDate, "EE",{ locale: getLocale() })}{" "}
+              {format(selectedDate, "EE", { locale: getLocale() })}{" "}
               <span className="font-semibold text-t-secondary">
                 {format(selectedDate, "d")}
               </span>

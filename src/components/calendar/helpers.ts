@@ -41,10 +41,11 @@ export const START_ON_SUNDAY = 0;
 // Determine the locale for date formatting
 export const getLocale = (): Locale => {
   switch (i18n.language) {
-    case "fr":
-      return fr;
     case "en":
+    case "en-US":
       return enUS;
+    case "fr":
+    case "fr-FR":
     default:
       return fr;
   }
@@ -54,7 +55,7 @@ export function rangeText(view: TCalendarView, date: Date): string {
   let start: Date;
   let end: Date;
   const formatString =
-    i18n.language === "fr" ? FR_FORMAT_STRING : DEFAULT_FORMAT_STRING;
+    getLocale() === fr ? FR_FORMAT_STRING : DEFAULT_FORMAT_STRING;
 
   switch (view) {
     case "month":

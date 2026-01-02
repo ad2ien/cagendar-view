@@ -20,7 +20,9 @@ export default function CalendarFilter() {
     clearFilter,
     calendarsData,
   } = useCalendar();
-  const { t } = useTranslation('', { useSuspense: false });
+  const { t } = useTranslation("", {
+    keyPrefix: "calendar.actions",
+  });
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -48,7 +50,7 @@ export default function CalendarFilter() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Toggle variant="outline" className="cursor-pointer w-fit">
-          {t('calendar.actions.selectCalendar')}
+          {t("selectCalendar")}
           <Filter className="h-4 w-4" />
         </Toggle>
       </DropdownMenuTrigger>
@@ -87,7 +89,7 @@ export default function CalendarFilter() {
           }}
         >
           <RefreshCcw className="size-3.5" />
-          {t('calendar.actions.showAll')}
+          {t("showAll")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

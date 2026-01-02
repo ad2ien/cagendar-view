@@ -70,7 +70,7 @@ export function MonthEventBadge({
   position: propPosition,
 }: IProps) {
   const { badgeVariant, use24HourFormat } = useCalendar();
-  const { t } = useTranslation("", { useSuspense: false, keyPrefix: "calendar.views" });
+  const { t } = useTranslation("", { keyPrefix: "calendar.views" });
 
   const itemStart = startOfDay(event.startDate);
   const itemEnd = endOfDay(event.endDate);

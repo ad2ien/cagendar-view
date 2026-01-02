@@ -8,13 +8,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { cn } from "@/lib/utils";
 import { useCalendar } from "../contexts/calendar-context";
-import {
-  CalendarRange,
-  List,
-  Columns,
-  Grid3X3,
-  Grid2X2,
-} from "lucide-react";
+import { CalendarRange, List, Columns, Grid3X3, Grid2X2 } from "lucide-react";
 import { TCalendarView } from "../types";
 import { memo, useEffect, useState } from "react";
 
@@ -49,14 +43,14 @@ const tabs = [
 function Views() {
   const { view, setView } = useCalendar();
   const [isClient, setIsClient] = useState(false);
-  const { t } = useTranslation('', { useSuspense: false });
+  const { t } = useTranslation();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsClient(true);
   }, []);
 
-    if (!isClient) {
+  if (!isClient) {
     return null;
   }
 
@@ -76,7 +70,7 @@ function Views() {
               layout
               className={cn(
                 "flex h-8 items-center justify-center overflow-hidden rounded-md",
-                isActive ? "flex-1" : "flex-none"
+                isActive ? "flex-1" : "flex-none",
               )}
               onClick={() => setView(value as TCalendarView)}
               initial={false}

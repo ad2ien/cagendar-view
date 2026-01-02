@@ -1,6 +1,7 @@
 {
   "calendar": {
     "views": {
+      "agenda": "Agenda",
       "day": "Day",
       "week": "Week",
       "month": "Month",
