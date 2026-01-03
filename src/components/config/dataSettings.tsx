@@ -26,9 +26,7 @@ export function loadSettings(): ICalendarSettings {
   if (!settingsPath) {
     throw new Error("SETTINGS_FILE_PATH environment variable is not set");
   }
-  return JSON.parse(
-    fs.readFileSync(settingsPath, "utf-8"),
-  ) as ICalendarSettings;
+  return JSON.parse(fs.readFileSync(settingsPath, "utf-8")) as ICalendarSettings;
 }
 
 module.exports = loadSettings;

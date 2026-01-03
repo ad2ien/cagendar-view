@@ -36,8 +36,7 @@ const eventBadgeVariants = cva(
       },
       multiDayPosition: {
         first: "relative z-10 mr-0 rounded-r-none border-r-0 [&>span]:mr-2.5",
-        middle:
-          "relative z-10 mx-0 w-[calc(100%_+_1px)] rounded-none border-x-0",
+        middle: "relative z-10 mx-0 w-[calc(100%_+_1px)] rounded-none border-x-0",
         last: "ml-0 rounded-l-none border-l-0",
         none: "",
       },
@@ -45,14 +44,10 @@ const eventBadgeVariants = cva(
     defaultVariants: {
       color: "blue-dot",
     },
-  },
+  }
 );
 
-interface IProps
-  extends Omit<
-    VariantProps<typeof eventBadgeVariants>,
-    "color" | "multiDayPosition"
-  > {
+interface IProps extends Omit<VariantProps<typeof eventBadgeVariants>, "color" | "multiDayPosition"> {
   event: IEvent;
   cellDate: Date;
   eventCurrentDay?: number;
@@ -96,21 +91,17 @@ export function MonthEventBadge({
   const renderBadgeText = ["first", "none"].includes(position);
   const renderBadgeTime = ["last", "none"].includes(position);
 
-  const color = (
-    badgeVariant === "dot" ? `${event.color}-dot` : event.color
-  ) as VariantProps<typeof eventBadgeVariants>["color"];
+  const color = (badgeVariant === "dot" ? `${event.color}-dot` : event.color) as VariantProps<
+    typeof eventBadgeVariants
+  >["color"];
 
-  const eventBadgeClasses = cn(
-    eventBadgeVariants({ color, multiDayPosition: position, className }),
-  );
+  const eventBadgeClasses = cn(eventBadgeVariants({ color, multiDayPosition: position, className }));
 
   return (
     <EventDetailsDialog event={event}>
       <div role="button" tabIndex={0} className={eventBadgeClasses}>
         <div className="flex items-center gap-1.5 truncate">
-          {!["middle", "last"].includes(position) && badgeVariant === "dot" && (
-            <EventBullet color={event.color} />
-          )}
+          {!["middle", "last"].includes(position) && badgeVariant === "dot" && <EventBullet color={event.color} />}
 
           {renderBadgeText && (
             <p className="flex-1 truncate font-semibold">
@@ -129,11 +120,7 @@ export function MonthEventBadge({
 
         <div className="hidden sm:block">
           {renderBadgeTime && (
-            <span>
-              {event.wholeDay
-                ? ""
-                : formatTime(new Date(event.startDate), use24HourFormat)}
-            </span>
+            <span>{event.wholeDay ? "" : formatTime(new Date(event.startDate), use24HourFormat)}</span>
           )}
         </div>
       </div>

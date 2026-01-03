@@ -1,21 +1,13 @@
 import { MonthEventBadge } from "@/components/calendar/views/month-view/month-event-badge";
 import type { IEvent } from "@/components/data/interfaces";
-import {
-    differenceInDays,
-    endOfDay,
-    isWithinInterval,
-    startOfDay,
-} from "date-fns";
+import { differenceInDays, endOfDay, isWithinInterval, startOfDay } from "date-fns";
 
 interface IProps {
   selectedDate: Date;
   multiDayEvents: IEvent[];
 }
 
-export function DayViewMultiDayEventsRow({
-  selectedDate,
-  multiDayEvents,
-}: IProps) {
+export function DayViewMultiDayEventsRow({ selectedDate, multiDayEvents }: IProps) {
   const dayStart = startOfDay(selectedDate);
   const dayEnd = endOfDay(selectedDate);
 

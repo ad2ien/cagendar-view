@@ -34,38 +34,11 @@ export function CalendarBody() {
 
   return (
     <div className="w-full h-full overflow-scroll relative">
-      <motion.div
-        key={view}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={fadeIn}
-        transition={transition}
-      >
-        {view === "month" && (
-          <CalendarMonthView
-            singleDayEvents={singleDayEvents}
-            multiDayEvents={multiDayEvents}
-          />
-        )}
-        {view === "week" && (
-          <CalendarWeekView
-            singleDayEvents={singleDayEvents}
-            multiDayEvents={multiDayEvents}
-          />
-        )}
-        {view === "day" && (
-          <CalendarDayView
-            singleDayEvents={singleDayEvents}
-            multiDayEvents={multiDayEvents}
-          />
-        )}
-        {view === "year" && (
-          <CalendarYearView
-            singleDayEvents={singleDayEvents}
-            multiDayEvents={multiDayEvents}
-          />
-        )}
+      <motion.div key={view} initial="initial" animate="animate" exit="exit" variants={fadeIn} transition={transition}>
+        {view === "month" && <CalendarMonthView singleDayEvents={singleDayEvents} multiDayEvents={multiDayEvents} />}
+        {view === "week" && <CalendarWeekView singleDayEvents={singleDayEvents} multiDayEvents={multiDayEvents} />}
+        {view === "day" && <CalendarDayView singleDayEvents={singleDayEvents} multiDayEvents={multiDayEvents} />}
+        {view === "year" && <CalendarYearView singleDayEvents={singleDayEvents} multiDayEvents={multiDayEvents} />}
         {view === "agenda" && (
           <motion.div
             key="agenda"

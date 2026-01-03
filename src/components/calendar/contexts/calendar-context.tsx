@@ -59,32 +59,19 @@ export function CalendarProvider({
   view?: TCalendarView;
   badge?: "dot" | "colored";
 }) {
-  const [settings, setSettings] = useLocalStorage<CalendarSettings>(
-    "calendar-settings",
-    {
-      ...DEFAULT_SETTINGS,
-      badgeVariant: badge,
-      view: view,
-    },
-  );
+  const [settings, setSettings] = useLocalStorage<CalendarSettings>("calendar-settings", {
+    ...DEFAULT_SETTINGS,
+    badgeVariant: badge,
+    view: view,
+  });
 
-  const [badgeVariant, setBadgeVariantState] = useState<"dot" | "colored">(
-    settings.badgeVariant,
-  );
-  const [currentView, setCurrentViewState] = useState<TCalendarView>(
-    settings.view,
-  );
-  const [use24HourFormat, setUse24HourFormatState] = useState<boolean>(
-    settings.use24HourFormat,
-  );
-  const [agendaModeGroupBy, setAgendaModeGroupByState] = useState<
-    "date" | "color"
-  >(settings.agendaModeGroupBy);
+  const [badgeVariant, setBadgeVariantState] = useState<"dot" | "colored">(settings.badgeVariant);
+  const [currentView, setCurrentViewState] = useState<TCalendarView>(settings.view);
+  const [use24HourFormat, setUse24HourFormatState] = useState<boolean>(settings.use24HourFormat);
+  const [agendaModeGroupBy, setAgendaModeGroupByState] = useState<"date" | "color">(settings.agendaModeGroupBy);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedCalendars, setSelectedCalendars] = useState<
-    ICalendar[] | "all"
-  >("all");
+  const [selectedCalendars, setSelectedCalendars] = useState<ICalendar[] | "all">("all");
 
   const [allEvents, setAllEvents] = useState<IEvent[]>(events || []);
   const [filteredEvents, setFilteredEvents] = useState<IEvent[]>(events || []);
@@ -117,9 +104,7 @@ export function CalendarProvider({
     updateSettings({ agendaModeGroupBy: groupBy });
   };
 
-  const filterEventsBySelectedCalendars = (
-    calendarId: ICalendar["id"] | "all",
-  ) => {
+  const filterEventsBySelectedCalendars = (calendarId: ICalendar["id"] | "all") => {
     if (calendarId === "all") {
       setFilteredEvents(allEvents);
       setSelectedCalendars("all");
@@ -171,9 +156,7 @@ export function CalendarProvider({
 
   const updateEvent = (event: IEvent) => {
     setAllEvents((prev) => prev.map((e) => (e.id === event.id ? event : e)));
-    setFilteredEvents((prev) =>
-      prev.map((e) => (e.id === event.id ? event : e)),
-    );
+    setFilteredEvents((prev) => prev.map((e) => (e.id === event.id ? event : e)));
   };
 
   const removeEvent = (eventId: number) => {
@@ -209,16 +192,11 @@ export function CalendarProvider({
     clearFilter,
   };
 
-  return (
-    <CalendarContext.Provider value={value}>
-      {children}
-    </CalendarContext.Provider>
-  );
+  return <CalendarContext.Provider value={value}>{children}</CalendarContext.Provider>;
 }
 
 export function useCalendar(): ICalendarContext {
   const context = useContext(CalendarContext);
-  if (!context)
-    throw new Error("useCalendar must be used within a CalendarProvider.");
+  if (!context) throw new Error("useCalendar must be used within a CalendarProvider.");
   return context;
 }

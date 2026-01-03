@@ -19,14 +19,11 @@ const MotionButton = motion.create(Button);
 export function DateNavigator({ view }: IProps) {
   const { selectedDate, setSelectedDate } = useCalendar();
 
-
   const month = formatDate(selectedDate, "MMMM", { locale: getLocale() });
   const year = selectedDate.getFullYear();
 
-  const handlePrevious = () =>
-    setSelectedDate(navigateDate(selectedDate, view, "previous"));
-  const handleNext = () =>
-    setSelectedDate(navigateDate(selectedDate, view, "next"));
+  const handlePrevious = () => setSelectedDate(navigateDate(selectedDate, view, "previous"));
+  const handleNext = () => setSelectedDate(navigateDate(selectedDate, view, "next"));
 
   const [dateRangeText, setDateRangeText] = useState("");
   useEffect(() => {

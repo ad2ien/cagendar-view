@@ -14,10 +14,7 @@ export function useDisclosure({
   return { onOpen, onClose, isOpen, onToggle };
 }
 
-export const useLocalStorage = <T>(
-  key: string,
-  initialValue: T,
-): [T, (value: T) => void] => {
+export const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T) => void] => {
   const readValue = (): T => {
     if (typeof window === "undefined") {
       return initialValue;
@@ -36,8 +33,7 @@ export const useLocalStorage = <T>(
 
   const setValue = (value: T) => {
     try {
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
       setStoredValue(valueToStore);
       if (typeof window !== "undefined") {
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
@@ -60,7 +56,7 @@ export function useMediaQuery(query: string): boolean {
     media.addEventListener("change", listener);
 
     return () => media.removeEventListener("change", listener);
-  }, [ query]);
+  }, [query]);
 
   return matches;
 }

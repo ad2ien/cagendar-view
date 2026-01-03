@@ -8,18 +8,10 @@ interface RenderGroupedEventsProps {
   day: Date;
 }
 
-export function RenderGroupedEvents({
-  groupedEvents,
-  day,
-}: RenderGroupedEventsProps) {
+export function RenderGroupedEvents({ groupedEvents, day }: RenderGroupedEventsProps) {
   return groupedEvents.map((group, groupIndex) =>
     group.map((event) => {
-      let style = getEventBlockStyle(
-        event,
-        day,
-        groupIndex,
-        groupedEvents.length,
-      );
+      let style = getEventBlockStyle(event, day, groupIndex, groupedEvents.length);
       const hasOverlap = groupedEvents.some(
         (otherGroup, otherIndex) =>
           otherIndex !== groupIndex &&
@@ -32,9 +24,9 @@ export function RenderGroupedEvents({
               {
                 start: otherEvent.startDate,
                 end: otherEvent.endDate,
-              },
-            ),
-          ),
+              }
+            )
+          )
       );
 
       if (!hasOverlap) style = { ...style, width: "100%", left: "0%" };
@@ -44,6 +36,6 @@ export function RenderGroupedEvents({
           <EventBlock event={event} />
         </div>
       );
-    }),
+    })
   );
 }

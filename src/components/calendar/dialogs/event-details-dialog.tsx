@@ -4,13 +4,13 @@ import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { formatTime } from "@/components/calendar/helpers";
 import type { IEvent } from "@/components/data/interfaces";
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDate, isSameDay } from "date-fns";
@@ -46,9 +46,7 @@ export function EventDetailsDialog({ event, children }: IProps) {
             <div className="flex items-start gap-2">
               <User className="mt-1 size-4 shrink-0 text-muted-foreground" />
               <div>
-                <p className="text-muted-foreground font-medium">
-                  {t("agenda")}
-                </p>
+                <p className="text-muted-foreground font-medium">{t("agenda")}</p>
                 <p className="text-sm ">{event.calendar.name}</p>
               </div>
             </div>
@@ -56,9 +54,7 @@ export function EventDetailsDialog({ event, children }: IProps) {
             <div className="flex items-start gap-2">
               <Calendar className="mt-1 size-4 shrink-0 text-muted-foreground" />
               <div>
-                <p className="text-muted-foreground font-medium">
-                  {t("start")}
-                </p>
+                <p className="text-muted-foreground font-medium">{t("start")}</p>
                 <p className="text-sm">
                   {formatDate(startDate, "EEEE d MMMM", {
                     locale: getLocale(),
@@ -77,9 +73,7 @@ export function EventDetailsDialog({ event, children }: IProps) {
               <div className="flex items-start gap-2">
                 <Clock className="mt-1 size-4 shrink-0 text-muted-foreground" />
                 <div>
-                  <p className="text-muted-foreground font-medium">
-                    {t("end")}
-                  </p>
+                  <p className="text-muted-foreground font-medium">{t("end")}</p>
                   <p className="text-sm ">
                     {formatDate(endDate, "EEEE d MMMM", {
                       locale: getLocale(),

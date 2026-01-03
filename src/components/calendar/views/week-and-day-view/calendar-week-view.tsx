@@ -1,8 +1,4 @@
-import {
-  fadeIn,
-  staggerContainer,
-  transition,
-} from "@/components/calendar/animations";
+import { fadeIn, staggerContainer, transition } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { getLocale, groupEvents } from "@/components/calendar/helpers";
 import { CalendarTimeline } from "@/components/calendar/views/week-and-day-view/calendar-time-line";
@@ -39,13 +35,7 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
   const hours = Array.from({ length: 24 }, (_, i) => i);
 
   return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={fadeIn}
-      transition={transition}
-    >
+    <motion.div initial="initial" animate="animate" exit="exit" variants={fadeIn} transition={transition}>
       <motion.div
         className="flex flex-col items-center justify-center border-b p-4 text-sm sm:hidden"
         initial={{ opacity: 0, y: -20 }}
@@ -58,10 +48,7 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
 
       <motion.div className="flex-col sm:flex" variants={staggerContainer}>
         <div>
-          <WeekViewMultiDayEventsRow
-            selectedDate={selectedDate}
-            multiDayEvents={multiDayEvents}
-          />
+          <WeekViewMultiDayEventsRow selectedDate={selectedDate} multiDayEvents={multiDayEvents} />
 
           {/* Week header */}
           <motion.div
@@ -84,16 +71,12 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
                   {/* Mobile: Show only day abbreviation and number */}
                   <span className="block sm:hidden text-accent-foreground">
                     {format(day, "EEE", { locale: getLocale() }).charAt(0)}
-                    <span className="block font-semibold text-xs">
-                      {format(day, "d", { locale: getLocale() })}
-                    </span>
+                    <span className="block font-semibold text-xs">{format(day, "d", { locale: getLocale() })}</span>
                   </span>
                   {/* Desktop: Show full format */}
                   <span className="hidden sm:inline text-accent-foreground">
                     {format(day, "EE", { locale: getLocale() })}{" "}
-                    <span className="ml-1 font-semibold">
-                      {format(day, "d", { locale: getLocale() })}
-                    </span>
+                    <span className="ml-1 font-semibold">{format(day, "d", { locale: getLocale() })}</span>
                   </span>
                 </motion.span>
               ))}
@@ -117,11 +100,9 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
                   <div className="absolute -top-3 right-2 flex h-6 items-center">
                     {index !== 0 && (
                       <span className="text-xs text-t-quaternary">
-                        {format(
-                          new Date().setHours(hour, 0, 0, 0),
-                          use24HourFormat ? "HH:00" : "h a",
-                          { locale: getLocale() },
-                        )}
+                        {format(new Date().setHours(hour, 0, 0, 0), use24HourFormat ? "HH:00" : "h a", {
+                          locale: getLocale(),
+                        })}
                       </span>
                     )}
                   </div>
@@ -130,16 +111,11 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
             </motion.div>
 
             {/* Week grid */}
-            <motion.div
-              className="relative flex-1 border-l"
-              variants={staggerContainer}
-            >
+            <motion.div className="relative flex-1 border-l" variants={staggerContainer}>
               <div className="grid grid-cols-7 divide-x">
                 {weekDays.map((day, dayIndex) => {
                   const dayEvents = singleDayEvents.filter(
-                    (event) =>
-                      isSameDay(event.startDate, day) ||
-                      isSameDay(event.endDate, day),
+                    (event) => isSameDay(event.startDate, day) || isSameDay(event.endDate, day)
                   );
                   const groupedEvents = groupEvents(dayEvents);
 
@@ -160,18 +136,13 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.01, ...transition }}
                         >
-                          {index !== 0 && (
-                            <div className="pointer-events-none absolute inset-x-0 top-0 border-b"></div>
-                          )}
+                          {index !== 0 && <div className="pointer-events-none absolute inset-x-0 top-0 border-b"></div>}
 
                           <div className="pointer-events-none absolute inset-x-0 top-1/2 border-b border-dashed border-b-tertiary"></div>
                         </motion.div>
                       ))}
 
-                      <RenderGroupedEvents
-                        groupedEvents={groupedEvents}
-                        day={day}
-                      />
+                      <RenderGroupedEvents groupedEvents={groupedEvents} day={day} />
                     </motion.div>
                   );
                 })}

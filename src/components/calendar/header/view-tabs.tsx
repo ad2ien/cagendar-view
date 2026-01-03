@@ -55,11 +55,7 @@ function Views() {
   }
 
   return (
-    <Tabs
-      value={view}
-      onValueChange={(value) => setView(value as TCalendarView)}
-      className="gap-4 sm:w-auto w-full"
-    >
+    <Tabs value={view} onValueChange={(value) => setView(value as TCalendarView)} className="gap-4 sm:w-auto w-full">
       <TabsList className="h-auto gap-2 rounded-xl p-1 w-full">
         {tabs.map(({ icon: Icon, name, value }) => {
           const isActive = view === value;
@@ -70,7 +66,7 @@ function Views() {
               layout
               className={cn(
                 "flex h-8 items-center justify-center overflow-hidden rounded-md",
-                isActive ? "flex-1" : "flex-none",
+                isActive ? "flex-1" : "flex-none"
               )}
               onClick={() => setView(value as TCalendarView)}
               initial={false}

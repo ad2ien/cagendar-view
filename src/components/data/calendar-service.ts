@@ -1,9 +1,4 @@
-import {
-    CalendarType,
-    ICalendarSetting,
-    ICalendarSettings,
-    loadSettings,
-} from "@/components/config/dataSettings";
+import { CalendarType, ICalendarSetting, ICalendarSettings, loadSettings } from "@/components/config/dataSettings";
 import { generateId } from "@/lib/utils";
 import { getNextColor } from "../calendar/types";
 import { CalendarAdapter } from "./calendar-adapter";
@@ -38,10 +33,7 @@ export class CalendarService {
     };
   }
 
-  private buildCalData(
-    calSettings: ICalendarSettings,
-    calendars: ICalendar[],
-  ): TCalData[] {
+  private buildCalData(calSettings: ICalendarSettings, calendars: ICalendar[]): TCalData[] {
     return calSettings.map((setting, index) => ({
       config: setting,
       calendar: calendars[index],
@@ -70,10 +62,7 @@ export class CalendarService {
 
         return await adapter.fetchEvents(cal);
       } catch (error) {
-        console.error(
-          `Error fetching events for calendar ${cal.calendar.name}:`,
-          error,
-        );
+        console.error(`Error fetching events for calendar ${cal.calendar.name}:`, error);
         return [];
       }
     });

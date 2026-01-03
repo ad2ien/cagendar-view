@@ -1,14 +1,6 @@
 import { MonthEventBadge } from "@/components/calendar/views/month-view/month-event-badge";
 import type { IEvent } from "@/components/data/interfaces";
-import {
-  addDays,
-  differenceInDays,
-  endOfWeek,
-  isAfter,
-  isBefore,
-  startOfDay,
-  startOfWeek,
-} from "date-fns";
+import { addDays, differenceInDays, endOfWeek, isAfter, isBefore, startOfDay, startOfWeek } from "date-fns";
 import { useMemo } from "react";
 
 interface IProps {
@@ -16,10 +8,7 @@ interface IProps {
   multiDayEvents: IEvent[];
 }
 
-export function WeekViewMultiDayEventsRow({
-  selectedDate,
-  multiDayEvents,
-}: IProps) {
+export function WeekViewMultiDayEventsRow({ selectedDate, multiDayEvents }: IProps) {
   // Calculate week boundaries once and memoize them
   const weekBoundaries = useMemo(() => {
     const weekStart = startOfWeek(selectedDate);
@@ -63,9 +52,7 @@ export function WeekViewMultiDayEventsRow({
 
     processedEvents.forEach((event) => {
       let rowIndex = rows.findIndex((row) =>
-        row.every(
-          (e) => e.endIndex < event.startIndex || e.startIndex > event.endIndex,
-        ),
+        row.every((e) => e.endIndex < event.startIndex || e.startIndex > event.endIndex)
       );
 
       if (rowIndex === -1) {
@@ -104,27 +91,17 @@ export function WeekViewMultiDayEventsRow({
       <div className="w-18 border-b"></div>
       <div className="grid flex-1 grid-cols-7 divide-x border-b border-l">
         {weekDays.map((day, dayIndex) => (
-          <div
-            key={day.toISOString()}
-            className="flex h-full flex-col gap-1 py-1"
-          >
+          <div key={day.toISOString()} className="flex h-full flex-col gap-1 py-1">
             {eventRows.map((row, rowIndex) => {
-              const event = row.find(
-                (e) => e.startIndex <= dayIndex && e.endIndex >= dayIndex,
-              );
+              const event = row.find((e) => e.startIndex <= dayIndex && e.endIndex >= dayIndex);
 
               if (!event) {
-                return (
-                  <div key={`${rowIndex}-${dayIndex}`} className="h-6.5" />
-                );
+                return <div key={`${rowIndex}-${dayIndex}`} className="h-6.5" />;
               }
 
               let position: "first" | "middle" | "last" | "none" = "none";
 
-              if (
-                dayIndex === event.startIndex &&
-                dayIndex === event.endIndex
-              ) {
+              if (dayIndex === event.startIndex && dayIndex === event.endIndex) {
                 position = "none";
               } else if (dayIndex === event.startIndex) {
                 position = "first";

@@ -54,8 +54,7 @@ export const getLocale = (): Locale => {
 export function rangeText(view: TCalendarView, date: Date): string {
   let start: Date;
   let end: Date;
-  const formatString =
-    getLocale() === fr ? FR_FORMAT_STRING : DEFAULT_FORMAT_STRING;
+  const formatString = getLocale() === fr ? FR_FORMAT_STRING : DEFAULT_FORMAT_STRING;
 
   switch (view) {
     case "month":
@@ -83,11 +82,7 @@ export function rangeText(view: TCalendarView, date: Date): string {
   return `${format(start, formatString, { locale: getLocale() })} - ${format(end, formatString, { locale: getLocale() })}`;
 }
 
-export function navigateDate(
-  date: Date,
-  view: TCalendarView,
-  direction: "previous" | "next",
-): Date {
+export function navigateDate(date: Date, view: TCalendarView, direction: "previous" | "next"): Date {
   const operations: Record<TCalendarView, (d: Date, n: number) => Date> = {
     month: direction === "next" ? addMonths : subMonths,
     week: direction === "next" ? addWeeks : subWeeks,
@@ -99,11 +94,7 @@ export function navigateDate(
   return operations[view](date, 1);
 }
 
-export function getEventsCount(
-  events: IEvent[],
-  date: Date,
-  view: TCalendarView,
-): number {
+export function getEventsCount(events: IEvent[], date: Date, view: TCalendarView): number {
   const compareFns: Record<TCalendarView, (d1: Date, d2: Date) => boolean> = {
     day: isSameDay,
     week: isSameWeek,
@@ -113,14 +104,11 @@ export function getEventsCount(
   };
 
   const compareFn = compareFns[view];
-  return events.filter((event) => compareFn(event.startDate, date))
-    .length;
+  return events.filter((event) => compareFn(event.startDate, date)).length;
 }
 
 export function groupEvents(dayEvents: IEvent[]): IEvent[][] {
-  const sortedEvents = dayEvents.sort(
-    (a, b) => a.startDate.getTime() - b.startDate.getTime(),
-  );
+  const sortedEvents = dayEvents.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
   const groups: IEvent[][] = [];
 
   for (const event of sortedEvents) {
@@ -144,12 +132,7 @@ export function groupEvents(dayEvents: IEvent[]): IEvent[][] {
   return groups;
 }
 
-export function getEventBlockStyle(
-  event: IEvent,
-  day: Date,
-  groupIndex: number,
-  groupSize: number,
-) {
+export function getEventBlockStyle(event: IEvent, day: Date, groupIndex: number, groupSize: number) {
   const startDate = event.startDate;
   const dayStart = startOfDay(day); // Use startOfDay instead of manual reset
   const eventStart = startDate < dayStart ? dayStart : startDate;
@@ -184,14 +167,11 @@ export function getCalendarCells(selectedDate: Date): ICalendarCell[] {
     date: new Date(year, month, i + 1),
   }));
 
-  const nextMonthCells = Array.from(
-    { length: (7 - (totalDays % 7)) % 7 },
-    (_, i) => ({
-      day: i + 1,
-      currentMonth: false,
-      date: new Date(year, month + 1, i + 1),
-    }),
-  );
+  const nextMonthCells = Array.from({ length: (7 - (totalDays % 7)) % 7 }, (_, i) => ({
+    day: i + 1,
+    currentMonth: false,
+    date: new Date(year, month + 1, i + 1),
+  }));
 
   return [...prevMonthCells, ...currentMonthCells, ...nextMonthCells];
 }
@@ -199,7 +179,7 @@ export function getCalendarCells(selectedDate: Date): ICalendarCell[] {
 export function calculateMonthEventPositions(
   multiDayEvents: IEvent[],
   singleDayEvents: IEvent[],
-  selectedDate: Date,
+  selectedDate: Date
 ): Record<string, number> {
   const monthStart = startOfMonth(selectedDate);
   const monthEnd = endOfMonth(selectedDate);
@@ -213,23 +193,11 @@ export function calculateMonthEventPositions(
 
   const sortedEvents = [
     ...multiDayEvents.sort((a, b) => {
-      const aDuration = differenceInDays(
-        a.endDate,
-        a.startDate,
-      );
-      const bDuration = differenceInDays(
-        b.endDate,
-        b.startDate,
-      );
-      return (
-        bDuration - aDuration ||
-        a.startDate.getTime() - b.startDate.getTime()
-      );
+      const aDuration = differenceInDays(a.endDate, a.startDate);
+      const bDuration = differenceInDays(b.endDate, b.startDate);
+      return bDuration - aDuration || a.startDate.getTime() - b.startDate.getTime();
     }),
-    ...singleDayEvents.sort(
-      (a, b) =>
-        a.startDate.getTime() - b.startDate.getTime(),
-    ),
+    ...singleDayEvents.sort((a, b) => a.startDate.getTime() - b.startDate.getTime()),
   ];
 
   sortedEvents.forEach((event) => {
@@ -266,11 +234,7 @@ export function calculateMonthEventPositions(
   return eventPositions;
 }
 
-export function getMonthCellEvents(
-  date: Date,
-  events: IEvent[],
-  eventPositions: Record<string, number>,
-) {
+export function getMonthCellEvents(date: Date, events: IEvent[], eventPositions: Record<string, number>) {
   const dayStart = startOfDay(date);
   const eventsForDate = events.filter((event) => {
     const eventStart = event.startDate;
@@ -295,10 +259,7 @@ export function getMonthCellEvents(
     });
 }
 
-export function formatTime(
-  date: Date | string,
-  use24HourFormat: boolean,
-): string {
+export function formatTime(date: Date | string, use24HourFormat: boolean): string {
   const parsedDate = typeof date === "string" ? parseISO(date) : date;
   if (!isValid(parsedDate)) return "";
   return format(parsedDate, use24HourFormat ? "HH:mm" : "h:mm a");
@@ -311,11 +272,7 @@ export const getFirstLetters = (str: string): string => {
   return `${words[0].charAt(0).toUpperCase()}${words[1].charAt(0).toUpperCase()}`;
 };
 
-export const getEventsForDay = (
-  events: IEvent[],
-  date: Date,
-  isWeek = false,
-): IEvent[] => {
+export const getEventsForDay = (events: IEvent[], date: Date, isWeek = false): IEvent[] => {
   const targetDate = startOfDay(date);
   return events
     .filter((event) => {
@@ -328,10 +285,7 @@ export const getEventsForDay = (
           startOfDayForEventEnd >= targetDate
         );
       }
-      return (
-        startOfDayForEventStart <= targetDate &&
-        startOfDayForEventEnd >= targetDate
-      );
+      return startOfDayForEventStart <= targetDate && startOfDayForEventEnd >= targetDate;
     })
     .map((event) => {
       const eventStart = startOfDay(event.startDate);
@@ -363,12 +317,7 @@ export const getEventsForWeek = (events: IEvent[], date: Date): IEvent[] => {
   return events.filter((event) => {
     const eventStart = event.startDate;
     const eventEnd = event.endDate;
-    return (
-      isValid(eventStart) &&
-      isValid(eventEnd) &&
-      eventStart <= endOfWeekDate &&
-      eventEnd >= startOfWeekDate
-    );
+    return isValid(eventStart) && isValid(eventEnd) && eventStart <= endOfWeekDate && eventEnd >= startOfWeekDate;
   });
 };
 
@@ -379,12 +328,7 @@ export const getEventsForMonth = (events: IEvent[], date: Date): IEvent[] => {
   return events.filter((event) => {
     const eventStart = event.startDate;
     const eventEnd = event.endDate;
-    return (
-      isValid(eventStart) &&
-      isValid(eventEnd) &&
-      eventStart <= endOfMonthDate &&
-      eventEnd >= startOfMonthDate
-    );
+    return isValid(eventStart) && isValid(eventEnd) && eventStart <= endOfMonthDate && eventEnd >= startOfMonthDate;
   });
 };
 
@@ -397,12 +341,7 @@ export const getEventsForYear = (events: IEvent[], date: Date): IEvent[] => {
   return events.filter((event) => {
     const eventStart = event.startDate;
     const eventEnd = event.endDate;
-    return (
-      isValid(eventStart) &&
-      isValid(eventEnd) &&
-      eventStart <= endOfYearDate &&
-      eventEnd >= startOfYearDate
-    );
+    return isValid(eventStart) && isValid(eventEnd) && eventStart <= endOfYearDate && eventEnd >= startOfYearDate;
   });
 };
 
@@ -411,8 +350,7 @@ export const getColorClass = (color: string): string => {
     red: "border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300",
     yellow:
       "border-yellow-200 bg-yellow-50 text-yellow-700 dark:border-yellow-800 dark:bg-yellow-950 dark:text-yellow-300",
-    green:
-      "border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-950 dark:text-green-300",
+    green: "border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-950 dark:text-green-300",
     blue: "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300",
     orange:
       "border-orange-200 bg-orange-50 text-orange-700 dark:border-orange-800 dark:bg-orange-950 dark:text-orange-300",
@@ -461,9 +399,7 @@ const ZERO_TIME = "00:00:00";
 const ZERO_TIME_2 = "1:00:00 AM";
 export function isZeroTime(date: Date): boolean {
   return (
-    date == null ||
-    date.toTimeString().indexOf(ZERO_TIME) > -1 ||
-    date.toLocaleTimeString().indexOf(ZERO_TIME_2) > -1
+    date == null || date.toTimeString().indexOf(ZERO_TIME) > -1 || date.toLocaleTimeString().indexOf(ZERO_TIME_2) > -1
   );
 }
 
@@ -473,16 +409,16 @@ export const durationInDays = (start: Date, end: Date): number => {
     const diff = end.getTime() - start.getTime();
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
   } catch (error) {
-    console.error("error",start, end, error);
+    console.error("error", start, end, error);
     return 0;
   }
 };
 
 export const safeTruncate = (str: string | null | undefined, maxLength: number): string => {
-  if (!str) return '';
-  return str.length > maxLength ? str.slice(0, maxLength - 3) + '...' : str;
-}
+  if (!str) return "";
+  return str.length > maxLength ? str.slice(0, maxLength - 3) + "..." : str;
+};
 
 export const htmlToText = (html: string): string => {
-  return html.replace(/<[^>]*>/g, '');
-}
+  return html.replace(/<[^>]*>/g, "");
+};

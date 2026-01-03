@@ -22,12 +22,7 @@ export function CalendarClientPart() {
   }
 
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="light"
-      enableSystem
-      disableTransitionOnChange
-    >
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
       <I18nextProvider i18n={i18n}>
         <div className="w-full border rounded-xl">
           <CalendarHeader />

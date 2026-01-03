@@ -1,48 +1,33 @@
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { EventDetailsDialog } from "@/components/calendar/dialogs/event-details-dialog";
 import {
-    formatTime,
-    getBgColor,
-    getColorClass,
-    getEventsForMonth,
-    getFirstLetters,
-    getLocale,
-    toCapitalize,
+  formatTime,
+  getBgColor,
+  getColorClass,
+  getEventsForMonth,
+  getFirstLetters,
+  getLocale,
+  toCapitalize,
 } from "@/components/calendar/helpers";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-} from "@/components/ui/command";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import type { FC } from "react";
 
 export const AgendaEvents: FC = () => {
-  const {
-    events,
-    use24HourFormat,
-    badgeVariant,
-    agendaModeGroupBy,
-    selectedDate,
-  } = useCalendar();
+  const { events, use24HourFormat, badgeVariant, agendaModeGroupBy, selectedDate } = useCalendar();
 
   const monthEvents = getEventsForMonth(events, selectedDate);
 
   const agendaEvents = Object.groupBy(monthEvents, (event) => {
-    return agendaModeGroupBy === "date"
-      ? format(event.startDate, "yyyy-MM-dd", { locale: getLocale() })
-      : event.color;
+    return agendaModeGroupBy === "date" ? format(event.startDate, "yyyy-MM-dd", { locale: getLocale() }) : event.color;
   });
 
   const groupedAndSortedEvents = Object.entries(agendaEvents).sort(
-    (a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime(),
+    (a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime()
   );
 
   return (
@@ -73,10 +58,9 @@ export const AgendaEvents: FC = () => {
                   "mb-2 p-4 border rounded-md data-[selected=true]:bg-bg transition-all data-[selected=true]:text-none hover:cursor-pointer",
                   {
                     [getColorClass(event.color)]: badgeVariant === "colored",
-                    "hover:bg-zinc-200 dark:hover:bg-gray-900":
-                      badgeVariant === "dot",
+                    "hover:bg-zinc-200 dark:hover:bg-gray-900": badgeVariant === "dot",
                     "hover:opacity-60": badgeVariant === "colored",
-                  },
+                  }
                 )}
               >
                 <EventDetailsDialog event={event}>
@@ -109,13 +93,9 @@ export const AgendaEvents: FC = () => {
                     <div className="w-40 flex justify-center items-center gap-1">
                       {agendaModeGroupBy === "date" ? (
                         <>
-                          <p className="text-sm">
-                            {formatTime(event.startDate, use24HourFormat)}
-                          </p>
+                          <p className="text-sm">{formatTime(event.startDate, use24HourFormat)}</p>
                           <span className="text-muted-foreground">-</span>
-                          <p className="text-sm">
-                            {formatTime(event.endDate, use24HourFormat)}
-                          </p>
+                          <p className="text-sm">{formatTime(event.endDate, use24HourFormat)}</p>
                         </>
                       ) : (
                         <>
@@ -125,9 +105,7 @@ export const AgendaEvents: FC = () => {
                             })}
                           </p>
                           <span className="text-sm">at</span>
-                          <p className="text-sm">
-                            {formatTime(event.startDate, use24HourFormat)}
-                          </p>
+                          <p className="text-sm">{formatTime(event.startDate, use24HourFormat)}</p>
                         </>
                       )}
                     </div>

@@ -13,13 +13,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function CalendarFilter() {
-  const {
-    calendars,
-    selectedCalendars,
-    filterEventsBySelectedCalendars,
-    clearFilter,
-    calendarsData,
-  } = useCalendar();
+  const { calendars, selectedCalendars, filterEventsBySelectedCalendars, clearFilter, calendarsData } = useCalendar();
   const { t } = useTranslation("", {
     keyPrefix: "calendar.actions",
   });
@@ -40,10 +34,7 @@ export default function CalendarFilter() {
   };
 
   const getCalendarColor = (calendar: ICalendar) => {
-    return (
-      calendarsData.find((c) => c.calendar.id === calendar.id)?.color ||
-      "#000000"
-    );
+    return calendarsData.find((c) => c.calendar.id === calendar.id)?.color || "#000000";
   };
 
   return (
@@ -79,9 +70,7 @@ export default function CalendarFilter() {
         ))}
         <Separator className="my-2" />
         <DropdownMenuItem
-          disabled={
-            selectedCalendars.length === 0 || selectedCalendars === "all"
-          }
+          disabled={selectedCalendars.length === 0 || selectedCalendars === "all"}
           className="flex gap-2 cursor-pointer"
           onClick={(e) => {
             e.preventDefault();

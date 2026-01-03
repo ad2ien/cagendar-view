@@ -18,12 +18,7 @@ interface IProps {
 }
 
 export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
-  const {
-    selectedDate,
-    setSelectedDate,
-    calendars: calendars,
-    use24HourFormat,
-  } = useCalendar();
+  const { selectedDate, setSelectedDate, calendars: calendars, use24HourFormat } = useCalendar();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("", {
     keyPrefix: "calendar.views",
@@ -39,9 +34,7 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
       const rect = scrollArea.getBoundingClientRect();
       const scrollSpeed = 15;
 
-      const scrollContainer =
-        scrollArea.querySelector("[data-radix-scroll-area-viewport]") ||
-        scrollArea;
+      const scrollContainer = scrollArea.querySelector("[data-radix-scroll-area-viewport]") || scrollArea;
 
       if (e.clientY < rect.top + 60) {
         scrollContainer.scrollTop -= scrollSpeed;
@@ -66,7 +59,7 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
         isWithinInterval(now, {
           start: event.startDate,
           end: event.endDate,
-        }),
+        })
       ) || []
     );
   };
@@ -88,19 +81,14 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
     <div className="flex">
       <div className="flex flex-1 flex-col">
         <div>
-          <DayViewMultiDayEventsRow
-            selectedDate={selectedDate}
-            multiDayEvents={multiDayEvents}
-          />
+          <DayViewMultiDayEventsRow selectedDate={selectedDate} multiDayEvents={multiDayEvents} />
 
           {/* Day header */}
           <div className="relative z-20 flex border-b text-accent-foreground">
             <div className="w-18"></div>
             <span className="flex-1 border-l py-2 text-center text-sm font-medium text-t-quaternary">
               {format(selectedDate, "EE", { locale: getLocale() })}{" "}
-              <span className="font-semibold text-t-secondary">
-                {format(selectedDate, "d")}
-              </span>
+              <span className="font-semibold text-t-secondary">{format(selectedDate, "d")}</span>
             </span>
           </div>
         </div>
@@ -114,10 +102,7 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
                   <div className="absolute -top-3 right-2 flex h-6 items-center">
                     {index !== 0 && (
                       <span className="text-xs text-t-quaternary">
-                        {format(
-                          new Date().setHours(hour, 0, 0, 0),
-                          use24HourFormat ? "HH:00" : "h a",
-                        )}
+                        {format(new Date().setHours(hour, 0, 0, 0), use24HourFormat ? "HH:00" : "h a")}
                       </span>
                     )}
                   </div>
@@ -129,21 +114,12 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
             <div className="relative flex-1 border-l">
               <div className="relative">
                 {hours.map((hour, index) => (
-                  <div
-                    key={hour}
-                    className="relative"
-                    style={{ height: "96px" }}
-                  >
-                    {index !== 0 && (
-                      <div className="pointer-events-none absolute inset-x-0 top-0 border-b"></div>
-                    )}
+                  <div key={hour} className="relative" style={{ height: "96px" }}>
+                    {index !== 0 && <div className="pointer-events-none absolute inset-x-0 top-0 border-b"></div>}
                   </div>
                 ))}
 
-                <RenderGroupedEvents
-                  groupedEvents={groupedEvents}
-                  day={selectedDate}
-                />
+                <RenderGroupedEvents groupedEvents={groupedEvents} day={selectedDate} />
               </div>
 
               <CalendarTimeline />
@@ -169,36 +145,26 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
                 <span className="relative inline-flex size-2.5 rounded-full bg-green-600"></span>
               </span>
 
-              <p className="text-sm font-semibold text-t-secondary">
-                {t("happeningNow")}
-              </p>
+              <p className="text-sm font-semibold text-t-secondary">{t("happeningNow")}</p>
             </div>
           ) : (
-            <p className="p-4 text-center text-sm italic text-t-tertiary">
-              {t("noAppointments")}
-            </p>
+            <p className="p-4 text-center text-sm italic text-t-tertiary">{t("noAppointments")}</p>
           )}
 
           {currentEvents.length > 0 && (
             <ScrollArea className="h-105.5 px-4" type="always">
               <div className="space-y-6 pb-4">
                 {currentEvents.map((event) => {
-                  const calendar = calendars.find(
-                    (calendar) => calendar.id === event.calendar.id,
-                  );
+                  const calendar = calendars.find((calendar) => calendar.id === event.calendar.id);
 
                   return (
                     <div key={event.id} className="space-y-1.5">
-                      <p className="line-clamp-2 text-sm font-semibold">
-                        {event.title}
-                      </p>
+                      <p className="line-clamp-2 text-sm font-semibold">{event.title}</p>
 
                       {calendar && (
                         <div className="flex items-center gap-1.5">
                           <User className="size-4 text-t-quinary" />
-                          <span className="text-sm text-t-tertiary">
-                            {calendar.name}
-                          </span>
+                          <span className="text-sm text-t-tertiary">{calendar.name}</span>
                         </div>
                       )}
 
@@ -212,15 +178,8 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
                       <div className="flex items-center gap-1.5">
                         <Clock className="size-4 text-t-quinary" />
                         <span className="text-sm text-t-tertiary">
-                          {format(
-                            event.startDate,
-                            use24HourFormat ? "HH:mm" : "hh:mm a",
-                          )}{" "}
-                          -
-                          {format(
-                            event.endDate,
-                            use24HourFormat ? "HH:mm" : "hh:mm a",
-                          )}
+                          {format(event.startDate, use24HourFormat ? "HH:mm" : "hh:mm a")} -
+                          {format(event.endDate, use24HourFormat ? "HH:mm" : "hh:mm a")}
                         </span>
                       </div>
                     </div>

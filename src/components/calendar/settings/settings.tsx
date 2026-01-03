@@ -1,32 +1,24 @@
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
-import {
-    SettingsIcon
-} from "lucide-react";
+import { SettingsIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export function Settings() {
-  const {
-    badgeVariant,
-    setBadgeVariant,
-    use24HourFormat,
-    toggleTimeFormat,
-    agendaModeGroupBy,
-    setAgendaModeGroupBy,
-  } = useCalendar();
+  const { badgeVariant, setBadgeVariant, use24HourFormat, toggleTimeFormat, agendaModeGroupBy, setAgendaModeGroupBy } =
+    useCalendar();
   const { theme, setTheme } = useTheme();
 
   const isDarkMode = theme === "dark";
@@ -46,12 +38,7 @@ export function Settings() {
           <DropdownMenuItem>
             Use dark mode
             <DropdownMenuShortcut>
-              <Switch
-                checked={isDarkMode}
-                onCheckedChange={(checked) =>
-                  setTheme(checked ? "dark" : "light")
-                }
-              />
+              <Switch checked={isDarkMode} onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
 
@@ -60,19 +47,14 @@ export function Settings() {
             <DropdownMenuShortcut>
               <Switch
                 checked={isDotVariant}
-                onCheckedChange={(checked) =>
-                  setBadgeVariant(checked ? "dot" : "colored")
-                }
+                onCheckedChange={(checked) => setBadgeVariant(checked ? "dot" : "colored")}
               />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
             Use 24 hour format
             <DropdownMenuShortcut>
-              <Switch
-                checked={use24HourFormat}
-                onCheckedChange={toggleTimeFormat}
-              />
+              <Switch checked={use24HourFormat} onCheckedChange={toggleTimeFormat} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -81,9 +63,7 @@ export function Settings() {
           <DropdownMenuLabel>Agenda view group by</DropdownMenuLabel>
           <DropdownMenuRadioGroup
             value={agendaModeGroupBy}
-            onValueChange={(value) =>
-              setAgendaModeGroupBy(value as "date" | "color")
-            }
+            onValueChange={(value) => setAgendaModeGroupBy(value as "date" | "color")}
           >
             <DropdownMenuRadioItem value="date">Date</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="color">Color</DropdownMenuRadioItem>
