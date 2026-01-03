@@ -4,16 +4,17 @@ import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { formatTime } from "@/components/calendar/helpers";
 import type { IEvent } from "@/components/data/interfaces";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDate, isSameDay } from "date-fns";
-import { Calendar, Clock, Text, User } from "lucide-react";
+import { Calendar, Clock, User } from "lucide-react";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { getLocale } from "../helpers";
@@ -34,11 +35,12 @@ export function EventDetailsDialog({ event, children }: IProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
+
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{event.title}</DialogTitle>
         </DialogHeader>
-
+        <DialogDescription>{event.description}</DialogDescription>
         <ScrollArea className="max-h-[80vh]">
           <div className="space-y-4 p-4">
             <div className="flex items-start gap-2">
@@ -92,16 +94,6 @@ export function EventDetailsDialog({ event, children }: IProps) {
                 </div>
               </div>
             ) : null}
-
-            <div className="flex items-start gap-2">
-              <Text className="mt-1 size-4 shrink-0 text-muted-foreground" />
-              <div>
-                <p className="text-muted-foreground font-medium">
-                  {t("description")}
-                </p>
-                <p className="text-sm">{event.description}</p>
-              </div>
-            </div>
           </div>
         </ScrollArea>
         <DialogClose />

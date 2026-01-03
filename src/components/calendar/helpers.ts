@@ -477,3 +477,12 @@ export const durationInDays = (start: Date, end: Date): number => {
     return 0;
   }
 };
+
+export const safeTruncate = (str: string | null | undefined, maxLength: number): string => {
+  if (!str) return '';
+  return str.length > maxLength ? str.slice(0, maxLength - 3) + '...' : str;
+}
+
+export const htmlToText = (html: string): string => {
+  return html.replace(/<[^>]*>/g, '');
+}

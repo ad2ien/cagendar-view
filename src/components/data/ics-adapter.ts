@@ -1,8 +1,17 @@
 import { generateId } from "@/lib/utils";
 import { addDays } from "date-fns";
 import { convertIcsCalendar, IcsEvent, type IcsCalendar } from "ts-ics";
-import { durationInDays, isZeroTime } from "../calendar/helpers";
-import { CalendarAdapter, REVALIDATE_SECONDS } from "./calendar-adapter";
+import {
+  durationInDays,
+  htmlToText,
+  isZeroTime,
+  safeTruncate,
+} from "../calendar/helpers";
+import {
+  CalendarAdapter,
+  MAX_DESCRIPTION_LENGTH,
+  REVALIDATE_SECONDS,
+} from "./calendar-adapter";
 import { IEvent, TCalData } from "./interfaces";
 
 export class IcsAdapter extends CalendarAdapter {
@@ -50,7 +59,11 @@ function icsCalendarToEvent(
     id: generateId(),
     startDate: event.start?.date,
     endDate: endDate || "",
-    description: event.description || "",
+    description:
+      safeTruncate(
+        htmlToText(event.description || ""),
+        MAX_DESCRIPTION_LENGTH,
+      ) || "",
     title: event.summary || "",
     color: calData.color,
     calendar: {

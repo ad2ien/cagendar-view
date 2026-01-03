@@ -2,13 +2,22 @@ import { generateId } from "@/lib/utils";
 import { addDays } from "date-fns";
 import { unstable_cache } from "next/cache";
 import { CalDAVClient, Event } from "ts-caldav";
-import { durationInDays, isZeroTime } from "../calendar/helpers";
 import {
-    CalendarType,
-    ICalendar,
-    IWebDavCalendar,
+  durationInDays,
+  htmlToText,
+  isZeroTime,
+  safeTruncate,
+} from "../calendar/helpers";
+import {
+  CalendarType,
+  ICalendar,
+  IWebDavCalendar,
 } from "../config/dataSettings";
-import { CalendarAdapter, REVALIDATE_SECONDS } from "./calendar-adapter";
+import {
+  CalendarAdapter,
+  MAX_DESCRIPTION_LENGTH,
+  REVALIDATE_SECONDS,
+} from "./calendar-adapter";
 import { IEvent, TCalData } from "./interfaces";
 
 export function isWebDavCalendar(config: ICalendar): config is IWebDavCalendar {
@@ -75,7 +84,11 @@ function webdavCalendarToEvent(event: Event, calData: TCalData): IEvent {
     id: generateId(),
     startDate: startDate,
     endDate: endDate || "",
-    description: event.description || "",
+    description:
+      safeTruncate(
+        htmlToText(event.description || ""),
+        MAX_DESCRIPTION_LENGTH,
+      ) || "",
     title: event.summary || "",
     color: calData.color,
     calendar: {
