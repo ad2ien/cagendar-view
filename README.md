@@ -55,6 +55,13 @@ commands : `npm run` (or whatever your dependency manager is)
 - `dev` then open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 - `start`
 
+### Docker image
+
+```sh
+docker buildx build . -t cagendar-view
+docker run -p 3083:3083 cagndare-view:latest
+```
+
 ## TODO
 
 - [ ] manage all day events
