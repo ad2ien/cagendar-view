@@ -24,7 +24,8 @@ export type ICalendarSettings = ICalendarSetting[];
 export function loadSettings(): ICalendarSettings {
   const settingsPath = process.env.SETTINGS_FILE_PATH;
   if (!settingsPath) {
-    throw new Error("SETTINGS_FILE_PATH environment variable is not set");
+    console.warn("SETTINGS_FILE_PATH environment variable is not set. Using default settings.");
+    return []; // Return an empty array as default configuration
   }
   return JSON.parse(fs.readFileSync(settingsPath, "utf-8")) as ICalendarSettings;
 }

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "author": "ad2ien <contact@ad2ien.dev> (https://ad2ien.github.io)",
   "description": "A Next.js app to display several calendars in the same place.",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

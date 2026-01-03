@@ -9,6 +9,7 @@ RUN yarn
 
 COPY . .
 
+RUN yarn next telemetry disable
 RUN yarn build
 
 FROM node:25.2.1-trixie-slim AS runner
