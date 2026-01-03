@@ -1,10 +1,59 @@
-# Calendar component
+# Cagendar view
 
-## Uses case
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.dev)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-## dependencies
+A Next.js app to display several calendars in the same place.
 
-- <https://calendar.jeraidi.tech/docs/react/installation>
+Uses more or less [Solidarité paysans](https://solidaritepaysans.org/) graphic design. And is meant to be included to be included as an iframe.
+
+## Features
+
+- Started with <https://calendar.jeraidi.tech>
+- But it's readonly
+- Can be configured with Webdav and ICS agendas
+
+## Configuration
+
+### `.env` file
+
+```.env
+SETTINGS_FILE_PATH=config.json
+```
+
+### config.json
+
+```json
+[
+  {
+    "type": "ics",
+    "name": "an ICS exported agenda",
+    "url": "https://EXAMPLE.COM/remote.php/dav/public-calendars/XXX?export"
+  },
+  {
+    "type": "webdav",
+    "name": "a webdav agenda",
+    "url": "https://EXAMPLE.COM",
+    "calendarPath": "/remote.php/dav/calendars/USER/CALENDAR1/",
+    "username": "user",
+    "password": "xxx"
+  }
+...
+]
+```
+
+## Getting Started
+
+Add config file `dev.config.json` then classic Next app
+
+commands : `npm run` (or whatever your dependency manager is)
+
+- `lint`
+- `build`
+- `dev` then open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `start`
 
 ## TODO
 
@@ -13,40 +62,15 @@
   - [ ] loading future events or webdav new event not loaded
 - [ ] parametrize calendar invalidation period
 - [ ] Data loading : progressively display calendars
-- [ ] settings : remove?
+- [ ] settings
+  - [ ] clean
+  - [ ] translate
 - [ ] clean up ui folder
 - [ ] test mobile
 - [ ] "type a command or search"
 - [ ] manage max number of calendars
 - [ ] clean wrap up release
-- [ ] improve readme
-  - [ ] configuration
-  - [ ] description
-  - [ ] badges
-  - [ ] licence
-- [ ] Add comments in data
+- [ ] license
 - [ ] Get configuration from SPO
 - [ ] CI
 - [ ] deploy
-
-## Getting Started
-
-Add config file `dev.config.json`
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

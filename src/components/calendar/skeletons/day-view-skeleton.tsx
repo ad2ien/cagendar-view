@@ -12,7 +12,7 @@ export function DayViewSkeleton() {
 			</div>
 
 			<div className="flex flex-1 overflow-y-auto">
-				<div className="w-18 flex-shrink-0">
+				<div className="w-18 shrink-0">
 					{Array.from({ length: 12 }).map((_, i) => (
 						<div key={i} className="relative h-12 border-b pr-2 text-right">
 							<Skeleton className="absolute -top-3 right-2 h-4 w-10" />
