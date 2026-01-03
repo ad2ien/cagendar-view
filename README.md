@@ -74,10 +74,9 @@ docker run -p 3083:3083 cagndare-view:latest
   - [ ] translate
 - [ ] clean up ui folder
 - [ ] test mobile
-- [ ] "type a command or search"
 - [ ] manage max number of calendars
 - [ ] clean wrap up release
-- [ ] license
+- [ ] warning font
 - [ ] Get configuration from SPO
 - [ ] CI
 - [ ] deploy

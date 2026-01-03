@@ -8,7 +8,9 @@
       "year": "Année",
       "dayNumberOfTotal": "Jour {{eventCurrentDay}} sur {{eventTotalDays}} • ",
       "happeningNow": "En cours",
-      "noAppointments": "Aucun évènement en cours actuellement"
+      "noAppointments": "Aucun évènement en cours actuellement",
+      "typeToSearch": "Recherche...",
+      "noResults": "Aucun résultat."
     },
     "actions": {
       "selectCalendar": "Sélection calendriers",

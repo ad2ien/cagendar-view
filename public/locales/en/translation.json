@@ -8,7 +8,9 @@
       "year": "Year",
       "dayNumberOfTotal": "Day {{eventCurrentDay}} of {{eventTotalDays}} • ",
       "happeningNow": "Happening now",
-      "noAppointments": "Currently no events in progress"
+      "noAppointments": "Currently no events in progress",
+      "typeToSearch": "Type to search...",
+      "noResults": "No results found."
     },
     "actions": {
       "selectCalendar": "Select Calendars",

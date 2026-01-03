@@ -3,7 +3,7 @@ import { addDays } from "date-fns";
 import { unstable_cache } from "next/cache";
 import { CalDAVClient, Event } from "ts-caldav";
 import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "../calendar/helpers";
-import { CalendarType, ICalendar, IWebDavCalendar } from "../config/dataSettings";
+import { CalendarType, ICalendar, IWebDavCalendar } from "../config/data-settings";
 import { CalendarAdapter, MAX_DESCRIPTION_LENGTH, REVALIDATE_SECONDS } from "./calendar-adapter";
 import { IEvent, TCalData } from "./interfaces";
 

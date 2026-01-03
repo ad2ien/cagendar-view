@@ -16,14 +16,18 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 export const AgendaEvents: FC = () => {
+  const { t } = useTranslation("", { keyPrefix: "calendar.views" });
   const { events, use24HourFormat, badgeVariant, agendaModeGroupBy, selectedDate } = useCalendar();
 
   const monthEvents = getEventsForMonth(events, selectedDate);
 
   const agendaEvents = Object.groupBy(monthEvents, (event) => {
-    return agendaModeGroupBy === "date" ? format(event.startDate, "yyyy-MM-dd", { locale: getLocale() }) : event.color;
+    return agendaModeGroupBy === "date"
+      ? format(event.startDate, "yyyy-MM-dd", { locale: getLocale() })
+      : event.calendar.id;
   });
 
   const groupedAndSortedEvents = Object.entries(agendaEvents).sort(
@@ -33,7 +37,7 @@ export const AgendaEvents: FC = () => {
   return (
     <Command className="py-4 h-[80vh] bg-transparent">
       <div className="mb-4 mx-4">
-        <CommandInput placeholder="Type a command or search..." />
+        <CommandInput placeholder={t("typeToSearch")} />
       </div>
       <CommandList className="max-h-max px-3 border-t">
         {groupedAndSortedEvents.map(([date, groupedEvents]) => (
@@ -48,7 +52,7 @@ export const AgendaEvents: FC = () => {
                   : format(date, "EEEE, MMMM d, yyyy", {
                       locale: getLocale(),
                     })
-                : toCapitalize(groupedEvents![0].color)
+                : toCapitalize(groupedEvents![0].calendar.name)
             }
           >
             {groupedEvents!.map((event) => (
@@ -115,7 +119,7 @@ export const AgendaEvents: FC = () => {
             ))}
           </CommandGroup>
         ))}
-        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandEmpty>{t("noResults")}</CommandEmpty>
       </CommandList>
     </Command>
   );

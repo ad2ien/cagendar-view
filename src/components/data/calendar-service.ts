@@ -1,4 +1,4 @@
-import { CalendarType, ICalendarSetting, ICalendarSettings, loadSettings } from "@/components/config/dataSettings";
+import { CalendarType, ICalendarSetting, ICalendarSettings, loadSettings } from "@/components/config/data-settings";
 import { generateId } from "@/lib/utils";
 import { getNextColor } from "../calendar/types";
 import { CalendarAdapter } from "./calendar-adapter";

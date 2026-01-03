@@ -1,5 +1,5 @@
 import type { TEventColor } from "@/components/calendar/types";
-import { ICalendarSetting } from "../config/dataSettings";
+import { ICalendarSetting } from "../config/data-settings";
 
 export interface ICalendar {
   id: string;
