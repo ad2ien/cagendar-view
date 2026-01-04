@@ -2,7 +2,7 @@ import { generateId } from "@/lib/utils";
 import { addDays } from "date-fns";
 import { convertIcsCalendar, IcsEvent, type IcsCalendar } from "ts-ics";
 import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "../calendar/helpers";
-import { CalendarAdapter, MAX_DESCRIPTION_LENGTH, REVALIDATE_SECONDS } from "./calendar-adapter";
+import { CalendarAdapter, MAX_DESCRIPTION_LENGTH } from "./calendar-adapter";
 import { IEvent, TCalData } from "./interfaces";
 
 export class IcsAdapter extends CalendarAdapter {
@@ -10,7 +10,7 @@ export class IcsAdapter extends CalendarAdapter {
     try {
       const response = await fetch(calData.config.url, {
         next: {
-          revalidate: REVALIDATE_SECONDS,
+          revalidate: this.revalidateIntervalMinutes * 60,
           tags: [`calendar-${calData.calendar.id}`],
         },
       }).then((response) => response.text());

@@ -27,23 +27,28 @@ SETTINGS_FILE_PATH=config.json
 ### config.json
 
 ```json
-[
-  {
-    "type": "ics",
-    "name": "an ICS exported agenda",
-    "url": "https://EXAMPLE.COM/remote.php/dav/public-calendars/XXX?export"
-  },
-  {
-    "type": "webdav",
-    "name": "a webdav agenda",
-    "url": "https://EXAMPLE.COM",
-    "calendarPath": "/remote.php/dav/calendars/USER/CALENDAR1/",
-    "username": "user",
-    "password": "xxx"
-  }
-...
-]
+{
+  "revalidateIntervalMinutes": 30,
+  "calendars": [
+    {
+      "type": "ics",
+      "name": "an ICS exported agenda",
+      "url": "https://EXAMPLE.COM/remote.php/dav/public-calendars/XXX?export"
+    },
+    {
+      "type": "webdav",
+      "name": "a webdav agenda",
+      "url": "https://EXAMPLE.COM",
+      "calendarPath": "/remote.php/dav/calendars/USER/CALENDAR1/",
+      "username": "user",
+      "password": "xxx"
+    }
+  ...
+  ]
+}
 ```
+
+`revalidateIntervalMinutes` is the time between 2 calendars update
 
 ## Getting Started
 
@@ -68,11 +73,7 @@ docker run -p 3083:3083 cagndare-view:latest
 - [ ] manage all day events
   - [ ] manage whole day for week and day view
   - [ ] loading future events or webdav new event not loaded
-- [ ] parametrize calendar invalidation period
 - [ ] Data loading : progressively display calendars
-- [ ] clean up ui folder
-- [ ] test mobile
-- [ ] manage max number of calendars
 - [ ] clean wrap up release
 - [ ] warning font
 - [ ] Get configuration from SPO

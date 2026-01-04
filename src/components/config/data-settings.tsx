@@ -1,5 +1,9 @@
 import fs from "fs";
 
+export interface ICagendarConfig {
+  revalidateIntervalMinutes: number;
+  calendars: ICalendarSettings;
+}
 export enum CalendarType {
   ICS = "ics",
   WEBDAV = "webdav",
@@ -21,13 +25,14 @@ export interface IWebDavCalendar extends ICalendar {
 export type ICalendarSetting = ICalendar | IWebDavCalendar;
 export type ICalendarSettings = ICalendarSetting[];
 
-export function loadSettings(): ICalendarSettings {
+export function loadSettings(): ICagendarConfig {
   const settingsPath = process.env.SETTINGS_FILE_PATH;
   if (!settingsPath) {
     console.warn("SETTINGS_FILE_PATH environment variable is not set. Using default settings.");
-    return []; // Return an empty array as default configuration
+    // Return an empty array as default configuration to avoid exception a build time
+    return { revalidateIntervalMinutes: 15, calendars: [] };
   }
-  return JSON.parse(fs.readFileSync(settingsPath, "utf-8")) as ICalendarSettings;
+  return JSON.parse(fs.readFileSync(settingsPath, "utf-8")) as ICagendarConfig;
 }
 
 module.exports = loadSettings;

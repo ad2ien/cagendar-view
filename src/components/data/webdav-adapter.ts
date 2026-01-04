@@ -4,7 +4,7 @@ import { unstable_cache } from "next/cache";
 import { CalDAVClient, Event } from "ts-caldav";
 import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "../calendar/helpers";
 import { CalendarType, ICalendar, IWebDavCalendar } from "../config/data-settings";
-import { CalendarAdapter, MAX_DESCRIPTION_LENGTH, REVALIDATE_SECONDS } from "./calendar-adapter";
+import { CalendarAdapter, MAX_DESCRIPTION_LENGTH } from "./calendar-adapter";
 import { IEvent, TCalData } from "./interfaces";
 
 export function isWebDavCalendar(config: ICalendar): config is IWebDavCalendar {
@@ -41,7 +41,7 @@ export class WebDavAdapter extends CalendarAdapter {
         }
       },
       [`calendar-${calData.calendar.id}`],
-      { revalidate: REVALIDATE_SECONDS }
+      { revalidate: this.revalidateIntervalMinutes * 60 }
     );
     const events = await cachedFetchEvents(wdConfig);
     return icsCalendarsToEvents(events, calData);

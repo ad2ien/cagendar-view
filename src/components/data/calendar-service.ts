@@ -6,6 +6,8 @@ import { IcsAdapter } from "./ics-adapter";
 import { ICalendar, IEvent, TCalData } from "./interfaces";
 import { WebDavAdapter } from "./webdav-adapter";
 
+const MAX_CALENDARS = 9;
+
 export class CalendarService {
   private configData: ICalendarSettings;
   private calendars: ICalendar[];
@@ -14,11 +16,15 @@ export class CalendarService {
   private webDavAdapter: WebDavAdapter;
 
   constructor() {
-    this.configData = loadSettings();
+    const allConfig = loadSettings();
+    this.configData = allConfig.calendars;
+    if (this.configData.length > MAX_CALENDARS) {
+      throw new Error("Too many configured calendars, the maximum is " + MAX_CALENDARS);
+    }
     this.calendars = this.configData.map(this.configToCalendar);
     this.calData = this.buildCalData(this.configData, this.calendars);
-    this.icsAdapter = new IcsAdapter();
-    this.webDavAdapter = new WebDavAdapter();
+    this.icsAdapter = new IcsAdapter(allConfig.revalidateIntervalMinutes);
+    this.webDavAdapter = new WebDavAdapter(allConfig.revalidateIntervalMinutes);
   }
 
   public getCalendarsData(): TCalData[] {
