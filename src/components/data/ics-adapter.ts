@@ -3,15 +3,16 @@ import { addDays } from "date-fns";
 import { convertIcsCalendar, IcsEvent, type IcsCalendar } from "ts-ics";
 import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "../calendar/helpers";
 import { CalendarAdapter, MAX_DESCRIPTION_LENGTH } from "./calendar-adapter";
-import { IEvent, TCalData } from "./interfaces";
+import { IEvent } from "./interfaces";
+import { TCalendarSetupData } from "../config/data-settings";
 
 export class IcsAdapter extends CalendarAdapter {
-  public async fetchEvents(calData: TCalData): Promise<IEvent[]> {
+  public async fetchEvents(calData: TCalendarSetupData): Promise<IEvent[]> {
     try {
-      const response = await fetch(calData.config.url, {
+      const response = await fetch(calData.serverConfig.url, {
         next: {
           revalidate: this.revalidateIntervalMinutes * 60,
-          tags: [`calendar-${calData.calendar.id}`],
+          tags: [`calendar-${calData.clientConfig.id}`],
         },
       }).then((response) => response.text());
       const calendar: IcsCalendar = convertIcsCalendar(undefined, response);
@@ -23,11 +24,11 @@ export class IcsAdapter extends CalendarAdapter {
   }
 }
 
-function icsCalendarsToEvents(events: IcsEvent[], calData: TCalData): IEvent[] {
+function icsCalendarsToEvents(events: IcsEvent[], calData: TCalendarSetupData): IEvent[] {
   return events.map((e) => icsCalendarToEvent(e, calData)).filter((v) => v !== undefined);
 }
 
-function icsCalendarToEvent(event: IcsEvent, calData: TCalData): IEvent | undefined {
+function icsCalendarToEvent(event: IcsEvent, calData: TCalendarSetupData): IEvent | undefined {
   if (!event.end || !event.start) {
     return undefined;
   }
@@ -47,11 +48,12 @@ function icsCalendarToEvent(event: IcsEvent, calData: TCalData): IEvent | undefi
     endDate: endDate || "",
     description: safeTruncate(htmlToText(event.description || ""), MAX_DESCRIPTION_LENGTH) || "",
     title: event.summary || "",
-    color: calData.color,
+    color: calData.clientConfig.color,
     calendar: {
-      id: calData.calendar.id,
-      name: calData.calendar.name,
-      picturePath: "",
+      id: calData.clientConfig.id,
+      color: calData.clientConfig.color,
+      name: calData.clientConfig.name,
+      picturePath: calData.clientConfig.picturePath || "",
     },
     wholeDay: wholeDay,
   };

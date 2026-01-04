@@ -1,28 +1,38 @@
 import fs from "fs";
+import { ICalendar } from "../data/interfaces";
 
+/**
+ * The following interfaces are for server side only
+ */
 export interface ICagendarConfig {
   revalidateIntervalMinutes: number;
   calendars: ICalendarSettings;
 }
-export enum CalendarType {
+export enum CalendarSetupType {
   ICS = "ics",
   WEBDAV = "webdav",
 }
 
 // enough to define a ICS calendar
-export interface ICalendar {
-  type: CalendarType;
+export interface IIcsSetup {
+  type: CalendarSetupType;
   name: string;
   url: URL;
 }
 
-export interface IWebDavCalendar extends ICalendar {
+export interface IWebDavCalendarSetup extends IIcsSetup {
   calendarPath: string;
   username: string;
   password: string;
 }
 
-export type ICalendarSetting = ICalendar | IWebDavCalendar;
+// joins server and client settings
+export interface TCalendarSetupData {
+  clientConfig: ICalendar;
+  serverConfig: IIcsSetup;
+}
+
+export type ICalendarSetting = IIcsSetup | IWebDavCalendarSetup;
 export type ICalendarSettings = ICalendarSetting[];
 
 export function loadSettings(): ICagendarConfig {

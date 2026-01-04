@@ -3,25 +3,25 @@ import { addDays } from "date-fns";
 import { unstable_cache } from "next/cache";
 import { CalDAVClient, Event } from "ts-caldav";
 import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "../calendar/helpers";
-import { CalendarType, ICalendar, IWebDavCalendar } from "../config/data-settings";
+import { CalendarSetupType, IIcsSetup, IWebDavCalendarSetup, TCalendarSetupData } from "../config/data-settings";
 import { CalendarAdapter, MAX_DESCRIPTION_LENGTH } from "./calendar-adapter";
-import { IEvent, TCalData } from "./interfaces";
+import { IEvent } from "./interfaces";
 
-export function isWebDavCalendar(config: ICalendar): config is IWebDavCalendar {
+export function isWebDavCalendar(config: IIcsSetup): config is IWebDavCalendarSetup {
   return (
-    config.type === CalendarType.WEBDAV && "calendarPath" in config && "username" in config && "password" in config
+    config.type === CalendarSetupType.WEBDAV && "calendarPath" in config && "username" in config && "password" in config
   );
 }
 
 export class WebDavAdapter extends CalendarAdapter {
-  public async fetchEvents(calData: TCalData): Promise<IEvent[]> {
-    if (!isWebDavCalendar(calData.config)) {
-      throw new Error("Should be webdav config : " + calData.config.name);
+  public async fetchEvents(calData: TCalendarSetupData): Promise<IEvent[]> {
+    if (!isWebDavCalendar(calData.serverConfig)) {
+      throw new Error("Should be webdav config : " + calData.serverConfig.name);
     }
-    const wdConfig: IWebDavCalendar = calData.config;
+    const wdConfig: IWebDavCalendarSetup = calData.serverConfig;
 
     const cachedFetchEvents = unstable_cache(
-      async (wdConfig: IWebDavCalendar): Promise<Event[]> => {
+      async (wdConfig: IWebDavCalendarSetup): Promise<Event[]> => {
         const client = await CalDAVClient.create({
           baseUrl: wdConfig.url.toString(),
           auth: {
@@ -40,7 +40,7 @@ export class WebDavAdapter extends CalendarAdapter {
           return [];
         }
       },
-      [`calendar-${calData.calendar.id}`],
+      [`calendar-${calData.clientConfig.id}`],
       { revalidate: this.revalidateIntervalMinutes * 60 }
     );
     const events = await cachedFetchEvents(wdConfig);
@@ -48,11 +48,11 @@ export class WebDavAdapter extends CalendarAdapter {
   }
 }
 
-function icsCalendarsToEvents(events: Event[], calData: TCalData): IEvent[] {
+function icsCalendarsToEvents(events: Event[], calData: TCalendarSetupData): IEvent[] {
   return events.map((e) => webdavCalendarToEvent(e, calData));
 }
 
-function webdavCalendarToEvent(event: Event, calData: TCalData): IEvent {
+function webdavCalendarToEvent(event: Event, calData: TCalendarSetupData): IEvent {
   // not sure why we need the following but we do
   let endDate: Date = new Date(event.end);
   const startDate: Date = new Date(event.start);
@@ -70,11 +70,12 @@ function webdavCalendarToEvent(event: Event, calData: TCalData): IEvent {
     endDate: endDate || "",
     description: safeTruncate(htmlToText(event.description || ""), MAX_DESCRIPTION_LENGTH) || "",
     title: event.summary || "",
-    color: calData.color,
+    color: calData.clientConfig.color,
     calendar: {
-      id: calData.calendar.id,
-      name: calData.calendar.name,
-      picturePath: "",
+      id: calData.clientConfig.id,
+      name: calData.clientConfig.name,
+      color: calData.clientConfig.color,
+      picturePath: calData.clientConfig.picturePath || "",
     },
     wholeDay: event.wholeDay ? event.wholeDay! : false,
   };

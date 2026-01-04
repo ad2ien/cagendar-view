@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function CalendarFilter() {
-  const { calendars, selectedCalendars, filterEventsBySelectedCalendars, clearFilter, calendarsData } = useCalendar();
+  const { calendars, selectedCalendars, filterEventsBySelectedCalendars, clearFilter } = useCalendar();
   const { t } = useTranslation("", {
     keyPrefix: "calendar.actions",
   });
@@ -34,7 +34,7 @@ export default function CalendarFilter() {
   };
 
   const getCalendarColor = (calendar: ICalendar) => {
-    return calendarsData.find((c) => c.calendar.id === calendar.id)?.color || "#000000";
+    return calendars.find((c) => c.id === calendar.id)?.color || "#000000";
   };
 
   return (

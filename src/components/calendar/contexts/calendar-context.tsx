@@ -2,7 +2,8 @@
 
 import { useLocalStorage } from "@/components/calendar/hooks";
 import type { TCalendarView } from "@/components/calendar/types";
-import type { ICalendar, IEvent, TCalData } from "@/components/data/interfaces";
+import { TCalendarSetupData } from "@/components/config/data-settings";
+import type { ICalendar, IEvent } from "@/components/data/interfaces";
 import type React from "react";
 import { createContext, useContext, useState } from "react";
 
@@ -20,7 +21,6 @@ interface ICalendarContext {
   setBadgeVariant: (variant: "dot" | "colored") => void;
   filterEventsBySelectedCalendars: (calendarId: ICalendar["id"]) => void;
   calendars: ICalendar[];
-  calendarsData: TCalData[];
   events: IEvent[];
   addEvent: (event: IEvent) => void;
   updateEvent: (event: IEvent) => void;
@@ -54,7 +54,7 @@ export function CalendarProvider({
 }: {
   children: React.ReactNode;
   calendars: ICalendar[];
-  calendarsData: TCalData[];
+  calendarsData: TCalendarSetupData[];
   events: IEvent[];
   view?: TCalendarView;
   badge?: "dot" | "colored";

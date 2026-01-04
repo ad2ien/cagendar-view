@@ -1,21 +1,26 @@
 import type { TEventColor } from "@/components/calendar/types";
-import { ICalendarSetting } from "../config/data-settings";
 
-export interface ICalendar {
-  id: string;
-  name: string;
-  picturePath: string | null;
-}
+/**
+ * The following interfaces are used on client side
+ */
 
 export interface IEvent {
   id: number;
   startDate: Date;
   endDate: Date;
   title: string;
+  // TODO: completely move it to calendar
   color: TEventColor;
   description: string;
   calendar: ICalendar;
   wholeDay: boolean;
+}
+
+export interface ICalendar {
+  id: string;
+  name: string;
+  picturePath: string | null;
+  color: TEventColor;
 }
 
 export interface ICalendarCell {
@@ -23,9 +28,3 @@ export interface ICalendarCell {
   currentMonth: boolean;
   date: Date;
 }
-
-export type TCalData = {
-  config: ICalendarSetting;
-  calendar: ICalendar;
-  color: TEventColor;
-};

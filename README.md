@@ -8,13 +8,12 @@
 
 A Next.js app to display several calendars in the same place.
 
-Uses more or less [Solidarité paysans](https://solidaritepaysans.org/) graphic design. And is meant to be included to be included as an iframe.
-
 ## Features
 
 - Started with <https://calendar.jeraidi.tech>
 - But it's readonly
 - Can be configured with Webdav and ICS agendas
+- Uses more or less [Solidarité paysans](https://solidaritepaysans.org/) graphic design. And is meant to be included as an iframe.
 
 ## Configuration
 
@@ -72,10 +71,6 @@ docker run -p 3083:3083 cagndare-view:latest
 
 - [ ] manage all day events
   - [ ] manage whole day for week and day view
-  - [ ] loading future events or webdav new event not loaded
 - [ ] Data loading : progressively display calendars
-- [ ] clean wrap up release
 - [ ] warning font
-- [ ] Get configuration from SPO
 - [ ] Release CI
-- [ ] deploy

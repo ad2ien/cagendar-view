@@ -1,9 +1,15 @@
-import { CalendarType, ICalendarSetting, ICalendarSettings, loadSettings } from "@/components/config/data-settings";
+import {
+  CalendarSetupType,
+  ICalendarSetting,
+  ICalendarSettings,
+  loadSettings,
+  TCalendarSetupData,
+} from "@/components/config/data-settings";
 import { generateId } from "@/lib/utils";
 import { getNextColor } from "../calendar/types";
 import { CalendarAdapter } from "./calendar-adapter";
 import { IcsAdapter } from "./ics-adapter";
-import { ICalendar, IEvent, TCalData } from "./interfaces";
+import { ICalendar, IEvent } from "./interfaces";
 import { WebDavAdapter } from "./webdav-adapter";
 
 const MAX_CALENDARS = 9;
@@ -11,7 +17,7 @@ const MAX_CALENDARS = 9;
 export class CalendarService {
   private configData: ICalendarSettings;
   private calendars: ICalendar[];
-  private calData: TCalData[];
+  private calData: TCalendarSetupData[];
   private icsAdapter: IcsAdapter;
   private webDavAdapter: WebDavAdapter;
 
@@ -27,7 +33,7 @@ export class CalendarService {
     this.webDavAdapter = new WebDavAdapter(allConfig.revalidateIntervalMinutes);
   }
 
-  public getCalendarsData(): TCalData[] {
+  public getCalendarsData(): TCalendarSetupData[] {
     return this.calData;
   }
 
@@ -36,14 +42,14 @@ export class CalendarService {
       id: generateId().toString(),
       name: setting.name,
       picturePath: null,
+      color: getNextColor(),
     };
   }
 
-  private buildCalData(calSettings: ICalendarSettings, calendars: ICalendar[]): TCalData[] {
-    return calSettings.map((setting, index) => ({
-      config: setting,
-      calendar: calendars[index],
-      color: getNextColor(),
+  private buildCalData(configData: ICalendarSettings, calendars: ICalendar[]): TCalendarSetupData[] {
+    return configData.map((setting, index) => ({
+      clientConfig: calendars[index],
+      serverConfig: setting,
     }));
   }
 
@@ -55,20 +61,20 @@ export class CalendarService {
     const fetchPromises = this.calData.map(async (cal) => {
       try {
         let adapter: CalendarAdapter;
-        switch (cal.config.type) {
-          case CalendarType.ICS:
+        switch (cal.serverConfig.type) {
+          case CalendarSetupType.ICS:
             adapter = this.icsAdapter;
             break;
-          case CalendarType.WEBDAV:
+          case CalendarSetupType.WEBDAV:
             adapter = this.webDavAdapter;
             break;
           default:
-            throw new Error(`Unsupported calendar type: ${cal.config.type}`);
+            throw new Error(`Unsupported calendar type: ${cal.serverConfig.type}`);
         }
 
         return await adapter.fetchEvents(cal);
       } catch (error) {
-        console.error(`Error fetching events for calendar ${cal.calendar.name}:`, error);
+        console.error(`Error fetching events for calendar ${cal.serverConfig.name}:`, error);
         return [];
       }
     });
