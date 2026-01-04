@@ -2,7 +2,6 @@
 
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { formatTime } from "@/components/calendar/helpers";
-import type { IEvent } from "@/components/data/interfaces";
 import {
   Dialog,
   DialogClose,
@@ -18,6 +17,7 @@ import { Calendar, Clock, User } from "lucide-react";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { getLocale } from "../helpers";
+import { IEvent } from "../interfaces";
 
 interface IProps {
   event: IEvent;

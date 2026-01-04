@@ -1,5 +1,5 @@
 import fs from "fs";
-import { ICalendar } from "../data/interfaces";
+import { ICalendar } from "../calendar/interfaces";
 
 /**
  * The following interfaces are for server side only

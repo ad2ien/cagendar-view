@@ -1,12 +1,12 @@
-import { motion } from "framer-motion";
-import { useMemo } from "react";
 import { staggerContainer, transition } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
+import { motion } from "framer-motion";
+import { useMemo } from "react";
 
 import { calculateMonthEventPositions, getCalendarCells, START_ON_MONDAY } from "@/components/calendar/helpers";
 
-import type { IEvent } from "@/components/data/interfaces";
 import { DayCell } from "@/components/calendar/views/month-view/day-cell";
+import type { IEvent } from "../../interfaces";
 
 export const WEEK_DAYS =
   START_ON_MONDAY == 1

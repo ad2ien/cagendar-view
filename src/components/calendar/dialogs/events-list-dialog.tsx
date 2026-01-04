@@ -1,13 +1,13 @@
-import { format } from "date-fns";
-import type { ReactNode } from "react";
-import { Modal, ModalContent, ModalHeader, ModalTitle, ModalTrigger } from "@/components/ui/responsive-modal";
-import { cn } from "@/lib/utils";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
+import { EventDetailsDialog } from "@/components/calendar/dialogs/event-details-dialog";
 import { formatTime } from "@/components/calendar/helpers";
-import type { IEvent } from "@/components/data/interfaces";
 import { dayCellVariants } from "@/components/calendar/views/month-view/day-cell";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
-import { EventDetailsDialog } from "@/components/calendar/dialogs/event-details-dialog";
+import { Modal, ModalContent, ModalHeader, ModalTitle, ModalTrigger } from "@/components/ui/responsive-modal";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import type { ReactNode } from "react";
+import { IEvent } from "../interfaces";
 
 interface EventListDialogProps {
   date: Date;

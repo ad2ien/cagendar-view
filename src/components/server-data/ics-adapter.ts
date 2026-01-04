@@ -2,9 +2,9 @@ import { generateId } from "@/lib/utils";
 import { addDays } from "date-fns";
 import { convertIcsCalendar, IcsEvent, type IcsCalendar } from "ts-ics";
 import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "../calendar/helpers";
+import { IEvent } from "../calendar/interfaces";
 import { CalendarAdapter, MAX_DESCRIPTION_LENGTH } from "./calendar-adapter";
-import { IEvent } from "./interfaces";
-import { TCalendarSetupData } from "../config/data-settings";
+import { TCalendarSetupData } from "./data-settings";
 
 export class IcsAdapter extends CalendarAdapter {
   public async fetchEvents(calData: TCalendarSetupData): Promise<IEvent[]> {

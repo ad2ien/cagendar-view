@@ -1,3 +1,7 @@
+import { useCalendar } from "@/components/calendar/contexts/calendar-context";
+import type { ICalendarCell, IEvent } from "@/components/calendar/interfaces";
+import type { TCalendarView, TEventColor } from "@/components/calendar/types";
+import i18n from "@/i18n";
 import {
   addDays,
   addMonths,
@@ -26,10 +30,6 @@ import {
   subWeeks,
   subYears,
 } from "date-fns";
-import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import type { ICalendarCell, IEvent } from "@/components/data/interfaces";
-import type { TCalendarView, TEventColor } from "@/components/calendar/types";
-import i18n from "@/i18n";
 import { enUS, fr } from "date-fns/locale";
 
 const FR_FORMAT_STRING = "d MMM yyyy";

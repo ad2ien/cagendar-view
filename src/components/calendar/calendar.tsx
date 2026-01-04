@@ -1,7 +1,7 @@
 import { CalendarProvider } from "@/components/calendar/contexts/calendar-context";
 import { CalendarClientPart } from "./calendar-client-part";
 
-import { CalendarService } from "../data/calendar-service";
+import { CalendarService } from "../server-data/calendar-service";
 
 export async function Calendar() {
   const calendarService = new CalendarService();
@@ -10,7 +10,6 @@ export async function Calendar() {
     <CalendarProvider
       events={await calendarService.getEvents()}
       calendars={calendarService.getCalendars()}
-      calendarsData={calendarService.getCalendarsData()}
       view="month"
     >
       <CalendarClientPart />

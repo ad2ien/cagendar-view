@@ -3,9 +3,9 @@ import { addDays } from "date-fns";
 import { unstable_cache } from "next/cache";
 import { CalDAVClient, Event } from "ts-caldav";
 import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "../calendar/helpers";
-import { CalendarSetupType, IIcsSetup, IWebDavCalendarSetup, TCalendarSetupData } from "../config/data-settings";
+import { IEvent } from "../calendar/interfaces";
 import { CalendarAdapter, MAX_DESCRIPTION_LENGTH } from "./calendar-adapter";
-import { IEvent } from "./interfaces";
+import { CalendarSetupType, IIcsSetup, IWebDavCalendarSetup, TCalendarSetupData } from "./data-settings";
 
 export function isWebDavCalendar(config: IIcsSetup): config is IWebDavCalendarSetup {
   return (
@@ -44,15 +44,15 @@ export class WebDavAdapter extends CalendarAdapter {
       { revalidate: this.revalidateIntervalMinutes * 60 }
     );
     const events = await cachedFetchEvents(wdConfig);
-    return icsCalendarsToEvents(events, calData);
+    return webDavEvtToEvents(events, calData);
   }
 }
 
-function icsCalendarsToEvents(events: Event[], calData: TCalendarSetupData): IEvent[] {
-  return events.map((e) => webdavCalendarToEvent(e, calData));
+function webDavEvtToEvents(events: Event[], calData: TCalendarSetupData): IEvent[] {
+  return events.map((e) => webdavEvtToEvent(e, calData));
 }
 
-function webdavCalendarToEvent(event: Event, calData: TCalendarSetupData): IEvent {
+function webdavEvtToEvent(event: Event, calData: TCalendarSetupData): IEvent {
   // not sure why we need the following but we do
   let endDate: Date = new Date(event.end);
   const startDate: Date = new Date(event.start);

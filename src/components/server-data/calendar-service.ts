@@ -4,12 +4,12 @@ import {
   ICalendarSettings,
   loadSettings,
   TCalendarSetupData,
-} from "@/components/config/data-settings";
+} from "@/components/server-data/data-settings";
 import { generateId } from "@/lib/utils";
+import { ICalendar, IEvent } from "../calendar/interfaces";
 import { getNextColor } from "../calendar/types";
 import { CalendarAdapter } from "./calendar-adapter";
 import { IcsAdapter } from "./ics-adapter";
-import { ICalendar, IEvent } from "./interfaces";
 import { WebDavAdapter } from "./webdav-adapter";
 
 const MAX_CALENDARS = 9;

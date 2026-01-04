@@ -1,7 +1,7 @@
 import { MonthEventBadge } from "@/components/calendar/views/month-view/month-event-badge";
-import type { IEvent } from "@/components/data/interfaces";
 import { addDays, differenceInDays, endOfWeek, isAfter, isBefore, startOfDay, startOfWeek } from "date-fns";
 import { useMemo } from "react";
+import type { IEvent } from "../../interfaces";
 
 interface IProps {
   selectedDate: Date;
