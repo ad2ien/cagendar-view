@@ -30,6 +30,18 @@
       "end": "End",
       "at": "at",
       "description": "Description"
+    },
+    "settings": {
+      "label": "Settings",
+      "badgeVariant": "Badge Variant",
+      "use24HourFormat": "Use 24-hour format",
+      "agendaModeGroupBy": "Agenda Mode Group By",
+      "darkMode": "Use dark mode",
+      "useDotBadge": "Use dot badge",
+      "dot": "Dot",
+      "colored": "Colored",
+      "date": "Date",
+      "color": "Color"
     }
   }
 }

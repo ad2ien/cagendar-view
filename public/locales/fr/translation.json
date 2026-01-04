@@ -30,6 +30,18 @@
       "end": "Fin",
       "at": "à",
       "description": "Description"
+    },
+    "settings": {
+      "label": "Paramètres",
+      "badgeVariant": "Badge",
+      "use24HourFormat": "Utiliser le format 24h",
+      "agendaModeGroupBy": "Groupe de la vue agenda",
+      "darkMode": "Thème sombre",
+      "useDotBadge": "Badges petits points",
+      "dot": "Petit point",
+      "colored": "Coloré",
+      "date": "Date",
+      "color": "Couleur"
     }
   }
 }

@@ -15,10 +15,12 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { SettingsIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
 
 export function Settings() {
   const { badgeVariant, setBadgeVariant, use24HourFormat, toggleTimeFormat, agendaModeGroupBy, setAgendaModeGroupBy } =
     useCalendar();
+  const { t } = useTranslation("", { keyPrefix: "calendar.settings" });
   const { theme, setTheme } = useTheme();
 
   const isDarkMode = theme === "dark";
@@ -32,18 +34,18 @@ export function Settings() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Calendar settings</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("label")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            Use dark mode
+            {t("darkMode")}
             <DropdownMenuShortcut>
               <Switch checked={isDarkMode} onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
 
           <DropdownMenuItem>
-            Use dot badge
+            {t("useDotBadge")}
             <DropdownMenuShortcut>
               <Switch
                 checked={isDotVariant}
@@ -52,7 +54,7 @@ export function Settings() {
             </DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            Use 24 hour format
+            {t("use24HourFormat")}
             <DropdownMenuShortcut>
               <Switch checked={use24HourFormat} onCheckedChange={toggleTimeFormat} />
             </DropdownMenuShortcut>
@@ -60,13 +62,13 @@ export function Settings() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuLabel>Agenda view group by</DropdownMenuLabel>
+          <DropdownMenuLabel> {t("agendaModeGroupBy")}</DropdownMenuLabel>
           <DropdownMenuRadioGroup
             value={agendaModeGroupBy}
             onValueChange={(value) => setAgendaModeGroupBy(value as "date" | "color")}
           >
-            <DropdownMenuRadioItem value="date">Date</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="color">Color</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="date">{t("date")}</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="color">{t("color")}</DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuGroup>
       </DropdownMenuContent>

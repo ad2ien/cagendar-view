@@ -1,5 +1,6 @@
 # Cagendar view
 
+[!Lint workflow status](https://img.shields.io/github/actions/workflow/status/ad2ien/cagendar-view/lint.yml?label=lint&logo=github)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.dev)
@@ -69,14 +70,11 @@ docker run -p 3083:3083 cagndare-view:latest
   - [ ] loading future events or webdav new event not loaded
 - [ ] parametrize calendar invalidation period
 - [ ] Data loading : progressively display calendars
-- [ ] settings
-  - [ ] clean
-  - [ ] translate
 - [ ] clean up ui folder
 - [ ] test mobile
 - [ ] manage max number of calendars
 - [ ] clean wrap up release
 - [ ] warning font
 - [ ] Get configuration from SPO
-- [ ] CI
+- [ ] Release CI
 - [ ] deploy
