@@ -1,6 +1,6 @@
 # Cagendar view
 
-[!Lint workflow status](https://img.shields.io/github/actions/workflow/status/ad2ien/cagendar-view/lint.yml?label=lint&logo=github)
+![Lint workflow status](https://img.shields.io/github/actions/workflow/status/ad2ien/cagendar-view/lint.yml?label=lint&logo=github)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.dev)
