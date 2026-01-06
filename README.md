@@ -69,8 +69,6 @@ docker run -p 3083:3083 cagndare-view:latest
 
 ## TODO
 
-- [ ] manage all day events
-  - [ ] manage whole day for week and day view
 - [ ] Data loading : progressively display calendars
 - [ ] warning font
 - [ ] Release CI

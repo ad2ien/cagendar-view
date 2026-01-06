@@ -1,7 +1,7 @@
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { DayPicker } from "@/components/ui/day-picker";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { format, isWithinInterval } from "date-fns";
+import { format, isWithinInterval, startOfDay } from "date-fns";
 import { Calendar, Clock, User } from "lucide-react";
 import { useEffect, useRef } from "react";
 
@@ -11,6 +11,7 @@ import { DayViewMultiDayEventsRow } from "@/components/calendar/views/week-and-d
 import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-view/render-grouped-events";
 import { useTranslation } from "react-i18next";
 import type { IEvent } from "../../interfaces";
+import { MonthEventBadge } from "../month-view/month-event-badge";
 
 interface IProps {
   singleDayEvents: IEvent[];
@@ -64,7 +65,7 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
     );
   };
 
-  const currentEvents = getCurrentEvents(singleDayEvents);
+  const currentEvents = [...getCurrentEvents(singleDayEvents), ...getCurrentEvents(multiDayEvents)];
 
   const dayEvents = singleDayEvents.filter((event) => {
     const eventDate = event.startDate;
@@ -75,13 +76,30 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
     );
   });
 
-  const groupedEvents = groupEvents(dayEvents);
+  const timedEvents = dayEvents.filter((e) => !e.wholeDay);
+  const wholeDayEvents = dayEvents.filter((e) => e.wholeDay);
+  const groupedEvents = groupEvents(timedEvents);
 
   return (
     <div className="flex">
       <div className="flex flex-1 flex-col">
         <div>
           <DayViewMultiDayEventsRow selectedDate={selectedDate} multiDayEvents={multiDayEvents} />
+
+          {/* Whole-day events badges */}
+          <div className="relative z-10 flex border-b">
+            <div className="w-18"></div>
+            <div className="flex-1 flex-wrap border-l w-full">
+              {wholeDayEvents.map((event) => (
+                <MonthEventBadge
+                  key={`${event.id}`}
+                  event={event}
+                  cellDate={startOfDay(event.startDate)}
+                  position="none"
+                />
+              ))}
+            </div>
+          </div>
 
           {/* Day header */}
           <div className="relative z-20 flex border-b text-accent-foreground">

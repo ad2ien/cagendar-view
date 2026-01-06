@@ -70,7 +70,7 @@ export function CalendarYearView({ singleDayEvents, multiDayEvents }: IProps) {
                 ))}
               </div>
 
-              <div className="grid grid-cols-7 gap-0.5 p-1.5 flex-grow text-xs">
+              <div className="grid grid-cols-7 gap-0.5 p-1.5 grow text-xs">
                 {cells.map((cell) => {
                   const isCurrentMonth = isSameMonth(cell.date, monthDate);
                   const isToday = isSameDay(cell.date, new Date());
@@ -81,7 +81,7 @@ export function CalendarYearView({ singleDayEvents, multiDayEvents }: IProps) {
                     <div
                       key={cell.date.toISOString()}
                       className={cn(
-                        "flex flex-col items-center justify-start p-1 min-h-[2rem] relative",
+                        "flex flex-col items-center justify-start p-1 min-h-8 relative",
                         !isCurrentMonth && "text-muted-foreground/40",
                         hasEvents && isCurrentMonth
                           ? "cursor-pointer hover:bg-accent/20 hover:rounded-md"

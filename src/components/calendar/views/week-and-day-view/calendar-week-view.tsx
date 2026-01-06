@@ -5,11 +5,12 @@ import { CalendarTimeline } from "@/components/calendar/views/week-and-day-view/
 import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-view/render-grouped-events";
 import { WeekViewMultiDayEventsRow } from "@/components/calendar/views/week-and-day-view/week-view-multi-day-events-row";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { addDays, format, isSameDay, startOfWeek } from "date-fns";
+import { addDays, format, isSameDay, startOfDay, startOfWeek } from "date-fns";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { IEvent } from "../../interfaces";
+import { MonthEventBadge } from "../month-view/month-event-badge";
 
 interface IProps {
   singleDayEvents: IEvent[];
@@ -33,6 +34,8 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
   const weekStart = startOfWeek(selectedDate);
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
   const hours = Array.from({ length: 24 }, (_, i) => i);
+  const wholeDayEvents = singleDayEvents.filter((e) => e.wholeDay);
+  const timedEvents = singleDayEvents.filter((e) => !e.wholeDay);
 
   return (
     <motion.div initial="initial" animate="animate" exit="exit" variants={fadeIn} transition={transition}>
@@ -49,6 +52,35 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
       <motion.div className="flex-col sm:flex" variants={staggerContainer}>
         <div>
           <WeekViewMultiDayEventsRow selectedDate={selectedDate} multiDayEvents={multiDayEvents} />
+
+          {/* Whole-day events badges */}
+          <div className="relative z-10 flex border-b">
+            <div className="w-18"></div>
+            <div className="grid flex-1 grid-cols-7 border-l">
+              {weekDays.map((day, dayIndex) => {
+                const dayWholeDayEvents = wholeDayEvents.filter((event) => isSameDay(new Date(event.startDate), day));
+
+                return (
+                  <motion.div
+                    key={dayIndex}
+                    className="p-1 space-y-1"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: dayIndex * 0.1, ...transition }}
+                  >
+                    {dayWholeDayEvents.map((event) => (
+                      <MonthEventBadge
+                        key={`${event.id}-${dayIndex}`}
+                        event={event}
+                        cellDate={startOfDay(day)}
+                        position="none"
+                      />
+                    ))}
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
 
           {/* Week header */}
           <motion.div
@@ -114,7 +146,7 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
             <motion.div className="relative flex-1 border-l" variants={staggerContainer}>
               <div className="grid grid-cols-7 divide-x">
                 {weekDays.map((day, dayIndex) => {
-                  const dayEvents = singleDayEvents.filter(
+                  const dayEvents = timedEvents.filter(
                     (event) => isSameDay(event.startDate, day) || isSameDay(event.endDate, day)
                   );
                   const groupedEvents = groupEvents(dayEvents);
