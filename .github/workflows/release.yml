@@ -17,6 +17,9 @@ jobs:
     name: Build and Push Docker Image
     needs: lint
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout Repository

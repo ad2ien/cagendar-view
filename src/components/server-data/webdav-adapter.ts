@@ -22,16 +22,16 @@ export class WebDavAdapter extends CalendarAdapter {
 
     const cachedFetchEvents = unstable_cache(
       async (wdConfig: IWebDavCalendarSetup): Promise<Event[]> => {
-        const client = await CalDAVClient.create({
-          baseUrl: wdConfig.url.toString(),
-          auth: {
-            type: "basic",
-            username: wdConfig.username,
-            password: wdConfig.password,
-          },
-        });
-
         try {
+          const client = await CalDAVClient.create({
+            baseUrl: wdConfig.url.toString(),
+            auth: {
+              type: "basic",
+              username: wdConfig.username,
+              password: wdConfig.password,
+            },
+          });
+
           return await client.getEvents(wdConfig.calendarPath, {
             all: true,
           });
