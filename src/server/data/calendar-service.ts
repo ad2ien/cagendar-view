@@ -5,7 +5,13 @@ import logger from "@/server/logger";
 import { generateId } from "../utils";
 import { getNextColor } from "@/lib/types";
 import { CalendarAdapter } from "./calendar-adapter";
-import { CalendarSetupType, ICalendarSetting, ICalendarSettings, loadSettings, TCalendarSetupData } from "./data-settings";
+import {
+  CalendarSetupType,
+  ICalendarSetting,
+  ICalendarSettings,
+  loadSettings,
+  TCalendarSetupData,
+} from "./data-settings";
 
 const MAX_CALENDARS = 9;
 

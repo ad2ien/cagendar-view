@@ -17,12 +17,6 @@ A Next.js app to display several calendars in the same place.
 
 ## Configuration
 
-### `.env` file
-
-```.env
-SETTINGS_FILE_PATH=config.json
-```
-
 ### config.json
 
 ```json
@@ -48,6 +42,12 @@ SETTINGS_FILE_PATH=config.json
 ```
 
 `revalidateIntervalMinutes` is the time between 2 calendars update
+
+## Start with docker
+
+```bash
+docker run --name cagendar-view -p 3083:3083 -v $(pwd)/config.json:/app/config.json ghcr.io/ad2ien/cagendar-view:latest
+```
 
 ## Getting Started
 

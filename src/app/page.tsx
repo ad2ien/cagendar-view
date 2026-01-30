@@ -2,6 +2,8 @@ import { Calendar } from "@/components/calendar/calendar";
 import { CalendarSkeleton } from "@/components/calendar/skeletons/calendar-skeleton";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <Suspense fallback={<CalendarSkeleton />}>
