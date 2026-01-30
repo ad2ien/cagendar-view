@@ -1,5 +1,6 @@
 import fs from "fs";
-import { ICalendar } from "../calendar/interfaces";
+import logger from "@/server/logger";
+import { ICalendar } from "@/lib/interfaces";
 
 /**
  * The following interfaces are for server side only
@@ -36,9 +37,10 @@ export type ICalendarSetting = IIcsSetup | IWebDavCalendarSetup;
 export type ICalendarSettings = ICalendarSetting[];
 
 export function loadSettings(): ICagendarConfig {
+  logger.info("Loading settings : " + process.env.SETTINGS_FILE_PATH);
   const settingsPath = process.env.SETTINGS_FILE_PATH;
   if (!settingsPath) {
-    console.warn("SETTINGS_FILE_PATH environment variable is not set. Using default settings.");
+    logger.warn("SETTINGS_FILE_PATH environment variable is not set. Using default settings.");
     // Return an empty array as default configuration to avoid exception a build time
     return { revalidateIntervalMinutes: 15, calendars: [] };
   }

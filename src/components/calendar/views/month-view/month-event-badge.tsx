@@ -2,12 +2,12 @@ import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { EventDetailsDialog } from "@/components/calendar/dialogs/event-details-dialog";
 import { formatTime } from "@/components/calendar/helpers";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
-import { cn } from "@/lib/utils";
+import { cn } from "@/server/utils";
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 import { endOfDay, isSameDay, startOfDay } from "date-fns";
 import { useTranslation } from "react-i18next";
-import type { IEvent } from "../../interfaces";
+import type { IEvent } from "../../../../lib/interfaces";
 
 const eventBadgeVariants = cva(
   "mx-1 flex size-auto h-6.5 select-none items-center justify-between gap-1.5 truncate whitespace-nowrap rounded-md border px-2 text-xs",

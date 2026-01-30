@@ -1,10 +1,11 @@
-import { generateId } from "@/lib/utils";
+import { generateId } from "@/server/utils";
 import { addDays } from "date-fns";
 import { convertIcsCalendar, IcsEvent, type IcsCalendar } from "ts-ics";
-import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "../calendar/helpers";
-import { IEvent } from "../calendar/interfaces";
 import { CalendarAdapter, MAX_DESCRIPTION_LENGTH } from "./calendar-adapter";
 import { TCalendarSetupData } from "./data-settings";
+import logger from "@/server/logger";
+import { IEvent } from "@/lib/interfaces";
+import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "@/components/calendar/helpers";
 
 export class IcsAdapter extends CalendarAdapter {
   public async fetchEvents(calData: TCalendarSetupData): Promise<IEvent[]> {
@@ -18,7 +19,7 @@ export class IcsAdapter extends CalendarAdapter {
       const calendar: IcsCalendar = convertIcsCalendar(undefined, response);
       return icsCalendarsToEvents(calendar.events!, calData);
     } catch (error) {
-      console.error("Error fetching events:", error);
+      logger.error(error, "Error fetching events:");
       return [];
     }
   }

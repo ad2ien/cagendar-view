@@ -1,4 +1,4 @@
-import { IEvent } from "../calendar/interfaces";
+import { IEvent } from "@/lib/interfaces";
 import { TCalendarSetupData } from "./data-settings";
 
 export const MAX_DESCRIPTION_LENGTH = 500;

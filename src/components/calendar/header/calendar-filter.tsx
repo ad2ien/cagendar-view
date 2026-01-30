@@ -1,5 +1,5 @@
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import { ICalendar } from "@/components/calendar/interfaces";
+import { ICalendar } from "@/lib/interfaces";
 import {
   DropdownMenu,
   DropdownMenuContent,

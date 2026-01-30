@@ -1,8 +1,9 @@
-import type { TEventColor } from "@/components/calendar/types";
 
 /**
  * The following interfaces are used on client side
  */
+
+import { TEventColor } from "./types";
 
 export interface IEvent {
   id: number;

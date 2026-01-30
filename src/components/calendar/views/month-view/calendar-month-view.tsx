@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import { calculateMonthEventPositions, getCalendarCells, START_ON_MONDAY } from "@/components/calendar/helpers";
 
 import { DayCell } from "@/components/calendar/views/month-view/day-cell";
-import type { IEvent } from "../../interfaces";
+import type { IEvent } from "../../../../lib/interfaces";
 
 export const WEEK_DAYS =
   START_ON_MONDAY == 1

@@ -12,7 +12,7 @@ import {
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { cn } from "@/lib/utils";
+import { cn } from "@/server/utils";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import type { FC } from "react";

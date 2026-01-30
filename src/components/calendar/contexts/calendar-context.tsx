@@ -1,8 +1,8 @@
 "use client";
 
 import { useLocalStorage } from "@/components/calendar/hooks";
-import type { ICalendar, IEvent } from "@/components/calendar/interfaces";
-import type { TCalendarView } from "@/components/calendar/types";
+import type { ICalendar, IEvent } from "@/lib/interfaces";
+import { TCalendarView } from "@/lib/types";
 import type React from "react";
 import { createContext, useContext, useState } from "react";
 

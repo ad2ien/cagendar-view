@@ -1,11 +1,12 @@
-import { generateId } from "@/lib/utils";
+import { generateId } from "@/server/utils";
 import { addDays } from "date-fns";
 import { unstable_cache } from "next/cache";
 import { CalDAVClient, Event } from "ts-caldav";
-import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "../calendar/helpers";
-import { IEvent } from "../calendar/interfaces";
 import { CalendarAdapter, MAX_DESCRIPTION_LENGTH } from "./calendar-adapter";
 import { CalendarSetupType, IIcsSetup, IWebDavCalendarSetup, TCalendarSetupData } from "./data-settings";
+import logger from "@/server/logger";
+import { IEvent } from "@/lib/interfaces";
+import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "@/components/calendar/helpers";
 
 export function isWebDavCalendar(config: IIcsSetup): config is IWebDavCalendarSetup {
   return (
@@ -36,7 +37,7 @@ export class WebDavAdapter extends CalendarAdapter {
             all: true,
           });
         } catch (error) {
-          console.error(error);
+          logger.error(error, "fetchEvents()");
           return [];
         }
       },

@@ -1,12 +1,12 @@
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { EventDetailsDialog } from "@/components/calendar/dialogs/event-details-dialog";
 import { formatTime } from "@/components/calendar/helpers";
-import { cn } from "@/lib/utils";
+import { cn } from "@/server/utils";
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 import { differenceInMinutes } from "date-fns";
 import type { HTMLAttributes } from "react";
-import type { IEvent } from "../../interfaces";
+import type { IEvent } from "../../../../lib/interfaces";
 
 const calendarWeekEventCardVariants = cva(
   "flex select-none flex-col gap-0.5 truncate whitespace-nowrap rounded-md border px-2 py-1.5 text-xs focus-visible:outline-offset-2",

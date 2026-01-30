@@ -1,6 +1,5 @@
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import type { ICalendarCell, IEvent } from "@/components/calendar/interfaces";
-import type { TCalendarView, TEventColor } from "@/components/calendar/types";
+import type { ICalendarCell, IEvent } from "@/lib/interfaces";
 import i18n from "@/i18n";
 import {
   addDays,
@@ -31,6 +30,7 @@ import {
   subYears,
 } from "date-fns";
 import { enUS, fr } from "date-fns/locale";
+import { TCalendarView, TEventColor } from "@/lib/types";
 
 const FR_FORMAT_STRING = "d MMM yyyy";
 const DEFAULT_FORMAT_STRING = "MMM d, yyyy";
@@ -409,7 +409,7 @@ export const durationInDays = (start: Date, end: Date): number => {
     const diff = end.getTime() - start.getTime();
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
   } catch (error) {
-    console.error("error", start, end, error);
+    console.error("durationInDays() error", start, end, error);
     return 0;
   }
 };

@@ -7,8 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { getLocale, navigateDate, rangeText } from "@/components/calendar/helpers";
-
-import type { TCalendarView } from "@/components/calendar/types";
+import { TCalendarView } from "@/lib/types";
 
 interface IProps {
   view: TCalendarView;

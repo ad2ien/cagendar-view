@@ -1,16 +1,11 @@
-import {
-  CalendarSetupType,
-  ICalendarSetting,
-  ICalendarSettings,
-  loadSettings,
-  TCalendarSetupData,
-} from "@/components/server-data/data-settings";
-import { generateId } from "@/lib/utils";
-import { ICalendar, IEvent } from "../calendar/interfaces";
-import { getNextColor } from "../calendar/types";
-import { CalendarAdapter } from "./calendar-adapter";
+import { ICalendar, IEvent } from "@/lib/interfaces";
 import { IcsAdapter } from "./ics-adapter";
 import { WebDavAdapter } from "./webdav-adapter";
+import logger from "@/server/logger";
+import { generateId } from "../utils";
+import { getNextColor } from "@/lib/types";
+import { CalendarAdapter } from "./calendar-adapter";
+import { CalendarSetupType, ICalendarSetting, ICalendarSettings, loadSettings, TCalendarSetupData } from "./data-settings";
 
 const MAX_CALENDARS = 9;
 
@@ -74,7 +69,7 @@ export class CalendarService {
 
         return await adapter.fetchEvents(cal);
       } catch (error) {
-        console.error(`Error fetching events for calendar ${cal.serverConfig.name}:`, error);
+        logger.error(error, `Error fetching events for calendar ${cal.serverConfig.name}:`);
         return [];
       }
     });

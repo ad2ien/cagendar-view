@@ -3,10 +3,10 @@ import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { EventListDialog } from "@/components/calendar/dialogs/events-list-dialog";
 import { getCalendarCells, getLocale } from "@/components/calendar/helpers";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
-import { cn } from "@/lib/utils";
+import { cn } from "@/server/utils";
 import { format, getYear, isSameDay, isSameMonth } from "date-fns";
 import { motion } from "framer-motion";
-import type { IEvent } from "../../interfaces";
+import type { IEvent } from "../../../../lib/interfaces";
 
 interface IProps {
   singleDayEvents: IEvent[];

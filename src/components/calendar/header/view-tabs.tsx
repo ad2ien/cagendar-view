@@ -2,15 +2,15 @@
 
 import { useTranslation } from "react-i18next";
 
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { cn } from "@/lib/utils";
-import { useCalendar } from "../contexts/calendar-context";
-import { CalendarRange, List, Columns, Grid3X3, Grid2X2 } from "lucide-react";
-import { TCalendarView } from "../types";
+import { cn } from "@/server/utils";
+import { CalendarRange, Columns, Grid2X2, Grid3X3, List } from "lucide-react";
 import { memo, useEffect, useState } from "react";
+import { useCalendar } from "../contexts/calendar-context";
+import { TCalendarView } from "@/lib/types";
 
 const tabs = [
   {

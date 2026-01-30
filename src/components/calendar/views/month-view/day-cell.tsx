@@ -9,10 +9,10 @@ import { transition } from "@/components/calendar/animations";
 import { EventListDialog } from "@/components/calendar/dialogs/events-list-dialog";
 import { getMonthCellEvents } from "@/components/calendar/helpers";
 import { useMediaQuery } from "@/components/calendar/hooks";
-import type { ICalendarCell, IEvent } from "@/components/calendar/interfaces";
+import type { ICalendarCell, IEvent } from "@/lib/interfaces";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
 import { MonthEventBadge } from "@/components/calendar/views/month-view/month-event-badge";
-import { cn } from "@/lib/utils";
+import { cn } from "@/server/utils";
 
 interface IProps {
   cell: ICalendarCell;

@@ -10,7 +10,7 @@ import { CalendarTimeline } from "@/components/calendar/views/week-and-day-view/
 import { DayViewMultiDayEventsRow } from "@/components/calendar/views/week-and-day-view/day-view-multi-day-events-row";
 import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-view/render-grouped-events";
 import { useTranslation } from "react-i18next";
-import type { IEvent } from "../../interfaces";
+import type { IEvent } from "../../../../lib/interfaces";
 import { MonthEventBadge } from "../month-view/month-event-badge";
 
 interface IProps {

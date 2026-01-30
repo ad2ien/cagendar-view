@@ -9,7 +9,7 @@ import { addDays, format, isSameDay, startOfDay, startOfWeek } from "date-fns";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { IEvent } from "../../interfaces";
+import type { IEvent } from "../../../../lib/interfaces";
 import { MonthEventBadge } from "../month-view/month-event-badge";
 
 interface IProps {

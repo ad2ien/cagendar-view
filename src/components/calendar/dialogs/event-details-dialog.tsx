@@ -17,7 +17,7 @@ import { Calendar, Clock, User } from "lucide-react";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { getLocale } from "../helpers";
-import { IEvent } from "../interfaces";
+import { IEvent } from "../../../lib/interfaces";
 
 interface IProps {
   event: IEvent;

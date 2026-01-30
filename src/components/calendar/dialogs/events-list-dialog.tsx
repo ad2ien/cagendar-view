@@ -4,10 +4,10 @@ import { formatTime } from "@/components/calendar/helpers";
 import { dayCellVariants } from "@/components/calendar/views/month-view/day-cell";
 import { EventBullet } from "@/components/calendar/views/month-view/event-bullet";
 import { Modal, ModalContent, ModalHeader, ModalTitle, ModalTrigger } from "@/components/ui/responsive-modal";
-import { cn } from "@/lib/utils";
+import { cn } from "@/server/utils";
 import { format } from "date-fns";
 import type { ReactNode } from "react";
-import { IEvent } from "../interfaces";
+import { IEvent } from "../../../lib/interfaces";
 
 interface EventListDialogProps {
   date: Date;
