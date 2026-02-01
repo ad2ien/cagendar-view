@@ -51,7 +51,7 @@ docker run --name cagendar-view -p 3083:3083 -v $(pwd)/config.json:/app/config.j
 
 ## Getting Started
 
-Add config file `dev.config.json` then classic Next app
+Add config file `config.json` then classic Next app
 
 commands : `npm run` (or whatever your dependency manager is)
 
@@ -71,4 +71,3 @@ docker run -p 3083:3083 cagndare-view:latest
 
 - [ ] Data loading : progressively display calendars
 - [ ] warning font
-- [ ] Release CI

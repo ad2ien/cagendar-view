@@ -41,7 +41,14 @@
       "dot": "Petit point",
       "colored": "Coloré",
       "date": "Date",
-      "color": "Couleur"
+      "color": "Couleur",
+      "about": "À propos"
+    },
+    "about": {
+      "title": "À propos",
+      "source": "Code source : ",
+      "description": "Fabriqué avec ❤️ par ",
+      "for": " pour "
     }
   }
 }

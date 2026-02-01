@@ -41,7 +41,14 @@
       "dot": "Dot",
       "colored": "Colored",
       "date": "Date",
-      "color": "Color"
+      "color": "Color",
+      "about": "About"
+    },
+    "about": {
+      "title": "About",
+      "source": "Source code : ",
+      "description": "Made with ❤️ by ",
+      "for": " for "
     }
   }
 }
