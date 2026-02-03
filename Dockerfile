@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY package.json ./
 COPY yarn.lock ./
+COPY config.dummy.json ./config.json
 
 RUN yarn
 
