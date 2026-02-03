@@ -5,13 +5,7 @@ import logger from "@/server/logger";
 import { generateId } from "../utils";
 import { getNextColor } from "@/lib/types";
 import { CalendarAdapter } from "./calendar-adapter";
-import {
-  CalendarSetupType,
-  ICalendarSetting,
-  ICalendarSettings,
-  loadSettings,
-  TCalendarSetupData,
-} from "./data-settings";
+import { CalendarSetupType, ICalendarSetting, ICalendarSettings, getConfig, TCalendarSetupData } from "./data-settings";
 
 const MAX_CALENDARS = 9;
 
@@ -23,7 +17,7 @@ export class CalendarService {
   private webDavAdapter: WebDavAdapter;
 
   constructor() {
-    const allConfig = loadSettings();
+    const allConfig = getConfig();
     this.configData = allConfig.calendars;
     if (this.configData.length > MAX_CALENDARS) {
       throw new Error("Too many configured calendars, the maximum is " + MAX_CALENDARS);

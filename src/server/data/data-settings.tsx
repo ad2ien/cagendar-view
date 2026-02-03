@@ -4,6 +4,10 @@ import fs from "fs";
 
 const configFile = "config.json";
 
+const config = loadSettings();
+
+export const getConfig = () => config;
+
 /**
  * The following interfaces are for server side only
  */
@@ -38,9 +42,7 @@ export interface TCalendarSetupData {
 export type ICalendarSetting = IIcsSetup | IWebDavCalendarSetup;
 export type ICalendarSettings = ICalendarSetting[];
 
-export function loadSettings(): ICagendarConfig {
+function loadSettings(): ICagendarConfig {
   logger.info("Loading settings : configFile");
   return JSON.parse(fs.readFileSync(configFile, "utf-8")) as ICagendarConfig;
 }
-
-module.exports = loadSettings;
