@@ -13,22 +13,26 @@ export function AboutDialog({ open, onOpenChange }: IProps) {
       <DialogContent>
         <DialogTitle>{t("title")}</DialogTitle>
         <div className="flex flex-col">
-          {/*<h2 className="text-2xl font-bold mb-4">{t('title')}</h2>*/}
           <p className="text-gray-600 mb-4">
-            {t("source")}{" "}
+            📝 {t("source")}{" "}
             <a className="text-blue-500 hover:underline" href="https://github.com/ad2ien/cagendar-view">
               https://github.com/ad2ien/cagendar-view
             </a>
           </p>
-
           <p className="text-gray-600 mb-4">
-            {t("description")}
+            🛠️ &nbsp;{t("description")}
             <a className="text-blue-500 hover:underline" href="https://github.com/ad2ien">
               ad2ien
             </a>
             {t("for")}
             <a className="text-blue-500 hover:underline" href="https://solidaritepaysans.org/">
               Solidarité Paysans
+            </a>
+          </p>
+          <p className="text-gray-600 mb-4">
+            📜 © 2026 ad2ien&nbsp;
+            <a className="text-blue-500 hover:underline" href="https://opensource.org/license/mit">
+              MIT License
             </a>
           </p>
         </div>
