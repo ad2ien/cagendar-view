@@ -3,9 +3,9 @@ import { DayPicker } from "@/components/ui/day-picker";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { format, isWithinInterval, startOfDay } from "date-fns";
 import { Calendar, Clock, User } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
-import { getLocale, groupEvents } from "@/components/calendar/helpers";
+import { getLocale, groupEvents, HOUR_HEIGHT_PX, useScrollPostion } from "@/components/calendar/helpers";
 import { CalendarTimeline } from "@/components/calendar/views/week-and-day-view/calendar-time-line";
 import { DayViewMultiDayEventsRow } from "@/components/calendar/views/week-and-day-view/day-view-multi-day-events-row";
 import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-view/render-grouped-events";
@@ -20,37 +20,13 @@ interface IProps {
 
 export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
   const { selectedDate, setSelectedDate, calendars: calendars, use24HourFormat } = useCalendar();
+  const scrollPosition = useScrollPostion();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("", {
     keyPrefix: "calendar.views",
   });
 
   const hours = Array.from({ length: 24 }, (_, i) => i);
-
-  useEffect(() => {
-    const handleDragOver = (e: DragEvent) => {
-      if (!scrollAreaRef.current) return;
-
-      const scrollArea = scrollAreaRef.current;
-      const rect = scrollArea.getBoundingClientRect();
-      const scrollSpeed = 15;
-
-      const scrollContainer = scrollArea.querySelector("[data-radix-scroll-area-viewport]") || scrollArea;
-
-      if (e.clientY < rect.top + 60) {
-        scrollContainer.scrollTop -= scrollSpeed;
-      }
-
-      if (e.clientY > rect.bottom - 60) {
-        scrollContainer.scrollTop += scrollSpeed;
-      }
-    };
-
-    document.addEventListener("dragover", handleDragOver);
-    return () => {
-      document.removeEventListener("dragover", handleDragOver);
-    };
-  }, []);
 
   const getCurrentEvents = (events: IEvent[]) => {
     const now = new Date();
@@ -111,12 +87,12 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
           </div>
         </div>
 
-        <ScrollArea className="h-200" type="always" ref={scrollAreaRef}>
+        <ScrollArea className="h-200" type="always" scrollPosition={scrollPosition} ref={scrollAreaRef}>
           <div className="flex">
             {/* Hours column */}
             <div className="relative w-18">
               {hours.map((hour, index) => (
-                <div key={hour} className="relative" style={{ height: "96px" }}>
+                <div key={hour} className="relative" style={{ height: `${HOUR_HEIGHT_PX}px` }}>
                   <div className="absolute -top-3 right-2 flex h-6 items-center">
                     {index !== 0 && (
                       <span className="text-xs text-t-quaternary">
@@ -132,7 +108,7 @@ export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
             <div className="relative flex-1 border-l">
               <div className="relative">
                 {hours.map((hour, index) => (
-                  <div key={hour} className="relative" style={{ height: "96px" }}>
+                  <div key={hour} className="relative" style={{ height: `${HOUR_HEIGHT_PX}px` }}>
                     {index !== 0 && <div className="pointer-events-none absolute inset-x-0 top-0 border-b"></div>}
                   </div>
                 ))}

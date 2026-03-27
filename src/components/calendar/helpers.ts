@@ -1,6 +1,7 @@
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import type { ICalendarCell, IEvent } from "@/lib/interfaces";
 import i18n from "@/i18n";
+import type { ICalendarCell, IEvent } from "@/lib/interfaces";
+import { TCalendarView, TEventColor } from "@/lib/types";
 import {
   addDays,
   addMonths,
@@ -30,13 +31,14 @@ import {
   subYears,
 } from "date-fns";
 import { enUS, fr } from "date-fns/locale";
-import { TCalendarView, TEventColor } from "@/lib/types";
 
 const FR_FORMAT_STRING = "d MMM yyyy";
 const DEFAULT_FORMAT_STRING = "MMM d, yyyy";
 // 0 to start on sunday
 export const START_ON_MONDAY = 1;
 export const START_ON_SUNDAY = 0;
+
+export const HOUR_HEIGHT_PX = 96;
 
 // Determine the locale for date formatting
 export const getLocale = (): Locale => {
@@ -370,6 +372,10 @@ export const getBgColor = (color: string): string => {
     purple: "bg-purple-400 dark:bg-purple-600",
   };
   return colorClasses[color as TEventColor] || "";
+};
+export const useScrollPostion = () => {
+  const { startOfDay } = useCalendar();
+  return startOfDay * HOUR_HEIGHT_PX;
 };
 
 export const useGetEventsByMode = (events: IEvent[]) => {

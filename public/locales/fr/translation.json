@@ -35,6 +35,7 @@
       "label": "Paramètres",
       "badgeVariant": "Badge",
       "use24HourFormat": "Utiliser le format 24h",
+      "dayStartTime": "Début de journée",
       "agendaModeGroupBy": "Groupe de la vue agenda",
       "darkMode": "Thème sombre",
       "useDotBadge": "Badges petits points",

@@ -14,6 +14,8 @@ interface ICalendarContext {
   setAgendaModeGroupBy: (groupBy: "date" | "color") => void;
   use24HourFormat: boolean;
   toggleTimeFormat: () => void;
+  startOfDay: number;
+  setStartOfDay: (newVal: number) => void;
   setSelectedDate: (date: Date | undefined) => void;
   selectedCalendars: ICalendar[] | "all";
   badgeVariant: "dot" | "colored";
@@ -31,6 +33,7 @@ interface CalendarSettings {
   badgeVariant: "dot" | "colored";
   view: TCalendarView;
   use24HourFormat: boolean;
+  startOfDay: number;
   agendaModeGroupBy: "date" | "color";
 }
 
@@ -38,6 +41,7 @@ const DEFAULT_SETTINGS: CalendarSettings = {
   badgeVariant: "colored",
   view: "day",
   use24HourFormat: true,
+  startOfDay: 8,
   agendaModeGroupBy: "date",
 };
 
@@ -56,15 +60,20 @@ export function CalendarProvider({
   view?: TCalendarView;
   badge?: "dot" | "colored";
 }) {
-  const [settings, setSettings] = useLocalStorage<CalendarSettings>("calendar-settings", {
+  const [rawSettings, setSettings] = useLocalStorage<Partial<CalendarSettings>>("calendar-settings", {});
+
+  // Merge stored settings with defaults to handle missing keys
+  const settings: CalendarSettings = {
     ...DEFAULT_SETTINGS,
     badgeVariant: badge,
     view: view,
-  });
+    ...rawSettings,
+  };
 
   const [badgeVariant, setBadgeVariantState] = useState<"dot" | "colored">(settings.badgeVariant);
   const [currentView, setCurrentViewState] = useState<TCalendarView>(settings.view);
   const [use24HourFormat, setUse24HourFormatState] = useState<boolean>(settings.use24HourFormat);
+  const [startOfDay, setStartOfDayState] = useState<number>(settings.startOfDay);
   const [agendaModeGroupBy, setAgendaModeGroupByState] = useState<"date" | "color">(settings.agendaModeGroupBy);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -94,6 +103,11 @@ export function CalendarProvider({
     const newValue = !use24HourFormat;
     setUse24HourFormatState(newValue);
     updateSettings({ use24HourFormat: newValue });
+  };
+
+  const setStartOfDay = (newVal: number) => {
+    setStartOfDayState(newVal);
+    updateSettings({ startOfDay: newVal });
   };
 
   const setAgendaModeGroupBy = (groupBy: "date" | "color") => {
@@ -179,6 +193,8 @@ export function CalendarProvider({
     view: currentView,
     use24HourFormat,
     toggleTimeFormat,
+    startOfDay,
+    setStartOfDay,
     setView,
     agendaModeGroupBy,
     setAgendaModeGroupBy,

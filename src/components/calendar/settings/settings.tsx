@@ -12,6 +12,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { SettingsIcon } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -20,8 +21,16 @@ import { useTranslation } from "react-i18next";
 import { AboutDialog } from "../dialogs/about-dialog";
 
 export function Settings() {
-  const { badgeVariant, setBadgeVariant, use24HourFormat, toggleTimeFormat, agendaModeGroupBy, setAgendaModeGroupBy } =
-    useCalendar();
+  const {
+    badgeVariant,
+    setBadgeVariant,
+    use24HourFormat,
+    toggleTimeFormat,
+    startOfDay,
+    setStartOfDay,
+    agendaModeGroupBy,
+    setAgendaModeGroupBy,
+  } = useCalendar();
   const { t } = useTranslation("", { keyPrefix: "calendar.settings" });
   const { theme, setTheme } = useTheme();
   const [isAboutOpen, setIsAboutOpen] = useState(false);
@@ -62,6 +71,20 @@ export function Settings() {
               <DropdownMenuShortcut>
                 <Switch checked={use24HourFormat} onCheckedChange={toggleTimeFormat} />
               </DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              {t("dayStartTime")}
+              <DropdownMenuShortcut>
+                <Input
+                  type="number"
+                  value={startOfDay}
+                  size={2}
+                  max={20}
+                  min={0}
+                  onChange={(e) => setStartOfDay(parseInt(e.target.value))}
+                />
+              </DropdownMenuShortcut>
+              h
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />

@@ -35,6 +35,7 @@
       "label": "Settings",
       "badgeVariant": "Badge Variant",
       "use24HourFormat": "Use 24-hour format",
+      "dayStartTime": "Day starts at",
       "agendaModeGroupBy": "Agenda Mode Group By",
       "darkMode": "Use dark mode",
       "useDotBadge": "Use dot badge",

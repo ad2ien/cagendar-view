@@ -1,6 +1,6 @@
 import { fadeIn, staggerContainer, transition } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import { getLocale, groupEvents } from "@/components/calendar/helpers";
+import { getLocale, groupEvents, HOUR_HEIGHT_PX, useScrollPostion } from "@/components/calendar/helpers";
 import { CalendarTimeline } from "@/components/calendar/views/week-and-day-view/calendar-time-line";
 import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-view/render-grouped-events";
 import { WeekViewMultiDayEventsRow } from "@/components/calendar/views/week-and-day-view/week-view-multi-day-events-row";
@@ -18,6 +18,7 @@ interface IProps {
 }
 export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
   const { selectedDate, use24HourFormat } = useCalendar();
+  const scrollPosition = useScrollPostion();
   const { t } = useTranslation();
 
   const [isClient, setIsClient] = useState(false);
@@ -116,7 +117,7 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
           </motion.div>
         </div>
 
-        <ScrollArea className="h-184" type="always">
+        <ScrollArea className="h-184" scrollPosition={scrollPosition} type="always">
           <div className="flex">
             {/* Hours column */}
             <motion.div className="relative w-18" variants={staggerContainer}>
@@ -124,7 +125,7 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
                 <motion.div
                   key={hour}
                   className="relative"
-                  style={{ height: "96px" }}
+                  style={{ height: `${HOUR_HEIGHT_PX}px` }}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.02, ...transition }}
@@ -163,7 +164,7 @@ export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
                         <motion.div
                           key={hour}
                           className="relative"
-                          style={{ height: "96px" }}
+                          style={{ height: `${HOUR_HEIGHT_PX}px` }}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.01, ...transition }}

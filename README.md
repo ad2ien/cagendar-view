@@ -10,7 +10,7 @@ A Next.js app to display several calendars in the same place.
 
 ## Features
 
-- Started with <https://calendar.jeraidi.tech>
+- Started with <https://calendar.jeraidi.dev/>
 - But it's readonly
 - Can be configured with Webdav and ICS agendas
 - Uses more or less [Solidarité paysans](https://solidaritepaysans.org/) graphic design. And is meant to be included as an iframe.
