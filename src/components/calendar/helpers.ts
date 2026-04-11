@@ -373,9 +373,9 @@ export const getBgColor = (color: string): string => {
   };
   return colorClasses[color as TEventColor] || "";
 };
-export const useScrollPostion = () => {
-  const { startOfDay } = useCalendar();
-  return startOfDay * HOUR_HEIGHT_PX;
+export const useScrollPosition = () => {
+  const { startOfDayHour } = useCalendar();
+  return startOfDayHour * HOUR_HEIGHT_PX;
 };
 
 export const useGetEventsByMode = (events: IEvent[]) => {

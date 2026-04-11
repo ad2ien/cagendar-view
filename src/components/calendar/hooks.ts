@@ -14,7 +14,7 @@ export function useDisclosure({
   return { onOpen, onClose, isOpen, onToggle };
 }
 
-export const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T) => void] => {
+export const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T | ((prev: T) => T)) => void] => {
   const readValue = (): T => {
     if (typeof window === "undefined") {
       return initialValue;
@@ -31,7 +31,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T)
 
   const [storedValue, setStoredValue] = useState<T>(readValue);
 
-  const setValue = (value: T) => {
+  const setValue = (value: T | ((prev: T) => T)) => {
     try {
       const valueToStore = value instanceof Function ? value(storedValue) : value;
       setStoredValue(valueToStore);

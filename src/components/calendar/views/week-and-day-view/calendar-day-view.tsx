@@ -5,7 +5,7 @@ import { format, isWithinInterval, startOfDay } from "date-fns";
 import { Calendar, Clock, User } from "lucide-react";
 import { useRef } from "react";
 
-import { getLocale, groupEvents, HOUR_HEIGHT_PX, useScrollPostion } from "@/components/calendar/helpers";
+import { getLocale, groupEvents, HOUR_HEIGHT_PX, useScrollPosition } from "@/components/calendar/helpers";
 import { CalendarTimeline } from "@/components/calendar/views/week-and-day-view/calendar-time-line";
 import { DayViewMultiDayEventsRow } from "@/components/calendar/views/week-and-day-view/day-view-multi-day-events-row";
 import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-view/render-grouped-events";
@@ -20,7 +20,7 @@ interface IProps {
 
 export function CalendarDayView({ singleDayEvents, multiDayEvents }: IProps) {
   const { selectedDate, setSelectedDate, calendars: calendars, use24HourFormat } = useCalendar();
-  const scrollPosition = useScrollPostion();
+  const scrollPosition = useScrollPosition();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("", {
     keyPrefix: "calendar.views",

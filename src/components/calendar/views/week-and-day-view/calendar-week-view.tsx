@@ -1,6 +1,6 @@
 import { fadeIn, staggerContainer, transition } from "@/components/calendar/animations";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
-import { getLocale, groupEvents, HOUR_HEIGHT_PX, useScrollPostion } from "@/components/calendar/helpers";
+import { getLocale, groupEvents, HOUR_HEIGHT_PX, useScrollPosition } from "@/components/calendar/helpers";
 import { CalendarTimeline } from "@/components/calendar/views/week-and-day-view/calendar-time-line";
 import { RenderGroupedEvents } from "@/components/calendar/views/week-and-day-view/render-grouped-events";
 import { WeekViewMultiDayEventsRow } from "@/components/calendar/views/week-and-day-view/week-view-multi-day-events-row";
@@ -18,7 +18,7 @@ interface IProps {
 }
 export function CalendarWeekView({ singleDayEvents, multiDayEvents }: IProps) {
   const { selectedDate, use24HourFormat } = useCalendar();
-  const scrollPosition = useScrollPostion();
+  const scrollPosition = useScrollPosition();
   const { t } = useTranslation();
 
   const [isClient, setIsClient] = useState(false);

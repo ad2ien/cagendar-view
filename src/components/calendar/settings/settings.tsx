@@ -1,4 +1,3 @@
-import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,9 +13,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { MAX_SCROLL_HOUR, MIN_SCROLL_HOUR, useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { SettingsIcon } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AboutDialog } from "../dialogs/about-dialog";
 
@@ -26,8 +26,8 @@ export function Settings() {
     setBadgeVariant,
     use24HourFormat,
     toggleTimeFormat,
-    startOfDay,
-    setStartOfDay,
+    startOfDayHour,
+    setStartOfDayHour,
     agendaModeGroupBy,
     setAgendaModeGroupBy,
   } = useCalendar();
@@ -37,6 +37,13 @@ export function Settings() {
 
   const isDarkMode = theme === "dark";
   const isDotVariant = badgeVariant === "dot";
+
+  const onChangeStartOfDay = (e: ChangeEvent<HTMLInputElement>) => {
+    const val = parseInt(e.target.value, 10);
+    if (!isNaN(val) && val >= MIN_SCROLL_HOUR && val <= MAX_SCROLL_HOUR) {
+      setStartOfDayHour(val);
+    }
+  };
 
   return (
     <div>
@@ -77,11 +84,11 @@ export function Settings() {
               <DropdownMenuShortcut>
                 <Input
                   type="number"
-                  value={startOfDay}
-                  size={2}
-                  max={20}
-                  min={0}
-                  onChange={(e) => setStartOfDay(parseInt(e.target.value))}
+                  value={startOfDayHour}
+                  max={MAX_SCROLL_HOUR}
+                  min={MIN_SCROLL_HOUR}
+                  onChange={onChangeStartOfDay}
+                  className="w-16"
                 />
               </DropdownMenuShortcut>
               h
