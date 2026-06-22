@@ -3781,10 +3781,10 @@ ts-caldav@^0.2.7:
     ical.js "^2.1.0"
     uuid "^11.1.0"
 
-ts-ics@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/ts-ics/-/ts-ics-2.4.0.tgz#8247c809cc8675affe3bd2abae0634ed03e9aef6"
-  integrity sha512-Tguo+7W/swxTw8/Fxv4zPBqiHw/i1ohg0aCWeY50miwdwFGC7TCWcOUuqaeag5EdnaX57zn1qrqERsc4A+4j1A==
+ts-ics@^2.4.5:
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/ts-ics/-/ts-ics-2.4.5.tgz#4694a3048cc459cb183b7d5ccc33fc1863afe6cf"
+  integrity sha512-2BdtYaPiKGxGoGAdq0kFP8SPNjmvGWvJYyoOCOP3Yvt4Jxb3plMoG7ad/tU3hrivgUOxjoJrbmeuo/e9STosUg==
   dependencies:
     "@standard-schema/spec" "^1.0.0"
 
