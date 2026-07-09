@@ -1,28 +1,27 @@
-FROM node:25.2.1-trixie-slim AS builder
+FROM node:26.5.0-trixie-slim AS builder
 
 WORKDIR /app
 
-COPY package.json ./
-COPY yarn.lock ./
+COPY package.json yarn.lock ./
 COPY config.dummy.json ./config.json
-
-RUN yarn
+RUN npm install -g yarn && yarn --frozen-lockfile
 
 COPY . .
+RUN npm install -g yarn && yarn next telemetry disable
+RUN npm install -g yarn && yarn build
 
-RUN yarn next telemetry disable
-RUN yarn build
-
-FROM node:25.2.1-trixie-slim AS runner
+FROM node:26.5.0-alpine3.24 AS runner
 
 WORKDIR /app
 
-COPY --from=builder /app/.next ./.next
+ENV NODE_ENV=production
+
+# Standalone output includes a minimal server + production node_modules
+COPY --from=builder /app/.next/standalone ./
+# Static assets need to be copied separately for standalone
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/yarn.lock ./
-COPY --from=builder /app/node_modules ./node_modules
 
 EXPOSE 3083
 
-CMD ["yarn", "start", "-p", "3083"]
+CMD ["node", "server.js"]

@@ -64,7 +64,7 @@ commands : `npm run` (or whatever your dependency manager is)
 
 ```sh
 docker buildx build . -t cagendar-view
-docker run -p 3083:3083 cagndare-view:latest
+docker run -p 3083:3083 -v ./config.json:/app/config.json:ro cagndare-view:latest
 ```
 
 ## TODO
