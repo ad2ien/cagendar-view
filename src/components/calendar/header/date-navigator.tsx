@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { formatDate } from "date-fns";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
 import { getLocale, navigateDate, rangeText } from "@/components/calendar/helpers";
 import { TCalendarView } from "@/lib/types";
@@ -24,10 +24,7 @@ export function DateNavigator({ view }: IProps) {
   const handlePrevious = () => setSelectedDate(navigateDate(selectedDate, view, "previous"));
   const handleNext = () => setSelectedDate(navigateDate(selectedDate, view, "next"));
 
-  const [dateRangeText, setDateRangeText] = useState("");
-  useEffect(() => {
-    setDateRangeText(rangeText(view, selectedDate));
-  }, [view, selectedDate]);
+  const dateRangeText = useMemo(() => rangeText(view, selectedDate), [view, selectedDate]);
 
   return (
     <div className="space-y-0.5">
