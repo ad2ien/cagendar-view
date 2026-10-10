@@ -5,7 +5,7 @@ import { CalendarAdapter, MAX_DESCRIPTION_LENGTH } from "./calendar-adapter";
 import { TCalendarSetupData } from "./data-settings";
 import logger from "@/server/logger";
 import { IEvent } from "@/lib/interfaces";
-import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "@/components/calendar/helpers";
+import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "@/lib/event-utils";
 
 export class IcsAdapter extends CalendarAdapter {
   public async fetchEvents(calData: TCalendarSetupData): Promise<IEvent[]> {
