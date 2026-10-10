@@ -1,4 +1,4 @@
-FROM node:26.5.0-trixie-slim AS builder
+FROM node:26.11.1-trixie-slim AS builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY . .
 RUN npm install -g yarn && yarn next telemetry disable
 RUN npm install -g yarn && yarn build
 
-FROM node:26.5.0-alpine3.24 AS runner
+FROM node:26.11.1-alpine3.24 AS runner
 
 WORKDIR /app
 
