@@ -3,9 +3,9 @@ import { IcsAdapter } from "./ics-adapter";
 import { WebDavAdapter } from "./webdav-adapter";
 import logger from "@/server/logger";
 import { generateId } from "../utils";
-import { getNextColor } from "@/lib/types";
 import { CalendarAdapter } from "./calendar-adapter";
 import { CalendarSetupType, ICalendarSetting, ICalendarSettings, getConfig, TCalendarSetupData } from "./data-settings";
+import { getNextColor } from "@/lib/types";
 
 const MAX_CALENDARS = 9;
 
@@ -37,7 +37,7 @@ export class CalendarService {
       id: generateId().toString(),
       name: setting.name,
       picturePath: null,
-      color: getNextColor(),
+      color: setting.color ?? getNextColor(),
     };
   }
 

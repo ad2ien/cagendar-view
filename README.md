@@ -19,6 +19,8 @@ A Next.js app to display several calendars in the same place.
 
 ### config.json
 
+Colors can be: `blue` | `green` | `red` | `yellow` | `purple` | `orange` | `gray`;
+
 ```json
 {
   "revalidateIntervalMinutes": 30,
@@ -26,7 +28,8 @@ A Next.js app to display several calendars in the same place.
     {
       "type": "ics",
       "name": "an ICS exported agenda",
-      "url": "https://EXAMPLE.COM/remote.php/dav/public-calendars/XXX?export"
+      "url": "https://EXAMPLE.COM/remote.php/dav/public-calendars/XXX?export",
+      "color": "blue"
     },
     {
       "type": "webdav",
@@ -34,7 +37,8 @@ A Next.js app to display several calendars in the same place.
       "url": "https://EXAMPLE.COM",
       "calendarPath": "/remote.php/dav/calendars/USER/CALENDAR1/",
       "username": "user",
-      "password": "xxx"
+      "password": "xxx",
+      "color": "green"
     }
   ...
   ]
@@ -66,8 +70,3 @@ commands : `npm run` (or whatever your dependency manager is)
 docker buildx build . -t cagendar-view
 docker run -p 3083:3083 -v ./config.json:/app/config.json:ro cagndare-view:latest
 ```
-
-## TODO
-
-- [ ] Data loading : progressively display calendars
-- [ ] warning font

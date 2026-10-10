@@ -1,4 +1,5 @@
 import { ICalendar } from "@/lib/interfaces";
+import { TEventColor } from "@/lib/types";
 import logger from "@/server/logger";
 import fs from "fs";
 
@@ -25,6 +26,7 @@ export interface IIcsSetup {
   type: CalendarSetupType;
   name: string;
   url: URL;
+  color: TEventColor;
 }
 
 export interface IWebDavCalendarSetup extends IIcsSetup {
