@@ -3,7 +3,7 @@ import { addDays } from "date-fns";
 import { unstable_cache } from "next/cache";
 import { CalDAVClient, Event } from "ts-caldav";
 import { CalendarAdapter, MAX_DESCRIPTION_LENGTH } from "./calendar-adapter";
-import { CalendarSetupType, IIcsSetup, IWebDavCalendarSetup, TCalendarSetupData } from "./data-settings";
+import { CalendarSetupType, getConfig, IIcsSetup, IWebDavCalendarSetup, TCalendarSetupData } from "./data-settings";
 import logger from "@/server/logger";
 import { IEvent } from "@/lib/interfaces";
 import { durationInDays, htmlToText, isZeroTime, safeTruncate } from "@/lib/event-utils";
@@ -14,6 +14,30 @@ export function isWebDavCalendar(config: IIcsSetup): config is IWebDavCalendarSe
   );
 }
 
+const fetchWebDavEvents = unstable_cache(
+  async (config: { baseUrl: string; username: string; password: string; calendarPath: string }): Promise<Event[]> => {
+    try {
+      const client = await CalDAVClient.create({
+        baseUrl: config.baseUrl,
+        auth: {
+          type: "basic",
+          username: config.username,
+          password: config.password,
+        },
+      });
+
+      return await client.getEvents(config.calendarPath, {
+        all: true,
+      });
+    } catch (error) {
+      logger.error(error, "fetchEvents()");
+      return [];
+    }
+  },
+  ["webdav-events"],
+  { revalidate: getConfig().revalidateIntervalMinutes * 60 }
+);
+
 export class WebDavAdapter extends CalendarAdapter {
   public async fetchEvents(calData: TCalendarSetupData): Promise<IEvent[]> {
     if (!isWebDavCalendar(calData.serverConfig)) {
@@ -21,30 +45,12 @@ export class WebDavAdapter extends CalendarAdapter {
     }
     const wdConfig: IWebDavCalendarSetup = calData.serverConfig;
 
-    const cachedFetchEvents = unstable_cache(
-      async (wdConfig: IWebDavCalendarSetup): Promise<Event[]> => {
-        try {
-          const client = await CalDAVClient.create({
-            baseUrl: wdConfig.url.toString(),
-            auth: {
-              type: "basic",
-              username: wdConfig.username,
-              password: wdConfig.password,
-            },
-          });
-
-          return await client.getEvents(wdConfig.calendarPath, {
-            all: true,
-          });
-        } catch (error) {
-          logger.error(error, "fetchEvents()");
-          return [];
-        }
-      },
-      [`calendar-${calData.clientConfig.id}`],
-      { revalidate: this.revalidateIntervalMinutes * 60 }
-    );
-    const events = await cachedFetchEvents(wdConfig);
+    const events = await fetchWebDavEvents({
+      baseUrl: wdConfig.url.toString(),
+      username: wdConfig.username,
+      password: wdConfig.password,
+      calendarPath: wdConfig.calendarPath,
+    });
     return webDavEvtToEvents(events, calData);
   }
 }

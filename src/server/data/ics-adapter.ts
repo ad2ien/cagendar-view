@@ -13,7 +13,7 @@ export class IcsAdapter extends CalendarAdapter {
       const response = await fetch(calData.serverConfig.url, {
         next: {
           revalidate: this.revalidateIntervalMinutes * 60,
-          tags: [`calendar-${calData.clientConfig.id}`],
+          tags: [`calendar-${calData.serverConfig.name}`],
         },
       }).then((response) => response.text());
       const calendar: IcsCalendar = convertIcsCalendar(undefined, response);
